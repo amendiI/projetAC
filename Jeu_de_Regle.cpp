@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "Jeu_de_Regle.h"
 
 bool Tpresision(Regle_nt R1, Regle_nt R2)//pas dans les specifications mais obligatoire pour trier la liste.

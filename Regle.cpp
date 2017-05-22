@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "Regle.h"
 
 #include "iostream"

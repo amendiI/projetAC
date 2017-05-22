@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "RegleProba.h"
 #include "iostream"
 using namespace std;

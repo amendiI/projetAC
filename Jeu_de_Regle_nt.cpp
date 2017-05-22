@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "Jeu_de_Regle_nt.h"
 
 Jeu_de_Regle_nt::Jeu_de_Regle_nt()
