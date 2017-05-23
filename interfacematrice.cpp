@@ -141,7 +141,8 @@ void InterfaceMatrice::NbGenerationsFini()
         NbGenFinal = 1;
     else
         NbGenFinal = nbGenerations;
-    nbSlider->display("FIN"); //Trouver comment mettre string complet
+    nbSlider->setDisabled(true);
+    ValiderNbGen->setDisabled(true);
 }
 
 void InterfaceMatrice::NbIterations()
@@ -159,6 +160,8 @@ void InterfaceMatrice::NbIterations()
 void InterfaceMatrice::FaireStop()
 {
     timer1->stop();
+    nbSlider->setEnabled(true);
+    ValiderNbGen->setEnabled(true);
 }
 
 
@@ -281,15 +284,9 @@ InterfaceMatrice::InterfaceMatrice(Matrice* cour,Iterateur* worker)
     travailleur = worker;
     travailleur->setMatrice(matcour);
 
-    //Initialisation de la taille de la fenêtre
-    //setFixedSize(150+46*matcour->getSize(),100+30*matcour->getSize());
-
     //Initialisation des couleurs possibles des cellules
     QBrush brush0(Qt::red, Qt::Dense2Pattern);
     QBrush brush1(Qt::blue, Qt::Dense2Pattern);
-    QBrush brush2(Qt::green, Qt::Dense2Pattern);
-    QBrush brush3(Qt::yellow, Qt::Dense2Pattern);
-    QBrush brush4(Qt::magenta, Qt::Dense2Pattern);
 
     //variables
     unsigned int i,j;
@@ -311,8 +308,7 @@ InterfaceMatrice::InterfaceMatrice(Matrice* cour,Iterateur* worker)
 
     //Initialisation des boutons
     playPause = new QPushButton("Play");
-    Stop = new QPushButton("Pause");
-    playPause->setStyleSheet("image: url(C:/Desktop/Cours_S6/Projet/ProjetS6/Test2/PlayPause.png);");
+    Stop = new QPushButton("Stop");
     enregistrement = new QCheckBox("Enregistrer");
     saisieNbGenerations = new QSlider(Qt::Horizontal,parent);
     nbSlider = new QLCDNumber();
@@ -350,15 +346,6 @@ InterfaceMatrice::InterfaceMatrice(Matrice* cour,Iterateur* worker)
             case 1:
                 itemCellule->setBackground(brush1);
                 break;
-            case 2:
-                itemCellule->setBackground(brush2);
-                break;
-            case 3:
-                itemCellule->setBackground(brush3);
-                break;
-            case 4:
-                itemCellule->setBackground(brush4);
-                break;
             default:
                 break;
             }
@@ -375,6 +362,12 @@ InterfaceMatrice::InterfaceMatrice(Matrice* cour,Iterateur* worker)
         grilleCellule->setColumnWidth(c,sizeCell);
         grilleCellule->setRowHeight(c,sizeCell);
     }
+
+    //grilleCellule->resizeColumnsToContents();
+    //grilleCellule->resizeRowsToContents();
+
+    //Initialisation de la taille de la fenêtre
+    //setFixedSize(150+46*matcour->getSize(),100+30*matcour->getSize());
 
     //Resize de grilleCellule dans la fenêtre
     grilleCellule->setFixedSize(sizeCell*taille+3,sizeCell*taille+3);
