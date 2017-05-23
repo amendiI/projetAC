@@ -1,14 +1,16 @@
+#include "stdafx.h"
 #include "RegleProba.h"
 #include "iostream"
 using namespace std;
 
-RegleProba::RegleProba(int d, int a, vector<int> v, int proba, int etatP)
+RegleProba::RegleProba(int d, int a, vector<int> v, int proba, int etatP,int n)
 {
 	etat_depart = d;
 	etat_arivee = a;
 	probabilitee = proba;
 	this->etatP = etatP;
 	voisinage = v;
+	this->n = n;
 }
 
 RegleProba::~RegleProba()

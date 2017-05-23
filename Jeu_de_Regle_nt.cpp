@@ -1,10 +1,13 @@
+#include "stdafx.h"
 #include "Jeu_de_Regle_nt.h"
 
-Jeu_de_Regle_nt::Jeu_de_Regle_nt()
-{
-	cout<<"creation jdr"<<endl;
-}
 
+Jeu_de_Regle_nt::Jeu_de_Regle_nt(int taille, int nombre_etat, int type_voisinage)
+{
+	this->taille = taille;
+	nb_etat = nombre_etat;
+	this->type_voisinage = type_voisinage;
+}
 
 Jeu_de_Regle_nt::~Jeu_de_Regle_nt()
 {
@@ -12,17 +15,17 @@ Jeu_de_Regle_nt::~Jeu_de_Regle_nt()
 
 void Jeu_de_Regle_nt::ajout_regle(int d, int a, string* voi, int p[2])
 {
-	Regle_nt rnt = Regle_nt(d, a, voi, p);
+	Regle_nt rnt = Regle_nt(d, a, voi, p,nb_etat);
 	L.emplace_front(rnt);
 	L.front().affichage();
 }
-//a cahque if return 0
+
 int Jeu_de_Regle_nt::verification_donnee()
 {
 	for (Regle_nt R:L)
 	{
 		vector<string> vs = R.get_voisinage();
-		for (int i = 0; i < n-1; i++)
+		for (int i = 0; i < nb_etat -1; i++)
 		{
 			mot_ok:
 			string s = vs[i];
@@ -63,4 +66,21 @@ list<Regle_nt> Jeu_de_Regle_nt::get_List()
 {
 	return L;
 }
+
+int Jeu_de_Regle_nt::get_taille()
+{
+	return taille;
+}
+
+int Jeu_de_Regle_nt::get_n()
+{
+	return nb_etat;
+}
+
+int Jeu_de_Regle_nt::get_type_voisinage()
+{
+	return type_voisinage;
+}
+
+
 

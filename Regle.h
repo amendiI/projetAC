@@ -1,5 +1,4 @@
 #pragma once
-#define n 4
 #include <vector>
 
 using namespace std;

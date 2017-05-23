@@ -1,6 +1,7 @@
+#include "stdafx.h"
 #include "Jeu_de_Regle.h"
 
-bool Tpresision(Regle_nt R1, Regle_nt R2)//pas dans les specifications mais obligatoire pour trier la liste.
+bool Jeu_de_Regle::Tpresision(Regle_nt R1, Regle_nt R2)//pas dans les specifications mais obligatoire pour trier la liste.
 {
 	int c1 = 0;
 	int c2 = 0;
@@ -19,9 +20,11 @@ bool Tpresision(Regle_nt R1, Regle_nt R2)//pas dans les specifications mais obli
 
 Jeu_de_Regle::Jeu_de_Regle(Jeu_de_Regle_nt jdrnt)
 {
-	
+	taille = jdrnt.get_taille();
+	n = jdrnt.get_n();
+	type_voisinage = jdrnt.get_type_voisinage();
 	L.resize(n);
-	jdrnt.get_List().sort(Tpresision);
+	//jdrnt.get_List().sort(&Tpresision);
 	for (Regle_nt R : jdrnt.get_List())
 	{
 		probabilitee[0] = R.get_probabilitee()[0];
@@ -46,7 +49,7 @@ void Jeu_de_Regle::traitement_voisinage(int i, vector<int> T)
 	if (voisinage[i].find("+", voisinage[i].size()-1)!=-1)
 	{
 		int x=stoi(tmp.erase(voisinage[i].size() - 1, 1));
-		for (int j = x; j <=taille_voisinage; j++)
+		for (int j = x; j <=taille; j++)
 			verification_donnee(i, j, T);
 	}
 	else if (voisinage[i].find("-", voisinage[i].size() - 1) != -1)
@@ -80,7 +83,7 @@ void Jeu_de_Regle::verification_donnee(int i,int j, vector<int> T)
 	Ntab[i] = j;
 	if (i==n-1)
 	{
-			L[depart].push_back(RegleProba(depart, arrivee, Ntab,probabilitee[0],probabilitee[1]));
+			L[depart].push_back(RegleProba(depart, arrivee, Ntab,probabilitee[0],probabilitee[1], n));
 	}
 	else
 	{

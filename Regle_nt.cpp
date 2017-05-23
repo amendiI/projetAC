@@ -1,7 +1,9 @@
+#include "stdafx.h"
 #include "Regle_nt.h"
 
-Regle_nt::Regle_nt(int d, int a, string* voi, int* p)
+Regle_nt::Regle_nt(int d, int a, string* voi, int* p,int nb_etat)
 {
+	n = nb_etat;
 	etat_depart = d;
 	etat_arrivee = a;
 	probabilitee[0] = p[0];

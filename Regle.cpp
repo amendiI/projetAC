@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Regle.h"
 
 #include "iostream"
@@ -15,9 +16,9 @@ Regle::Regle(int d, int a, vector<int> v)
 	etat_arivee = a;
 	voisinage = v;
 	cout << "(" << etat_depart << "," << etat_arivee << ")" << endl;
-	for (int i = 0; i < n; i++)
+	//for (int i = 0; i < n; i++)
 	{
-		cout << voisinage[i] << "|";
+	//	cout << voisinage[i] << "|";
 	}
 	cout << endl<<endl;
 }
