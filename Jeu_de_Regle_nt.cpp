@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "Jeu_de_Regle_nt.h"
 
 

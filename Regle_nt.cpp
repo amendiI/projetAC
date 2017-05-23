@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "Regle_nt.h"
 
 Regle_nt::Regle_nt(int d, int a, string* voi, int* p,int nb_etat)
