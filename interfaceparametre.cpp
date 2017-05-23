@@ -5,8 +5,10 @@
 #include "interfaceregle.h"
 #include <QDebug>
 
-InterfaceParametre::InterfaceParametre(QVBoxLayout *L, QWidget *parent) : QWidget(parent)
+InterfaceParametre::InterfaceParametre(Jeu_de_Regle* J, Jeu_de_Regle_nt *J_nt,QVBoxLayout *L, QWidget *parent) : QWidget(parent)
 {
+    Jdr = J;
+    Jdr_nt = J_nt;
     this->resize(400, 400);
     layoutParent = L;
     parametreLayout = new QVBoxLayout(this);
@@ -24,7 +26,7 @@ InterfaceParametre::InterfaceParametre(QVBoxLayout *L, QWidget *parent) : QWidge
     saisieTaille = new QSpinBox();
 
     tailleLabel->setText("Taille Matrice : ");
-    saisieTaille->setRange(1, 30);
+    saisieTaille->setRange(1, 100);
 
     tailleLabel->show();
     saisieTaille->show();
@@ -221,7 +223,8 @@ void InterfaceParametre::ValiderParametres(){
         fenetreEtat->setDisabled(true);
         validerBouton->setDisabled(true);
 
-        InterfaceRegle * I = new InterfaceRegle(&tabEtats);
+        InterfaceRegle * I = new InterfaceRegle(Jdr, Jdr_nt, &tabEtats);
+        Jdr_nt->set_val(saisieTaille->value(), tabEtats.size(), saisieVoisinage->currentIndex() );
         layoutParent->addWidget(I);
         I->setVisible(true);
     }

@@ -1,7 +1,11 @@
 #include "Jeu_de_Regle_nt.h"
 
+Jeu_de_Regle_nt::Jeu_de_Regle_nt()
+{
 
-Jeu_de_Regle_nt::Jeu_de_Regle_nt(int taille, int nombre_etat, int type_voisinage)
+}
+
+void Jeu_de_Regle_nt::set_val(int taille, int nombre_etat, int type_voisinage)
 {
 	this->taille = taille;
 	nb_etat = nombre_etat;

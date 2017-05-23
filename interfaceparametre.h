@@ -17,6 +17,8 @@
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QGroupBox>
+#include "Jeu_de_Regle_nt.h"
+#include "Jeu_de_Regle.h"
 
 
 using namespace std;
@@ -26,6 +28,9 @@ class InterfaceParametre : public QWidget
     Q_OBJECT
 
 private:
+
+    Jeu_de_Regle_nt * Jdr_nt;
+    Jeu_de_Regle * Jdr;
     vector<EtatType*> tabEtats;
     QVBoxLayout * layoutParent;
 
@@ -53,11 +58,9 @@ private:
             QPushButton *validerBouton;
             QPushButton *enregistrerBouton;
 
-
-
 public:
 
-      InterfaceParametre(QVBoxLayout *L,QWidget *parent = 0);
+      InterfaceParametre(Jeu_de_Regle* J, Jeu_de_Regle_nt *J_nt, QVBoxLayout *L,QWidget *parent = 0);
 
       int VerifierParametreEtat(QColor c , QString n);
 

@@ -1,7 +1,9 @@
 #include "interfaceregle.h"
 
-InterfaceRegle::InterfaceRegle(vector<EtatType *> *tabEtats, QWidget *parent) : QWidget(parent)
+InterfaceRegle::InterfaceRegle(Jeu_de_Regle *J, Jeu_de_Regle_nt* J_nt, vector<EtatType *> *tabEtats, QWidget *parent) : QWidget(parent)
 {
+    Jdr = J;
+    Jdr_nt = J_nt;
     saisieDepart = new QComboBox();
     saisieArrive = new QComboBox();
     saisieArriveProba = new QComboBox();
@@ -22,12 +24,12 @@ InterfaceRegle::InterfaceRegle(vector<EtatType *> *tabEtats, QWidget *parent) : 
         E->setStyleSheet(cname);
         E->setText("  ");
         E->setReadOnly(true);
-        E->show();
         layoutTabSaisieRegle->addWidget(E,0,i);
+        E->show();
         QLineEdit *F = new QLineEdit();
-        F->show();
         tabSaisieRegle.push_back(F);
         layoutTabSaisieRegle->addWidget(F,1,i);
+        F->show();
 
     }
 
@@ -113,7 +115,7 @@ InterfaceRegle::InterfaceRegle(vector<EtatType *> *tabEtats, QWidget *parent) : 
 
             validerBouton = new QPushButton("Valider");
             validerBouton->show();
-            //connect
+            connect(validerBouton, SIGNAL(clicked(bool)),this,SLOT(ValiderRegles()));
             layoutBouton->addWidget(validerBouton);
 
             enregistrerBouton = new QPushButton("Enregistrer sous...");
@@ -182,6 +184,23 @@ void  InterfaceRegle::ChargerRegles(){
 
     QString fichier = QFileDialog::getOpenFileName(this, "Ouvrir un fichier", QString(), "Fichiers Texte (*.txt)");
 
+}
+
+void InterfaceRegle::ValiderRegles()
+{
+    for(unsigned int i = 0; i<r.size(); i++){
+        Jdr_nt->ajout_regle(r.at(i)->getDepart(),r.at(i)->getArrivee(),r.at(i)->getRegle(), r.at(i)->getProba());
+    }
+    Jdr->set_value(*Jdr_nt);
+    delete Jdr_nt;
+    saisieDepart->setDisabled(true);
+    saisieArriveProba->setDisabled(true);
+    saisieArrive->setDisabled(true);
+    saisieProba->setDisabled(true);
+    checkProba->setDisabled(true);
+    ajouterBouton->setDisabled(true);
+    fenetreRegle->setDisabled(true);
+    validerBouton->setDisabled(true);
 }
 
 bool InterfaceRegle::verifRegle() {

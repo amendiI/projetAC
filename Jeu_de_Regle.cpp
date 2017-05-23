@@ -4,8 +4,6 @@ bool Jeu_de_Regle::Tpresision(Regle_nt R1, Regle_nt R2)//pas dans les specificat
 {
 	int c1 = 0;
 	int c2 = 0;
-	bool b = 0;
-
 	for (int i = 0; i < n; i++)
 	{
 		if (!R1.get_voisinage()[i].compare(""))
@@ -17,13 +15,14 @@ bool Jeu_de_Regle::Tpresision(Regle_nt R1, Regle_nt R2)//pas dans les specificat
 	return (c1<c2);
 }
 
-Jeu_de_Regle::Jeu_de_Regle(Jeu_de_Regle_nt jdrnt)
+
+void Jeu_de_Regle::set_value(Jeu_de_Regle_nt jdrnt)
 {
 	taille = jdrnt.get_taille();
 	n = jdrnt.get_n();
 	type_voisinage = jdrnt.get_type_voisinage();
 	L.resize(n);
-	//jdrnt.get_List().sort(&Tpresision);
+    //jdrnt.get_List().sort(Tpresision);A changer!
 	for (Regle_nt R : jdrnt.get_List())
 	{
 		probabilitee[0] = R.get_probabilitee()[0];
