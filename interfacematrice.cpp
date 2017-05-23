@@ -184,86 +184,83 @@ void InterfaceMatrice::ValiderTempsFinal()
 // CONSTRUCTEURS //
 InterfaceMatrice::InterfaceMatrice()
 {
-    //initialisation test
-/*
-    matcour = new Matrice(5,2);
+    matcour = new Matrice(10,2);
+    travailleur = new Iterateur(matcour);
 
+    //Initialisation matrice courante et Iterateur
+    matcour = cour;
     matcour->setMoore(true);
-//    Iterateur* worker = new Iterateur(matcour);
+    travailleur = worker;
+    travailleur->setMatrice(matcour);
 
-    setFixedSize(150+46*matcour->getNbCells(),100+30*matcour->getNbCells());
+    //Initialisation des couleurs possibles des cellules
+    QBrush brush0(Qt::red, Qt::Dense2Pattern);
+    QBrush brush1(Qt::blue, Qt::Dense2Pattern);
+
+    //variables
+    unsigned int i,j;
+    bool ok = true;
+    int val;
+
+    //Initialisation grilleCellule avec taille matrice
     grilleCellule = new QTableWidget(this);
-    grilleCellule->setRowCount(matcour->getNbCells());
-    grilleCellule->setColumnCount(matcour->getNbCells());
+    grilleCellule->setRowCount(matcour->getSize());
+    grilleCellule->setColumnCount(matcour->getSize());
 
+    QObject::connect(grilleCellule,SIGNAL(itemChanged(QTableWidgetItem*)),this,SLOT(actualiserAffichage(QTableWidgetItem*)));
+
+    //Initialisation des Layout
     QWidget *parent = 0;
     QHBoxLayout *layoutPrincipal = new QHBoxLayout();
     QFormLayout *LayoutSecondaire = new QFormLayout();
     QVBoxLayout *LayoutMatrice = new QVBoxLayout();
 
-    playPause = new QPushButton("Play/Pause");
+    //Initialisation des boutons
+    playPause = new QPushButton("Play");
+    Stop = new QPushButton("Stop");
     enregistrement = new QCheckBox("Enregistrer");
     saisieNbGenerations = new QSlider(Qt::Horizontal,parent);
     nbSlider = new QLCDNumber();
-
     nbSlider->setSegmentStyle(QLCDNumber::Flat);
+    ValiderNbGen = new QPushButton("Valider");
+    tempsIteration = new QSpinBox();
+    tempsIteration->setSuffix("  ds");
+    ValiderTemps = new QPushButton("Valider temps");
 
-    LayoutSecondaire->addWidget(playPause);
+    //Connecter les boutons à leurs slots
+    QObject::connect(saisieNbGenerations,SIGNAL(valueChanged(int)),nbSlider,SLOT(display(int)));
+    QObject::connect(playPause,SIGNAL(clicked()),this,SLOT(NbIterations()));
+    QObject::connect(Stop,SIGNAL(clicked()),this,SLOT(FaireStop()));
+    QObject::connect(enregistrement,SIGNAL(stateChanged(int)),this,SLOT(ChangerRec(int)));
+    QObject::connect(saisieNbGenerations,SIGNAL(valueChanged(int)),this,SLOT(ChangerNbGenerations(int)));
+    QObject::connect(ValiderNbGen,SIGNAL(clicked()),this,SLOT(NbGenerationsFini()));
+    QObject::connect(tempsIteration,SIGNAL(valueChanged(int)),this,SLOT(RecupererTemps(int)));
+    QObject::connect(ValiderTemps,SIGNAL(clicked()),this,SLOT(ValiderTempsFinal()));
+
+    //Ajout des boutons aux Layout
     LayoutSecondaire->addWidget(enregistrement);
+    LayoutSecondaire->addWidget(tempsIteration);
+    LayoutSecondaire->addWidget(ValiderTemps);
     LayoutSecondaire->addWidget(saisieNbGenerations);
     LayoutSecondaire->addWidget(nbSlider);
+    LayoutSecondaire->addWidget(ValiderNbGen);
+    LayoutSecondaire->addWidget(playPause);
+    LayoutSecondaire->addWidget(Stop);
 
-    QObject::connect(saisieNbGenerations, SIGNAL(valueChanged(int)), nbSlider, SLOT(display(int))) ;
-
-    grilleCellule->setMaximumSize(myGetQTableWidgetSize(grilleCellule));
-    grilleCellule->setMinimumSize(layoutPrincipal->maximumSize());
-    grilleCellule->setMinimumSize(myGetQTableWidgetSize(grilleCellule));
-
-    grilleCellule->setMaximumSize(QSize(500,500));
-    grilleCellule->setMinimumSize(layoutPrincipal->maximumSize());
-
-    grilleCellule->setMaximumSize(QSize(TAILLEMATRICE,TAILLEMATRICE));
-    grilleCellule->setMinimumSize(layoutPrincipal->maximumSize());
-
-
-    //grilleCellule->horizontalHeader()->hide();
-    //grilleCellule->verticalHeader()->hide();
-
-    //grilleCellule->horizontalScrollBar()->hide();
-    //grilleCellule->verticalScrollBar()->hide();
-*/
-
-    //matriceAleatoire();
-/*    QBrush brush1(Qt::red, Qt::Dense2Pattern);
-    QBrush brush2(Qt::blue, Qt::Dense2Pattern);
-    QBrush brush3(Qt::green, Qt::Dense2Pattern);
-    QBrush brush4(Qt::yellow, Qt::Dense2Pattern);
-    QBrush brush5(Qt::magenta, Qt::Dense2Pattern);
-
-    unsigned int i,j;
-    bool ok = true;
-
-    for(i=0; i<matcour->getNbCells(); i++)
+    //Remplissage des cellules de grilleCellule avec les valeurs de la matrice
+    for(i=0; i<matcour->getSize(); i++)
     {
-        for(j=0; j<matcour->getNbCells(); j++)
+        for(j=0; j<matcour->getSize(); j++)
         {
-            itemCellule = new QTableWidgetItem(matcour->getVal(i,j));
+            itemCellule = new QTableWidgetItem(QString::number(matcour->getVal(i,j)));
             itemCellule->setTextAlignment(Qt::AlignCenter);
-            switch (itemCellule->text().toInt(&ok,10)) {
+            val = itemCellule->text().toInt(&ok,10);
+            switch (val) {
+            case 0:
+                itemCellule->setBackground(brush0);
+                break;
             case 1:
                 itemCellule->setBackground(brush1);
-                break;
-            case 2:
-                itemCellule->setBackground(brush2);
-                break;
-            case 3:
-                itemCellule->setBackground(brush3);
-                break;
-            case 4:
-                itemCellule->setBackground(brush4);
-                break;
-            case 5:
-                itemCellule->setBackground(brush5);
                 break;
             default:
                 break;
@@ -272,22 +269,32 @@ InterfaceMatrice::InterfaceMatrice()
         }
     }
 
-    grilleCellule->resize(myGetQTableWidgetSize(grilleCellule));
-    grilleCellule->setMaximumSize(myGetQTableWidgetSize(grilleCellule));
-    grilleCellule->setMinimumSize(LayoutMatrice->maximumSize());
+    //Définir la taille des cellules
+    int taille = matcour->getSize();
+    int sizeCell = 800/taille;
 
+    for(int c=0;c<grilleCellule->columnCount();c++)
+    {
+        grilleCellule->setColumnWidth(c,sizeCell);
+        grilleCellule->setRowHeight(c,sizeCell);
+    }
+
+    setMaximumSize(400+taille*sizeCell+3,20+taille*sizeCell+3);
+
+    //Resize de grilleCellule dans la fenêtre
+    grilleCellule->setFixedSize(sizeCell*taille+3,sizeCell*taille+3);
+    grilleCellule->horizontalHeader()->hide();
+    grilleCellule->verticalHeader()->hide();
+
+    //Ajout de grilleCellule dans le Layout
     LayoutMatrice->addWidget(grilleCellule);
 
+    //Ajout des Layout dans le layoutPrincipal
     layoutPrincipal->addLayout(LayoutSecondaire);
     layoutPrincipal->addLayout(LayoutMatrice);
 
+    //layoutPrincipal dans la fenêtre
     this->setLayout(layoutPrincipal);
-
-    rec = 0;
-    nbGenerations=0;
-
-    QObject::connect(grilleCellule, SIGNAL(itemChanged(QTableWidgetItem*)),this, SLOT(actualiserAffichage(QTableWidgetItem*)));
-*/
 }
 
 InterfaceMatrice::InterfaceMatrice(Matrice* cour,Iterateur* worker)
@@ -384,11 +391,6 @@ InterfaceMatrice::InterfaceMatrice(Matrice* cour,Iterateur* worker)
         grilleCellule->setRowHeight(c,sizeCell);
     }
 
-    //grilleCellule->resizeColumnsToContents();
-    //grilleCellule->resizeRowsToContents();
-
-    //Initialisation de la taille de la fenêtre
-    //setFixedSize(300+taille*sizeCell+3,20+taille*sizeCell+3);
     setMaximumSize(400+taille*sizeCell+3,20+taille*sizeCell+3);
 
     //Resize de grilleCellule dans la fenêtre
