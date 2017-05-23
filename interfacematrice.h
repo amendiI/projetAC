@@ -26,7 +26,6 @@
 #include "matrice.h"
 #include "iterateur.h"
 
-#define NB_ETAT_INI 5   //nombre d'états initiaux
 #define temps 1000      //t = 1000ms = 1s
 
 class InterfaceMatrice:public QWidget

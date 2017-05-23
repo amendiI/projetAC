@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    Matrice* matrix = new Matrice(25,2);
+    Matrice* matrix = new Matrice(10,2);
     Iterateur* worker = new Iterateur(matrix);
 
     //InterfaceMatrice *inter = new InterfaceMatrice();

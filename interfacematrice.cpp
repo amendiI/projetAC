@@ -279,8 +279,6 @@ InterfaceMatrice::InterfaceMatrice(Matrice* cour,Iterateur* worker)
     //Initialisation matrice courante et Iterateur
     matcour = cour;
     matcour->setMoore(true);
-
-    //Initialisation itérateur;
     travailleur = worker;
     travailleur->setMatrice(matcour);
 
@@ -315,7 +313,7 @@ InterfaceMatrice::InterfaceMatrice(Matrice* cour,Iterateur* worker)
     nbSlider->setSegmentStyle(QLCDNumber::Flat);
     ValiderNbGen = new QPushButton("Valider");
 
-    //Connecter les objets à leurs slots
+    //Connecter les boutons à leurs slots
     QObject::connect(saisieNbGenerations,SIGNAL(valueChanged(int)),nbSlider,SLOT(display(int)));
     QObject::connect(playPause,SIGNAL(clicked()),this,SLOT(NbIterations()));
     QObject::connect(Stop,SIGNAL(clicked()),this,SLOT(FaireStop()));
