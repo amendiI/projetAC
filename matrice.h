@@ -13,32 +13,36 @@
 class Matrice
 {
 public:
+	/*- Constructeurs -*/
     Matrice();
-    ~Matrice();
-    Matrice(const unsigned int newSize);
     Matrice(const unsigned int newSize, const unsigned short nbPossibleStates);
     Matrice(const unsigned int newSize, const unsigned short nbPossibleStates, const int initOption);
+	/*- Destructeur -*/
+    ~Matrice();
+	/*- Setters -*/
     void setMoore(const bool isMoore);
+    void setVal(int x,int y,unsigned short newValue);
+	/*- Getters -*/
     bool isMoore();
+    unsigned short getNbDimensions();
+    unsigned short getNbPossibleStates();
     unsigned int getSize();
     unsigned int getNbCells();
-    unsigned short getNbPossibleStates();
     unsigned short getVal(int x,int y);
-    void setVal(int x,int y,unsigned short newValue);
-    unsigned short getTailleEnvironement();
-    unsigned short getNbDimensions();
     Cell* getCell(unsigned int x);
     Cell* getCell(unsigned int x,unsigned int y);
-    /*temp*/void afficher();
+    unsigned short getTailleEnvironement();
 private:
+	/*- Attributs -*/
     unsigned short nbDimensions;
     unsigned int size;
     unsigned short nbPS;
     bool typeVoisinage;
+    Cell* cellules;
+	/*- Setters et Getters pour Matrice à nbDimension != 2 -*/
+    void setVal(unsigned short newValue,unsigned short nbD,...);
     unsigned short getVal(unsigned short nbD,...);
     Cell* getCell(unsigned short nbD,...);
-    void setVal(unsigned short newValue,unsigned short nbD,...);
-    Cell* cellules; //sizeMax will be reduce to root(dimension) as sizeTotal equals size^dimension
 };
 
 #endif // MATRICE_H

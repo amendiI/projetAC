@@ -6,19 +6,24 @@
 class Iterateur
 {
 public:
+	/*- Constructeurs -*/
     Iterateur();
+	/*- Destructeur -*/
     ~Iterateur();
-    Iterateur(Matrice * addrM);
+	/*- Setters -*/
     void setMatrice(Matrice * addrM);
     //void setJDR(JeuDeRegle * addrJDR);
+	/*- Méthodes de mise en oeuvre -*/
     int transformMatrice();
 private:
-    void transformCellule(unsigned int cellule);
-    void somEnvironment(unsigned int cellule);
-    Matrice* matriceCourante = 0;
-    Matrice* matriceTransition = 0;
+	/*- Attributs -*/
+    Matrice* matriceCourante;
+    Matrice* matriceTransition;
     //JeuDeRegle * regles;
     unsigned short* etatsVoisins;
+	/*- Méthode de mise en oeuvre -*/
+    void transformCellule(unsigned int cellule);
+    void somEnvironment(unsigned int cellule);
 };
 
 #endif // ITERATEUR_H

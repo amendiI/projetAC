@@ -8,15 +8,19 @@ class Matrice;
 class Cell
 {
 public:
+	/*- Constructeurs -*/
     Cell();
+	/*- Destructeur -*/
     ~Cell();
-    unsigned short getValue();
+	/*- Setters -*/
     void setValue(unsigned short newVal);
-    //unsigned short* getEnvironment(); // result will need to be free and ceel's order clearly defined switch nbDimension
-    //static void setMatrice(Matrice * addrM);
+	/*- Getters -*/
+    unsigned short getValue();
 private:
+	/*- Attributs -*/
     unsigned short val;
-    //static Matrice * matrice;
 };
+
+
 
 #endif // CELL_H
