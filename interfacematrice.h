@@ -22,11 +22,10 @@
 #include <QLCDNumber>
 #include <QScrollBar>
 #include <QTimer>
+#include <QSpinBox>
 
 #include "matrice.h"
 #include "iterateur.h"
-
-#define temps 1000      //t = 1000ms = 1s
 
 class InterfaceMatrice:public QWidget
 {
@@ -47,6 +46,10 @@ private:
     Matrice * matcour;
     Iterateur* travailleur;
     QTimer* timer1;
+    QSpinBox* tempsIteration;
+    int temps;
+    int tempsfinal;
+    QPushButton* ValiderTemps;
 
 public:
     InterfaceMatrice();
@@ -66,6 +69,8 @@ public slots:
     void NbGenerationsFini();
     void NbIterations();
     void FaireStop();
+    void RecupererTemps(int t);
+    void ValiderTempsFinal();
 };
 
 #endif // INTERFACEMATRICE_H

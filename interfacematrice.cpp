@@ -153,8 +153,8 @@ void InterfaceMatrice::NbIterations()
     QObject::connect(timer1,SIGNAL(timeout()),this,SLOT(LancerIterateur()));
     QObject::connect(timer2,SIGNAL(timeout()),timer1,SLOT(stop()));
 
-    timer1->start(temps);
-    timer2->start(temps*(NbGenFinal+1));    //de 1 à 10 = 9 itérations --> +1
+    timer1->start(tempsfinal);
+    timer2->start(tempsfinal*(NbGenFinal+1));    //de 1 à 10 = 9 itérations --> +1
 }
 
 void InterfaceMatrice::FaireStop()
@@ -162,8 +162,24 @@ void InterfaceMatrice::FaireStop()
     timer1->stop();
     nbSlider->setEnabled(true);
     ValiderNbGen->setEnabled(true);
+    tempsIteration->setEnabled(true);
+    ValiderTemps->setEnabled(true);
 }
 
+void InterfaceMatrice::RecupererTemps(int t)
+{
+    if(t == 0)
+        temps = 100;
+    else
+        temps = t*100;         //100ds = 1s.
+}
+
+void InterfaceMatrice::ValiderTempsFinal()
+{
+    tempsfinal = temps;
+    tempsIteration->setDisabled(true);
+    ValiderTemps->setDisabled(true);
+}
 
 // CONSTRUCTEURS //
 InterfaceMatrice::InterfaceMatrice()
@@ -312,6 +328,9 @@ InterfaceMatrice::InterfaceMatrice(Matrice* cour,Iterateur* worker)
     nbSlider = new QLCDNumber();
     nbSlider->setSegmentStyle(QLCDNumber::Flat);
     ValiderNbGen = new QPushButton("Valider");
+    tempsIteration = new QSpinBox();
+    tempsIteration->setSuffix("  ds");
+    ValiderTemps = new QPushButton("Valider temps");
 
     //Connecter les boutons à leurs slots
     QObject::connect(saisieNbGenerations,SIGNAL(valueChanged(int)),nbSlider,SLOT(display(int)));
@@ -320,9 +339,13 @@ InterfaceMatrice::InterfaceMatrice(Matrice* cour,Iterateur* worker)
     QObject::connect(enregistrement,SIGNAL(stateChanged(int)),this,SLOT(ChangerRec(int)));
     QObject::connect(saisieNbGenerations,SIGNAL(valueChanged(int)),this,SLOT(ChangerNbGenerations(int)));
     QObject::connect(ValiderNbGen,SIGNAL(clicked()),this,SLOT(NbGenerationsFini()));
+    QObject::connect(tempsIteration,SIGNAL(valueChanged(int)),this,SLOT(RecupererTemps(int)));
+    QObject::connect(ValiderTemps,SIGNAL(clicked()),this,SLOT(ValiderTempsFinal()));
 
     //Ajout des boutons aux Layout
     LayoutSecondaire->addWidget(enregistrement);
+    LayoutSecondaire->addWidget(tempsIteration);
+    LayoutSecondaire->addWidget(ValiderTemps);
     LayoutSecondaire->addWidget(saisieNbGenerations);
     LayoutSecondaire->addWidget(nbSlider);
     LayoutSecondaire->addWidget(ValiderNbGen);
@@ -353,7 +376,7 @@ InterfaceMatrice::InterfaceMatrice(Matrice* cour,Iterateur* worker)
 
     //Définir la taille des cellules
     int taille = matcour->getSize();
-    int sizeCell = 500/taille;
+    int sizeCell = 800/taille;
 
     for(int c=0;c<grilleCellule->columnCount();c++)
     {
@@ -365,7 +388,7 @@ InterfaceMatrice::InterfaceMatrice(Matrice* cour,Iterateur* worker)
     //grilleCellule->resizeRowsToContents();
 
     //Initialisation de la taille de la fenêtre
-    //setFixedSize(150+46*matcour->getSize(),100+30*matcour->getSize());
+    //setFixedSize(300+taille*sizeCell+3,20+taille*sizeCell+3);
 
     //Resize de grilleCellule dans la fenêtre
     grilleCellule->setFixedSize(sizeCell*taille+3,sizeCell*taille+3);
