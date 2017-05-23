@@ -389,6 +389,7 @@ InterfaceMatrice::InterfaceMatrice(Matrice* cour,Iterateur* worker)
 
     //Initialisation de la taille de la fenêtre
     //setFixedSize(300+taille*sizeCell+3,20+taille*sizeCell+3);
+    setMaximumSize(400+taille*sizeCell+3,20+taille*sizeCell+3);
 
     //Resize de grilleCellule dans la fenêtre
     grilleCellule->setFixedSize(sizeCell*taille+3,sizeCell*taille+3);
