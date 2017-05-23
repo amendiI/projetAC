@@ -22,7 +22,10 @@ void Jeu_de_Regle::set_value(Jeu_de_Regle_nt jdrnt)
 {
 	taille = jdrnt.get_taille();
 	n = jdrnt.get_n();
-	type_voisinage = jdrnt.get_type_voisinage();
+    if(jdrnt.get_type_voisinage())
+        type_voisinage =9;
+    else
+        type_voisinage=4;
 	L.resize(n);
     nb=n;
     jdrnt.get_List().sort(Tpresision);
