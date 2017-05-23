@@ -1,10 +1,12 @@
 #include "Jeu_de_Regle.h"
 
-bool Jeu_de_Regle::Tpresision(Regle_nt R1, Regle_nt R2)//pas dans les specifications mais obligatoire pour trier la liste.
+int nb;//variable globale utile pour Tpresison qui ne peux ni faire partie de la classe ni prendre un argument supplementaire
+
+bool Tpresision(Regle_nt R1, Regle_nt R2)//pas dans les specifications mais obligatoire pour trier la liste.
 {
 	int c1 = 0;
 	int c2 = 0;
-	for (int i = 0; i < n; i++)
+    for (int i = 0; i < nb; i++)
 	{
 		if (!R1.get_voisinage()[i].compare(""))
 			c1++;
@@ -22,7 +24,8 @@ void Jeu_de_Regle::set_value(Jeu_de_Regle_nt jdrnt)
 	n = jdrnt.get_n();
 	type_voisinage = jdrnt.get_type_voisinage();
 	L.resize(n);
-    //jdrnt.get_List().sort(Tpresision);A changer!
+    nb=n;
+    jdrnt.get_List().sort(Tpresision);
 	for (Regle_nt R : jdrnt.get_List())
 	{
 		probabilitee[0] = R.get_probabilitee()[0];

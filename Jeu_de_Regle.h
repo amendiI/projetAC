@@ -22,6 +22,8 @@ public:
 	void verification_donnee(int i, int j, vector<int>);
 	int applicationJeu(int* voi, int etat);
     void set_value(Jeu_de_Regle_nt jdrnt);
-	bool Tpresision(Regle_nt R1, Regle_nt R2);
+    int get_taille(){return taille;}
+    int get_typevoisinage(){return type_voisinage;}
+    int get_nbetat(){return n;}
 };
 
