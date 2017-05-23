@@ -15,7 +15,7 @@ private:
 	int type_voisinage;
 
 public:
-	Jeu_de_Regle_nt(int taille,int nombre_etat,int type_voisinage);
+    Jeu_de_Regle_nt();
 	~Jeu_de_Regle_nt();
 	void ajout_regle(int d, int a, string* voi, int p[2]);
 	int verification_donnee();
@@ -23,5 +23,6 @@ public:
 	int get_taille();
 	int get_n();
 	int get_type_voisinage();
+    void set_val(int taille, int nombre_etat, int type_voisinage);
 };
 

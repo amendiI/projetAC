@@ -5,6 +5,9 @@
 #include <QVBoxLayout>
 #include "interfaceparametre.h"
 #include "interfaceregle.h"
+#include "interfacematrice.h"
+#include "Jeu_de_Regle_nt.h"
+#include "Jeu_de_Regle.h"
 
 class Interface : public QWidget
 {
@@ -15,6 +18,9 @@ private:
     QVBoxLayout *layout;
     InterfaceParametre *Ip;
     InterfaceRegle *Ir;
+    InterfaceMatrice * Im;
+    Jeu_de_Regle_nt * Jdr_nt;
+    Jeu_de_Regle* Jdr;
 
 public:
     explicit Interface(QWidget *parent = 0);

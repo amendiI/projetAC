@@ -25,6 +25,8 @@
 #include <QFileDialog>
 #include <QRegExp>
 #include <QMessageBox>
+#include "Jeu_de_Regle_nt.h"
+#include "Jeu_de_Regle.h"
 
 using namespace std;
 
@@ -33,6 +35,9 @@ class InterfaceRegle : public QWidget
     Q_OBJECT
 
 private:
+
+    Jeu_de_Regle_nt *Jdr_nt;
+    Jeu_de_Regle * Jdr;
 
     QVBoxLayout *layoutPrincipal;
         QPushButton *chargerBouton;
@@ -62,7 +67,7 @@ private:
 public:
     explicit InterfaceRegle(QWidget *parent = 0);
 
-    InterfaceRegle(vector<EtatType *> *tabEtats, QWidget *parent = 0);
+    InterfaceRegle(Jeu_de_Regle *J, Jeu_de_Regle_nt* J_nt, vector<EtatType *> *tabEtats, QWidget *parent = 0);
 
     vector<QLineEdit*> getVectorRegle();
 
@@ -76,6 +81,7 @@ public slots:
     void ajouterRegle();
     void EnregistrerRegles();
     void ChargerRegles();
+    void ValiderRegles();
 
 };
 #endif // INTERFACEREGLE_H
