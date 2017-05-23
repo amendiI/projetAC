@@ -1,7 +1,8 @@
-#ifndef ITERATEUR_H
+﻿#ifndef ITERATEUR_H
 #define ITERATEUR_H
 
-#include <matrice.h>
+#include "matrice.h"
+#include "Jeu_de_Regle.h"
 
 class Iterateur
 {
@@ -12,14 +13,14 @@ public:
     ~Iterateur();
 	/*- Setters -*/
     void setMatrice(Matrice * addrM);
-    //void setJDR(JeuDeRegle * addrJDR);
+    void setJDR(Jeu_de_Regle * addrJDR);
 	/*- Méthodes de mise en oeuvre -*/
     int transformMatrice();
 private:
 	/*- Attributs -*/
     Matrice* matriceCourante;
     Matrice* matriceTransition;
-    //JeuDeRegle * regles;
+    Jeu_de_Regle * regles;
     unsigned short* etatsVoisins;
 	/*- Méthode de mise en oeuvre -*/
     void transformCellule(unsigned int cellule);

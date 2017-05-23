@@ -29,11 +29,11 @@ void Iterateur::setMatrice(Matrice* addrM){
         etatsVoisins=(unsigned short*)malloc(matriceCourante->getNbPossibleStates() * sizeof(unsigned short));
     }
 }
-/*
+
 void Iterateur::setJDR(JeuDeRegle* addrJDR){
 	regles=rules;
 }
-*/
+
 int Iterateur::transformMatrice(){
     unsigned int i;
     for(i=0;i<matriceCourante->getNbCells();i++){
@@ -48,13 +48,7 @@ int Iterateur::transformMatrice(){
 void Iterateur::transformCellule(unsigned int cellule){
     somEnvironment(cellule);
 
-    switch(etatsVoisins[1]){
-    case 2 : matriceTransition->getCell(cellule)->setValue(matriceCourante->getCell(cellule)->getValue());
-        break;
-    case 3 : matriceTransition->getCell(cellule)->setValue(1);
-        break;
-    default: matriceTransition->getCell(cellule)->setValue(0);
-    }
+    matriceTransition->getCell(cellule)->setValue((unsigned short)regles->applicationJeu((int*)etatsVoisins,(int)cellule->getValue()));
 }
 
 void Iterateur::somEnvironment(unsigned int cellule){
