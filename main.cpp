@@ -1,4 +1,3 @@
-#include "mainwindow.h"
 #include <QApplication>
 
 #include "interfacematrice.h"
@@ -8,7 +7,7 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-
+	
     Interface *I = new Interface();
     I->show();
 /*
