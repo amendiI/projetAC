@@ -5,8 +5,9 @@
 #include "interfaceregle.h"
 #include <QDebug>
 
-InterfaceParametre::InterfaceParametre(Jeu_de_Regle* J, Jeu_de_Regle_nt *J_nt,QVBoxLayout *L, QWidget *parent) : QWidget(parent)
+InterfaceParametre::InterfaceParametre(QHBoxLayout *p, Jeu_de_Regle* J, Jeu_de_Regle_nt *J_nt, QVBoxLayout *L, QWidget *parent) : QWidget(parent)
 {
+    layoutPere = p;
     Jdr = J;
     Jdr_nt = J_nt;
     this->resize(400, 400);
@@ -223,8 +224,8 @@ void InterfaceParametre::ValiderParametres(){
         fenetreEtat->setDisabled(true);
         validerBouton->setDisabled(true);
 
-        InterfaceRegle * I = new InterfaceRegle(Jdr, Jdr_nt, &tabEtats);
-        Jdr_nt->set_val(saisieTaille->value(), tabEtats.size(), saisieVoisinage->currentIndex() );
+        InterfaceRegle * I = new InterfaceRegle(layoutPere,saisieVoisinage->currentIndex(),saisieTaille->value(),Jdr, Jdr_nt, &tabEtats);
+        Jdr_nt->set_val(saisieTaille->value(),(int)tabEtats.size(), saisieVoisinage->currentIndex() );
         layoutParent->addWidget(I);
         I->setVisible(true);
     }

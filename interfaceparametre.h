@@ -33,7 +33,7 @@ private:
     Jeu_de_Regle * Jdr;
     vector<EtatType*> tabEtats;
     QVBoxLayout * layoutParent;
-
+    QHBoxLayout* layoutPere;
     QVBoxLayout *parametreLayout;
         QPushButton *chargerBouton;
         QHBoxLayout *tailleLayout;
@@ -60,7 +60,7 @@ private:
 
 public:
 
-      InterfaceParametre(Jeu_de_Regle* J, Jeu_de_Regle_nt *J_nt, QVBoxLayout *L,QWidget *parent = 0);
+      InterfaceParametre(QHBoxLayout* p,Jeu_de_Regle* J, Jeu_de_Regle_nt *J_nt, QVBoxLayout *L,QWidget *parent = 0);
 
       int VerifierParametreEtat(QColor c , QString n);
 

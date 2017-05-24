@@ -16,6 +16,7 @@ class Interface : public QWidget
 private:
 
     QVBoxLayout *layout;
+    QHBoxLayout *layoutH;
     InterfaceParametre *Ip;
     InterfaceRegle *Ir;
     InterfaceMatrice * Im;

@@ -1,7 +1,10 @@
 #include "interfaceregle.h"
 
-InterfaceRegle::InterfaceRegle(Jeu_de_Regle *J, Jeu_de_Regle_nt* J_nt, vector<EtatType *> *tabEtats, QWidget *parent) : QWidget(parent)
+InterfaceRegle::InterfaceRegle(QHBoxLayout *p, int v, int taille, Jeu_de_Regle *J, Jeu_de_Regle_nt* J_nt, vector<EtatType *> *tabEtats, QWidget *parent) : QWidget(parent)
 {
+    layoutPere = p;
+    voisinage = v;
+    tailleMatrice = taille;
     Jdr = J;
     Jdr_nt = J_nt;
     saisieDepart = new QComboBox();
@@ -201,6 +204,14 @@ void InterfaceRegle::ValiderRegles()
     ajouterBouton->setDisabled(true);
     fenetreRegle->setDisabled(true);
     validerBouton->setDisabled(true);
+
+    Matrice* matrice = new Matrice(tailleMatrice,(unsigned int)tabSaisieRegle.size());
+    matrice->setMoore(!voisinage);
+    Iterateur* iterateur = new Iterateur();
+    iterateur->setJDR(Jdr);
+    InterfaceMatrice* interMatrice = new InterfaceMatrice(matrice,iterateur);
+    interMatrice->show();
+    layoutPere->addWidget(interMatrice);
 }
 
 bool InterfaceRegle::verifRegle() {

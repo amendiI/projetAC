@@ -27,6 +27,7 @@
 #include <QMessageBox>
 #include "Jeu_de_Regle_nt.h"
 #include "Jeu_de_Regle.h"
+#include "interfacematrice.h"
 
 using namespace std;
 
@@ -38,7 +39,9 @@ private:
 
     Jeu_de_Regle_nt *Jdr_nt;
     Jeu_de_Regle * Jdr;
-
+    int tailleMatrice;
+    int voisinage;
+    QHBoxLayout* layoutPere;
     QVBoxLayout *layoutPrincipal;
         QPushButton *chargerBouton;
         QHBoxLayout *layoutDA;
@@ -67,7 +70,7 @@ private:
 public:
     explicit InterfaceRegle(QWidget *parent = 0);
 
-    InterfaceRegle(Jeu_de_Regle *J, Jeu_de_Regle_nt* J_nt, vector<EtatType *> *tabEtats, QWidget *parent = 0);
+    InterfaceRegle(QHBoxLayout* p,int v,int taille,Jeu_de_Regle *J, Jeu_de_Regle_nt* J_nt, vector<EtatType *> *tabEtats, QWidget *parent = 0);
 
     vector<QLineEdit*> getVectorRegle();
 
