@@ -1,10 +1,10 @@
 #include "iterateur.h"
 
-Iterateur::Iterateur():Iterateur(NULL){
+Iterateur::Iterateur(){
 	matriceCourante=NULL;
 	matriceTransition=NULL;
 	etatsVoisins=NULL;
-	//regles=NULL;
+    regles=NULL;
 }
 
 /*
@@ -32,7 +32,7 @@ void Iterateur::setMatrice(Matrice* addrM){
     }
 }
 
-void Iterateur::setJDR(JeuDeRegle* addrJDR){
+void Iterateur::setJDR(Jeu_de_Regle* rules){
 	regles=rules;
 }
 
@@ -50,7 +50,13 @@ int Iterateur::transformMatrice(){
 void Iterateur::transformCellule(unsigned int cellule){
     somEnvironment(cellule);
 
-    matriceTransition->getCell(cellule)->setValue((unsigned short)regles->applicationJeu((int*)etatsVoisins,(int)cellule->getValue()));
+    int* etatsVoisinsCast =(int*)etatsVoisins;
+    Cell* c = matriceTransition->getCell(cellule);
+    int valeurCellule = (int)c->getValue();
+    unsigned short AppJeu = (unsigned short)regles->applicationJeu(etatsVoisinsCast,valeurCellule);
+
+    matriceTransition->getCell(cellule)->setValue(AppJeu);
+    //matriceTransition->getCell(cellule)->setValue((unsigned short)regles->applicationJeu((int*)etatsVoisins  , (int)cellule->getValue()));
 }
 
 void Iterateur::somEnvironment(unsigned int cellule){

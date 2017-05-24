@@ -65,7 +65,7 @@ void Jeu_de_Regle::traitement_voisinage(int i, vector<int> T)
 	}
 	else if (voisinage[i].find("-") != -1)
 	{
-		int pos = voisinage[i].find("-");
+        size_t pos = voisinage[i].find("-");
 		int x = stoi(tmp.substr(0, pos));
 		int y = stoi(tmp.substr(pos+1));
 		cout << x << endl;
@@ -120,5 +120,4 @@ int Jeu_de_Regle::applicationJeu(int * voi, int etat)
 			
 	}
 	return etat;
-	return 0;
 }
