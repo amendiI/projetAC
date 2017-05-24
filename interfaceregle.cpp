@@ -2,6 +2,7 @@
 
 InterfaceRegle::InterfaceRegle(QHBoxLayout *p, int v, int taille, Jeu_de_Regle *J, Jeu_de_Regle_nt* J_nt, vector<EtatType *> *tabEtats, QWidget *parent) : QWidget(parent)
 {
+    couleurs = tabEtats;
     layoutPere = p;
     voisinage = v;
     tailleMatrice = taille;
@@ -11,8 +12,6 @@ InterfaceRegle::InterfaceRegle(QHBoxLayout *p, int v, int taille, Jeu_de_Regle *
     saisieArrive = new QComboBox();
     saisieArriveProba = new QComboBox();
     layoutTabSaisieRegle = new QGridLayout();
-
-
 
     for(unsigned int i = 0; i<tabEtats->size(); i++){
         QColor c = tabEtats->at(i)->GetColor();
@@ -209,7 +208,7 @@ void InterfaceRegle::ValiderRegles()
     matrice->setMoore(!voisinage);
     Iterateur* iterateur = new Iterateur();
     iterateur->setJDR(Jdr);
-    InterfaceMatrice* interMatrice = new InterfaceMatrice(matrice,iterateur);
+    InterfaceMatrice* interMatrice = new InterfaceMatrice(matrice,iterateur,couleurs);
     interMatrice->show();
     layoutPere->addWidget(interMatrice);
 }

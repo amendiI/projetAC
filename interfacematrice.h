@@ -26,6 +26,7 @@
 
 #include "matrice.h"
 #include "iterateur.h"
+#include "etattype.h"
 
 class InterfaceMatrice:public QWidget
 {
@@ -39,6 +40,8 @@ private:
     QSlider *saisieNbGenerations;
     int nbGenerations;
 
+    vector<EtatType*> *Etats;
+    vector<QBrush*> brushEtats;
     QPushButton* Stop;
     QPushButton* ValiderNbGen;
     int NbGenFinal;
@@ -53,7 +56,7 @@ private:
 
 public:
     InterfaceMatrice();
-    InterfaceMatrice(Matrice* cour,Iterateur* worker);
+    InterfaceMatrice(Matrice* cour,Iterateur* worker,vector<EtatType*> *type);
     ~InterfaceMatrice();
     void modificationGrille();
     void matriceAleatoire();
