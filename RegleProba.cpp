@@ -10,19 +10,11 @@ RegleProba::RegleProba(int d, int a, vector<int> v, int proba, int etatP,int n)
 	this->n = n;
 }
 
-RegleProba::~RegleProba()
-{
-}
+RegleProba::~RegleProba(){}
 
-int RegleProba::get_probabilitee()
-{
-	return probabilitee;
-}
+int RegleProba::get_probabilitee(){return probabilitee;}
 
-int RegleProba::get_etatP()
-{
-	return etatP;
-}
+int RegleProba::get_etatP(){return etatP;}
 
 void RegleProba::aff()//sert au dubuggage
 {

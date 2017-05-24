@@ -18,7 +18,7 @@ public:
     Jeu_de_Regle_nt();
 	~Jeu_de_Regle_nt();
 	void ajout_regle(int d, int a, string* voi, int p[2]);
-	int verification_donnee();
+    //int verification_donnee();implémentée dans l'interface
 	list<Regle_nt> get_List();//pas dans les specifications
 	int get_taille();
 	int get_n();
