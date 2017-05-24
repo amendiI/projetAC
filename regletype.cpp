@@ -16,7 +16,7 @@ RegleType::RegleType(vector<RegleType*> *p, int d, int a, vector<QLineEdit *> *b
     this->proba[0] = proba;
     this->proba[1] = ap;
     regles = new string[b->size()]();
-    for(unsigned int i; i< b->size(); i++){
+    for(unsigned int i=0; i< b->size(); i++){
         regles[i]= b->at(i)->text().toStdString();
     }
 
