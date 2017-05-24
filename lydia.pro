@@ -24,7 +24,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
     interfaceparametre.cpp \
     etattype.cpp \
     interfaceregle.cpp \
@@ -40,8 +39,7 @@ SOURCES += main.cpp\
     iterateur.cpp \
     matrice.cpp
 
-HEADERS  += mainwindow.h \
-    interfaceparametre.h \
+HEADERS  += interfaceparametre.h \
     etattype.h \
     interfaceregle.h \
     interface.h \
@@ -56,4 +54,3 @@ HEADERS  += mainwindow.h \
     iterateur.h \
     matrice.h
 
-FORMS    += mainwindow.ui

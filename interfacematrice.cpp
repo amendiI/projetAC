@@ -19,6 +19,7 @@ static QSize myGetQTableWidgetSize(QTableWidget *table) {
 
 // PUBLIC SLOTS //
 
+/*
 void InterfaceMatrice::actualiserAffichage(QTableWidgetItem * item)
 {
     bool ok = true;
@@ -37,6 +38,7 @@ void InterfaceMatrice::actualiserAffichage(QTableWidgetItem * item)
     matcour->setVal(item->column(),item->row(),val);
     item->setBackground(*brushEtats.at(val));
 }
+*/
 
 void InterfaceMatrice::ChangerCellule(int row, int column)
 {
@@ -46,7 +48,8 @@ void InterfaceMatrice::ChangerCellule(int row, int column)
     {
         item->setText("0");
     }
-    matcour->setVal(item->column(),item->row(),item->text().toInt(&ok,10));
+    //matcour->setVal(item->column(),item->row(),item->text().toInt(&ok,10));
+    travailleur->SetValMatriceTransition(item->column(),item->row(),item->text().toInt(&ok,10));
     item->setBackground(*brushEtats.at(item->text().toInt(&ok,10)));
 }
 
@@ -73,7 +76,7 @@ void InterfaceMatrice::LancerIterateur()
 {
     unsigned int i,j;
 
-    QObject::disconnect(grilleCellule,SIGNAL(itemChanged(QTableWidgetItem*)),this,SLOT(actualiserAffichage(QTableWidgetItem*)));
+    QObject::disconnect(grilleCellule,SIGNAL(cellChanged(int,int)),this,SLOT(ChangerCellule(int,int)));
 
     travailleur->transformMatrice();
 
@@ -85,7 +88,7 @@ void InterfaceMatrice::LancerIterateur()
         }
     }
     Afficher();
-    QObject::connect(grilleCellule,SIGNAL(itemChanged(QTableWidgetItem*)),this,SLOT(actualiserAffichage(QTableWidgetItem*)));
+    QObject::connect(grilleCellule,SIGNAL(cellChanged(int,int)),this,SLOT(ChangerCellule(int,int)));
 }
 
 void InterfaceMatrice::ChangerRec(int state)

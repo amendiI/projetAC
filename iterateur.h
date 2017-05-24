@@ -16,6 +16,7 @@ public:
     void setJDR(Jeu_de_Regle * addrJDR);
 	/*- Méthodes de mise en oeuvre -*/
     int transformMatrice();
+    void SetValMatriceTransition(unsigned int i,unsigned int j,unsigned int NewValue);
 private:
 	/*- Attributs -*/
     Matrice* matriceCourante;

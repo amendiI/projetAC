@@ -64,7 +64,7 @@ public:
     void playPause2(bool record, int n);
 
 public slots:
-    void actualiserAffichage(QTableWidgetItem * item);
+    //void actualiserAffichage(QTableWidgetItem * item);
     void ChangerCellule(int row,int column);
     void Afficher();
     void LancerIterateur();

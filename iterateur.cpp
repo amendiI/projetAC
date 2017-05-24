@@ -55,6 +55,8 @@ void Iterateur::transformCellule(unsigned int cellule){
     int valeurCellule = (int)c->getValue();
     unsigned short AppJeu = (unsigned short)regles->applicationJeu(etatsVoisinsCast,valeurCellule);
 
+    cout << regles->applicationJeu(etatsVoisinsCast,valeurCellule) << endl;
+
     matriceTransition->getCell(cellule)->setValue(AppJeu);
     //matriceTransition->getCell(cellule)->setValue((unsigned short)regles->applicationJeu((int*)etatsVoisins  , (int)cellule->getValue()));
 }
@@ -80,4 +82,9 @@ void Iterateur::somEnvironment(unsigned int cellule){
     if(b>0)     etatsVoisins[matriceCourante->getVal(a,b-1)]++;
     if(b<matriceCourante->getSize()-1)etatsVoisins[matriceCourante->getVal(a,b+1)]++;
 
+}
+
+void Iterateur::SetValMatriceTransition(unsigned int i, unsigned int j, unsigned int NewValue)
+{
+    matriceTransition->setVal(i,j,NewValue);
 }
