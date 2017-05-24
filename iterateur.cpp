@@ -55,7 +55,7 @@ void Iterateur::transformCellule(unsigned int cellule){
     int valeurCellule = (int)c->getValue();
     unsigned short AppJeu = (unsigned short)regles->applicationJeu(etatsVoisinsCast,valeurCellule);
 
-    cout << regles->applicationJeu(etatsVoisinsCast,valeurCellule) << endl;
+    //cout << regles->applicationJeu(etatsVoisinsCast,valeurCellule) << endl;
 
     matriceTransition->getCell(cellule)->setValue(AppJeu);
     //matriceTransition->getCell(cellule)->setValue((unsigned short)regles->applicationJeu((int*)etatsVoisins  , (int)cellule->getValue()));

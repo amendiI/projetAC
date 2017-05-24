@@ -92,7 +92,7 @@ int Jeu_de_Regle::applicationJeu(int * voi, int etat)
 {
     bool bol;
     int vide;
-
+    //if L vide.
 	for (RegleProba R : L[etat])
 	{
         vide=0;
@@ -105,7 +105,8 @@ int Jeu_de_Regle::applicationJeu(int * voi, int etat)
 			if (R.get_voisinage()[i] == -1)
 				vide++;
 		}
-		if (bol|| vide == 4)
+        cout<<vide<<","<<n<<endl;
+        if (bol|| vide == n)
 			if (R.get_probabilitee() == 100)
 				return R.get_arivee();
 			else if (R.get_probabilitee() >= (rand() % 100 + 1))
