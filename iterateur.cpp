@@ -7,6 +7,7 @@ Iterateur::Iterateur():Iterateur(NULL){
 	//regles=NULL;
 }
 
+/*
 Iterateur::Iterateur(Matrice *addrM){
     if(addrM!=NULL){
         matriceCourante=addrM;
@@ -15,6 +16,7 @@ Iterateur::Iterateur(Matrice *addrM){
         etatsVoisins=new unsigned short[matriceCourante->getNbPossibleStates()];
     }
 }
+*/
 
 Iterateur::~Iterateur(){
     free(matriceTransition);

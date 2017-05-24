@@ -185,12 +185,10 @@ void InterfaceMatrice::ValiderTempsFinal()
 InterfaceMatrice::InterfaceMatrice()
 {
     matcour = new Matrice(10,2);
-    travailleur = new Iterateur(matcour);
+    travailleur = new Iterateur();
 
     //Initialisation matrice courante et Iterateur
-    matcour = cour;
     matcour->setMoore(true);
-    travailleur = worker;
     travailleur->setMatrice(matcour);
 
     //Initialisation des couleurs possibles des cellules
