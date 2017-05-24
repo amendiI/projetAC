@@ -15,14 +15,23 @@ private:
 	int type_voisinage;
 
 public:
+    //constructeur-destructeur
     Jeu_de_Regle_nt();
 	~Jeu_de_Regle_nt();
-	void ajout_regle(int d, int a, string* voi, int p[2]);
-	int verification_donnee();
+
+    //setter, joue le rôle du construceteur dans les specifications
+    void set_val(int taille, int nombre_etat, int type_voisinage);
+
+    //ajoute une règle dans la liste
+    void ajout_regle(int d, int a, string* voi, int p[2]);
+
+    //non utilisé car implémentée dans l'interface
+    //int verification_donnee();
+
+    //getters
 	list<Regle_nt> get_List();//pas dans les specifications
 	int get_taille();
 	int get_n();
 	int get_type_voisinage();
-    void set_val(int taille, int nombre_etat, int type_voisinage);
 };
 

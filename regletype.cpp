@@ -41,7 +41,7 @@ RegleType::RegleType(vector<RegleType*> *p, int d, int a, vector<QLineEdit *> *b
        t += QString::number(arrivee);
        t += ",(";
        t += QString::number(this->proba[0]);
-       t += "\%,";
+       t += "%,";
        t += QString::number(this->proba[1]);
        t += "))";
        labelregles->setText(t);

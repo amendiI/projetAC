@@ -13,7 +13,6 @@ bool Tpresision(Regle_nt R1, Regle_nt R2)//pas dans les specifications mais obli
 		if (!R2.get_voisinage()[i].compare(""))
 			c2++;
 	}
-
 	return (c1<c2);
 }
 
@@ -42,10 +41,8 @@ void Jeu_de_Regle::set_value(Jeu_de_Regle_nt jdrnt)
 	}
 }
 
-Jeu_de_Regle::~Jeu_de_Regle()
-{
-}
-//TODO PROBA
+Jeu_de_Regle::~Jeu_de_Regle(){}
+
 void Jeu_de_Regle::traitement_voisinage(int i, vector<int> T)
 {
 	string tmp = voisinage[i];
@@ -86,21 +83,19 @@ void Jeu_de_Regle::verification_donnee(int i,int j, vector<int> T)
 	vector<int> Ntab(T);
 	Ntab[i] = j;
 	if (i==n-1)
-	{
-			L[depart].push_back(RegleProba(depart, arrivee, Ntab,probabilitee[0],probabilitee[1], n));
-	}
+        L[depart].push_back(RegleProba(depart, arrivee, Ntab,probabilitee[0],probabilitee[1], n));
 	else
-	{
-		traitement_voisinage(i + 1, Ntab);
-	}
+        traitement_voisinage(i + 1, Ntab);
 }
 
 int Jeu_de_Regle::applicationJeu(int * voi, int etat)
 {
-	bool bol = true;
+    bool bol;
+    int vide;
+
 	for (RegleProba R : L[etat])
 	{
-		int vide=0;
+        vide=0;
 		bol = true;
 
 		for (int i = 0; i < n; i++)
@@ -117,7 +112,6 @@ int Jeu_de_Regle::applicationJeu(int * voi, int etat)
 				return R.get_arivee();
 			else
 				return R.get_etatP();
-			
 	}
 	return etat;
 }
