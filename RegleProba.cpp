@@ -1,6 +1,4 @@
 #include "RegleProba.h"
-#include "iostream"
-using namespace std;
 
 RegleProba::RegleProba(int d, int a, vector<int> v, int proba, int etatP,int n)
 {
@@ -26,7 +24,7 @@ int RegleProba::get_etatP()
 	return etatP;
 }
 
-void RegleProba::aff()
+void RegleProba::aff()//sert au dubuggage
 {
 	cout << "etat depart :" <<etat_depart<< endl;
 	cout << "etat arivee :" << etat_arivee << endl;

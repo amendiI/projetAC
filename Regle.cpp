@@ -1,8 +1,5 @@
 #include "Regle.h"
 
-#include "iostream"
-using namespace std;
-
 Regle::Regle()
 {
 	etat_depart = -1;
