@@ -20,12 +20,6 @@ static QSize myGetQTableWidgetSize(QTableWidget *table) {
 // PUBLIC SLOTS //
 void InterfaceMatrice::actualiserAffichage(QTableWidgetItem * item)
 {
-    QBrush brush0(Qt::red, Qt::Dense2Pattern);
-    QBrush brush1(Qt::blue, Qt::Dense2Pattern);
-    QBrush brush2(Qt::green, Qt::Dense2Pattern);
-    QBrush brush3(Qt::yellow, Qt::Dense2Pattern);
-    QBrush brush4(Qt::magenta, Qt::Dense2Pattern);
-
     bool ok = true;
     int val;
 
@@ -37,36 +31,11 @@ void InterfaceMatrice::actualiserAffichage(QTableWidgetItem * item)
     }
 
     matcour->setVal(item->column(),item->row(),item->text().toInt(&ok,10));
-
-    switch (val) {
-    case 0:
-        item->setBackground(brush0);
-        break;
-    case 1:
-        item->setBackground(brush1);
-        break;
-    case 2:
-        item->setBackground(brush2);
-        break;
-    case 3:
-        item->setBackground(brush3);
-        break;
-    case 4:
-        item->setBackground(brush4);
-        break;
-    default:
-        break;
-    }
+    item->setBackground(*brushEtats.at(val));
 }
 
 void InterfaceMatrice::Afficher()
 {
-    QBrush brush0(Qt::red, Qt::Dense2Pattern);
-    QBrush brush1(Qt::blue, Qt::Dense2Pattern);
-    QBrush brush2(Qt::green, Qt::Dense2Pattern);
-    QBrush brush3(Qt::yellow, Qt::Dense2Pattern);
-    QBrush brush4(Qt::magenta, Qt::Dense2Pattern);
-
     unsigned int i,j;
     QTableWidgetItem* item;
     int val;
@@ -79,25 +48,7 @@ void InterfaceMatrice::Afficher()
             item = grilleCellule->item(i,j);
             item->setText(QString::number(matcour->getVal(i,j)));
             val = item->text().toInt(&ok,10);
-            switch (val) {
-            case 0:
-                item->setBackground(brush0);
-                break;
-            case 1:
-                item->setBackground(brush1);
-                break;
-            case 2:
-                item->setBackground(brush2);
-                break;
-            case 3:
-                item->setBackground(brush3);
-                break;
-            case 4:
-                item->setBackground(brush4);
-                break;
-            default:
-                break;
-            }
+            item->setBackground(*brushEtats.at(val));
         }
     }
 }
@@ -106,6 +57,8 @@ void InterfaceMatrice::LancerIterateur()
 {
     unsigned int i,j;
 
+    QObject::disconnect(grilleCellule,SIGNAL(itemChanged(QTableWidgetItem*)),this,SLOT(actualiserAffichage(QTableWidgetItem*)));
+
     travailleur->transformMatrice();
 
     for(i=0;i<matcour->getSize();i++)
@@ -113,10 +66,10 @@ void InterfaceMatrice::LancerIterateur()
         for(j=0;j<matcour->getSize();j++)
         {
             itemCellule->setText(QString::number(matcour->getVal(i,j)));
-            actualiserAffichage(itemCellule);
         }
     }
     Afficher();
+    QObject::connect(grilleCellule,SIGNAL(itemChanged(QTableWidgetItem*)),this,SLOT(actualiserAffichage(QTableWidgetItem*)));
 }
 
 void InterfaceMatrice::ChangerRec(int state)
@@ -137,7 +90,7 @@ void InterfaceMatrice::ChangerNbGenerations(int val)
 
 void InterfaceMatrice::NbGenerationsFini()
 {
-    if(nbGenerations == 0)
+    if(nbGenerations == 1)
         NbGenFinal = 1;
     else
         NbGenFinal = nbGenerations;
@@ -295,17 +248,21 @@ InterfaceMatrice::InterfaceMatrice()
     this->setLayout(layoutPrincipal);
 }
 
-InterfaceMatrice::InterfaceMatrice(Matrice* cour,Iterateur* worker)
+InterfaceMatrice::InterfaceMatrice(Matrice* cour, Iterateur* worker, vector<EtatType *> *type)
 {
     //Initialisation matrice courante et Iterateur
     matcour = cour;
-    matcour->setMoore(true);
     travailleur = worker;
     travailleur->setMatrice(matcour);
+    Etats = type;
 
     //Initialisation des couleurs possibles des cellules
-    QBrush brush0(Qt::red, Qt::Dense2Pattern);
-    QBrush brush1(Qt::blue, Qt::Dense2Pattern);
+    for(unsigned int i=0; i<Etats->size();i++)
+    {
+        QBrush* B = new QBrush(Etats->at(i)->GetColor());
+        brushEtats.push_back(B);
+    }
+
 
     //variables
     unsigned int i,j;
@@ -365,16 +322,7 @@ InterfaceMatrice::InterfaceMatrice(Matrice* cour,Iterateur* worker)
             itemCellule = new QTableWidgetItem(QString::number(matcour->getVal(i,j)));
             itemCellule->setTextAlignment(Qt::AlignCenter);
             val = itemCellule->text().toInt(&ok,10);
-            switch (val) {
-            case 0:
-                itemCellule->setBackground(brush0);
-                break;
-            case 1:
-                itemCellule->setBackground(brush1);
-                break;
-            default:
-                break;
-            }
+            itemCellule->setBackground(*brushEtats.at(val));
             grilleCellule->setItem(i,j,itemCellule);
         }
     }
@@ -435,72 +383,7 @@ void InterfaceMatrice::modificationGrille()
 
 void InterfaceMatrice::matriceAleatoire()
 {
-/*    //init aleatoire QTableWidgetItem et QTableWidget
-    srand(time(NULL));
 
-    QBrush brush1(Qt::red, Qt::Dense2Pattern);
-    QBrush brush2(Qt::blue, Qt::Dense2Pattern);
-    QBrush brush3(Qt::green, Qt::Dense2Pattern);
-    QBrush brush4(Qt::yellow, Qt::Dense2Pattern);
-    QBrush brush5(Qt::magenta, Qt::Dense2Pattern);
-
-    QBrush brush6(Qt::darkRed, Qt::Dense2Pattern);
-    QBrush brush7(Qt::darkBlue, Qt::Dense2Pattern);
-    QBrush brush8(Qt::darkGreen, Qt::Dense2Pattern);
-    QBrush brush9(Qt::darkYellow, Qt::Dense2Pattern);
-    QBrush brush10(Qt::darkMagenta, Qt::Dense2Pattern);
-
-    int alea;
-    int i,j;
-    for(i=0; i<NBCELL; i++)
-    {
-        for(j=0; j<NBCELL; j++)
-        {
-            //générer nombre aléatoire : fonction rand() C++
-            alea = rand()%NB_ETAT_INI+1;
-            //le caster en string
-            //s = static_cast<QString>(alea);
-            //le mettre dans itemCellule
-            itemCellule = new QTableWidgetItem(QString::number(alea));
-            itemCellule->setTextAlignment(Qt::AlignCenter);
-            switch (alea) {
-            case 1:
-                itemCellule->setBackground(brush1);
-                break;
-            case 2:
-                itemCellule->setBackground(brush2);
-                break;
-            case 3:
-                itemCellule->setBackground(brush3);
-                break;
-            case 4:
-                itemCellule->setBackground(brush4);
-                break;
-            case 5:
-                itemCellule->setBackground(brush5);
-                break;
-            case 6:
-                itemCellule->setBackground(brush6);
-                break;
-            case 7:
-                itemCellule->setBackground(brush7);
-                break;
-            case 8:
-                itemCellule->setBackground(brush8);
-                break;
-            case 9:
-                itemCellule->setBackground(brush9);
-                break;
-            case 10:
-                itemCellule->setBackground(brush10);
-                break;
-            default:
-                break;
-            }
-            grilleCellule->setItem(i,j,itemCellule);
-        }
-    }
-*/
 }
 
 void InterfaceMatrice::playPause1(bool record)

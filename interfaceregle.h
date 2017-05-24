@@ -41,6 +41,7 @@ private:
     Jeu_de_Regle * Jdr;
     int tailleMatrice;
     int voisinage;
+    vector<EtatType *> *couleurs;
     QHBoxLayout* layoutPere;
     QVBoxLayout *layoutPrincipal;
         QPushButton *chargerBouton;
