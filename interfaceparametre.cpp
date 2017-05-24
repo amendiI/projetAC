@@ -28,6 +28,7 @@ InterfaceParametre::InterfaceParametre(QHBoxLayout *p, Jeu_de_Regle* J, Jeu_de_R
 
     tailleLabel->setText("Taille Matrice : ");
     saisieTaille->setRange(1, 100);
+    saisieTaille->setValue(10);
 
     tailleLabel->show();
     saisieTaille->show();

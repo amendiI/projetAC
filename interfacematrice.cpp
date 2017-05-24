@@ -23,14 +23,17 @@ void InterfaceMatrice::actualiserAffichage(QTableWidgetItem * item)
     bool ok = true;
     int val;
 
+    printf("coucou, change la valeur mec ! \n");
+
     val = item->text().toInt(&ok,10);
-    if(!ok)
+    if(val > Etats->size() || val < 0)
     {
-        val = -1;
-        item->setText("");
+        printf("coucou, valeur pas bonne \n");
+        val = 0;
+        item->setText(QString::number(val));
     }
 
-    matcour->setVal(item->column(),item->row(),item->text().toInt(&ok,10));
+    matcour->setVal(item->column(),item->row(),val);
     item->setBackground(*brushEtats.at(val));
 }
 
@@ -146,13 +149,23 @@ InterfaceMatrice::InterfaceMatrice(Matrice* cour, Iterateur* worker, vector<Etat
     travailleur->setMatrice(matcour);
     Etats = type;
 
+        for(unsigned int i=0;i<matcour->getSize();i++){
+            printf("%d\t",i);
+            for(unsigned int j=0;j<matcour->getSize();j++){
+                printf("  %d ",matcour->getVal(i,j));
+            }
+            printf("\n\n");
+        }
+        printf("\n\n\n\n");
+
+
+
     //Initialisation des couleurs possibles des cellules
     for(unsigned int i=0; i<Etats->size();i++)
     {
         QBrush* B = new QBrush(Etats->at(i)->GetColor());
         brushEtats.push_back(B);
     }
-
 
     //variables
     unsigned int i,j;
