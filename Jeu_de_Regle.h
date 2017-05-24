@@ -16,12 +16,17 @@ private:
 	int n;
 
 public:
+    //constructeur-destructeur
     Jeu_de_Regle(){}
 	~Jeu_de_Regle();
+
+    //fonctions traitant le jdr
+    void set_value(Jeu_de_Regle_nt jdrnt);
 	void traitement_voisinage(int i, vector<int>);
 	void verification_donnee(int i, int j, vector<int>);
+
+
 	int applicationJeu(int* voi, int etat);
-    void set_value(Jeu_de_Regle_nt jdrnt);
     int get_taille(){return taille;}
     int get_typevoisinage(){return type_voisinage;}
     int get_nbetat(){return n;}

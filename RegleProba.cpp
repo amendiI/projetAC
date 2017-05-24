@@ -16,7 +16,7 @@ int RegleProba::get_probabilitee(){return probabilitee;}
 
 int RegleProba::get_etatP(){return etatP;}
 
-void RegleProba::aff()//sert au dubuggage
+void RegleProba::aff()
 {
 	cout << "etat depart :" <<etat_depart<< endl;
 	cout << "etat arivee :" << etat_arivee << endl;
