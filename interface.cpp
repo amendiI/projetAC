@@ -9,5 +9,6 @@ Interface::Interface(QWidget *parent) : QWidget(parent)
     Ip = new InterfaceParametre(Jdr,Jdr_nt, layout);
     Ip->show();
     layout->addWidget(Ip);
+
 }
 
