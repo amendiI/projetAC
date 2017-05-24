@@ -37,7 +37,7 @@ void InterfaceMatrice::actualiserAffichage(QTableWidgetItem * item)
     }
 
     matcour->setVal(item->column(),item->row(),item->text().toInt(&ok,10));
-
+    cout<<"1: "<<matcour->getVal(item->column(),item->row())<<endl;
     switch (val) {
     case 0:
         item->setBackground(brush0);
@@ -76,6 +76,7 @@ void InterfaceMatrice::Afficher()
     {
         for(j=0;j<matcour->getSize();j++)
         {
+            cout<<i<<','<<j<<':'<<matcour->getVal(i,j)<<endl;
             item = grilleCellule->item(i,j);
             item->setText(QString::number(matcour->getVal(i,j)));
             val = item->text().toInt(&ok,10);
@@ -107,15 +108,6 @@ void InterfaceMatrice::LancerIterateur()
     unsigned int i,j;
 
     travailleur->transformMatrice();
-
-    for(i=0;i<matcour->getSize();i++)
-    {
-        for(j=0;j<matcour->getSize();j++)
-        {
-            itemCellule->setText(QString::number(matcour->getVal(i,j)));
-            actualiserAffichage(itemCellule);
-        }
-    }
     Afficher();
 }
 
@@ -171,7 +163,7 @@ void InterfaceMatrice::RecupererTemps(int t)
     if(t == 0)
         temps = 100;
     else
-        temps = t*100;         //100ds = 1s.
+        temps = t*100;         //10ds = 1s.
 }
 
 void InterfaceMatrice::ValiderTempsFinal()
