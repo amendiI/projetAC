@@ -18,6 +18,7 @@ static QSize myGetQTableWidgetSize(QTableWidget *table) {
 }
 
 // PUBLIC SLOTS //
+
 void InterfaceMatrice::actualiserAffichage(QTableWidgetItem * item)
 {
     bool ok = true;
@@ -35,6 +36,18 @@ void InterfaceMatrice::actualiserAffichage(QTableWidgetItem * item)
 
     matcour->setVal(item->column(),item->row(),val);
     item->setBackground(*brushEtats.at(val));
+}
+
+void InterfaceMatrice::ChangerCellule(int row, int column)
+{
+    QTableWidgetItem* item = grilleCellule->item(row,column);
+    bool ok = true;
+    if(!(item->text().toInt(&ok,10) < Etats->size()))
+    {
+        item->setText("0");
+    }
+    matcour->setVal(item->column(),item->row(),item->text().toInt(&ok,10));
+    item->setBackground(*brushEtats.at(item->text().toInt(&ok,10)));
 }
 
 void InterfaceMatrice::Afficher()
@@ -149,17 +162,6 @@ InterfaceMatrice::InterfaceMatrice(Matrice* cour, Iterateur* worker, vector<Etat
     travailleur->setMatrice(matcour);
     Etats = type;
 
-        for(unsigned int i=0;i<matcour->getSize();i++){
-            printf("%d\t",i);
-            for(unsigned int j=0;j<matcour->getSize();j++){
-                printf("  %d ",matcour->getVal(i,j));
-            }
-            printf("\n\n");
-        }
-        printf("\n\n\n\n");
-
-
-
     //Initialisation des couleurs possibles des cellules
     for(unsigned int i=0; i<Etats->size();i++)
     {
@@ -176,8 +178,6 @@ InterfaceMatrice::InterfaceMatrice(Matrice* cour, Iterateur* worker, vector<Etat
     grilleCellule = new QTableWidget(this);
     grilleCellule->setRowCount(matcour->getSize());
     grilleCellule->setColumnCount(matcour->getSize());
-
-    QObject::connect(grilleCellule,SIGNAL(itemChanged(QTableWidgetItem*)),this,SLOT(actualiserAffichage(QTableWidgetItem*)));
 
     //Initialisation des Layout
     QWidget *parent = 0;
@@ -229,6 +229,7 @@ InterfaceMatrice::InterfaceMatrice(Matrice* cour, Iterateur* worker, vector<Etat
             grilleCellule->setItem(i,j,itemCellule);
         }
     }
+    QObject::connect(grilleCellule,SIGNAL(cellChanged(int,int)),this,SLOT(ChangerCellule(int,int)));
 
     //Définir la taille des cellules
     int taille = matcour->getSize();

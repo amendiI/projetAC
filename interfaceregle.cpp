@@ -204,18 +204,7 @@ void InterfaceRegle::ValiderRegles()
     fenetreRegle->setDisabled(true);
     validerBouton->setDisabled(true);
 
-    Matrice* matrice = new Matrice(tailleMatrice,(unsigned int)tabSaisieRegle.size());
-
-    unsigned int i,j;
-        for(i=0;i<matrice->getSize();i++){
-            printf("%d\t",i);
-            for(j=0;j<matrice->getSize();j++){
-                printf("  %d ",matrice->getVal(i,j));
-            }
-            printf("\n\n");
-        }
-        printf("\n\n\n\n");
-
+    Matrice* matrice = new Matrice(tailleMatrice,(unsigned int)tabSaisieRegle.size(),1);
     matrice->setMoore(!voisinage);
     Iterateur* iterateur = new Iterateur();
     iterateur->setJDR(Jdr);
