@@ -272,9 +272,7 @@ void InterfaceMatrice::modificationGrille()
 }
 
 void InterfaceMatrice::matriceAleatoire()
-{
-
-}
+{}
 
 void InterfaceMatrice::playPause1(bool record)
 {
