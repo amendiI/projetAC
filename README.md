@@ -1,20 +1,13 @@
 # projetAC
 
 Pour Ulysse :
-On s'occupe de l'intégration des trois interfaces, pour cela tu dois
-  -créer les setters pour Matrice et Itérateur (setSize(), setNbEtatPossible(),setJDR(),etc)
-  -gérer l'intégration du JDR dans Itérateur maintenant que les classes JDR sont faites et disponibles
-  -admirer le travail des autres ^^
-  
-  
-Après avoir fait ceci, on fera l'intégration des trois interfaces, puis le programme sera fini. 
-Par contre, on a noté un petit soucis au niveau du jeu de la vie, lors de l'affichage de la matrice dans InterfaceMatrice. 
-Si tu vois où ça peux poser problème, dis-nous ! 
-PAS DE CHANGEMENT DANS LE CODE DES AUTRES PLEASE PASSE UN COUP DE FIL !!!
+On a fini l'intégration des trois interfaces et des jeux de règles. 
 
-Si il y a la moindre fonction manquante au niveau de JDR, crée-la EN COMMENTAIRE et donne le Prototype dans READ ME.
+Maintenant, on a problème de type "ça marche pas" et on ne sait pas pourquoi. 
 
-A plus ! 
+On pense que ça vient du fait que l'interfaceMatrice modifie sa matrice courante lors d'un changement de valeur, mais pas la matrice de Transition de l'itérateur. On a rajouté une méthode dans itérateur pour faire ça, mais le résultat est quand même aléatoire par rapport au jeu de règles données et aux valeurs des cases avant et après changement. 
 
-PS : on ne touchera pas à ta partie du code, tu peux commit et push les changements de matrice, itérateur et cells quand tu veux ! 
+On a besoin de toi pour que tu regardes où ça peut merder dans ton code (et dans les nôtres), nous on ne s'y retrouve pas trop (mets un petit peu plus d'espaces dans ton code, pour la lisibilité stp). 
+
+A bientôt !
   
