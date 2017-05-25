@@ -113,7 +113,7 @@ void InterfaceMatrice::ChangerCellule(int row, int column)
     {
         item->setText("0");
     }
-    matcour->setVal(item->column(),item->row(),item->text().toUShort(&ok,10));
+    matcour->setVal(item->row(), item->column(),item->text().toUShort(&ok,10));
     //travailleur->SetValMatriceTransition(item->column(),item->row(),item->text().toUShort(&ok,10));
     item->setBackground(*brushEtats.at(item->text().toInt(&ok,10)));
 }
