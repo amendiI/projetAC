@@ -38,35 +38,42 @@
 class InterfaceMatrice:public QWidget
 {
     Q_OBJECT
-private:
+private: //variables
+    bool rec;
+    int nbGenerations;
+    int NbGenFinal;
+    int temps;
+    int tempsfinal;
+    int stopNit;
+
+    //Affichage
+    QCheckBox *enregistrement;
+    QSlider *saisieNbGenerations;
     QTableWidget *grilleCellule;
     QTableWidgetItem *itemCellule;
-    QPushButton *playPause;
-    QCheckBox *enregistrement;
-    bool rec;
-    QSlider *saisieNbGenerations;
-    int nbGenerations;
-
     vector<EtatType*> *Etats;
     vector<QBrush*> brushEtats;
-    QPushButton* Stop;
-    QPushButton* ValiderNbGen;
-    int NbGenFinal;
     QLCDNumber *nbSlider;
+    QSpinBox* tempsIteration;
+    QGroupBox * BoxMatriceAlea;
+    QVBoxLayout * layoutMA;
+    vector<QSpinBox*> tabAlea;
+
+    //Iteration
     Matrice * matcour;
     Iterateur* travailleur;
     QTimer* timer1;
-    QSpinBox* tempsIteration;
-    int temps;
-    int tempsfinal;
-    QPushButton* ValiderTemps;
-    QPushButton* Chargement;
-	QGroupBox * BoxMatriceAlea;
-	QVBoxLayout * layoutMA;
-	vector<QSpinBox*> tabAlea;
-	QPushButton *AleaBouton;
 
-
+    //Boutons
+    QPushButton *Play;      // lancer UNE itération
+    QPushButton *Infini;    // lancer une INFINITE d'itérations
+    QPushButton *PlayN;     // lancer N itérations
+    QPushButton *StopInf;      // Stopper l'infinité d'itérations
+    QPushButton *StopN;     // Stopper les N itérations
+    QPushButton *ValiderNbGen;  // Valider le nombre N d'itérations
+    QPushButton *ValiderTemps;  // Valider le temps entre deux itérations
+    QPushButton *Chargement;    // Charger une matrice
+    QPushButton *AleaBouton;
 
 public:
     InterfaceMatrice();
@@ -78,21 +85,24 @@ public:
     void playPause2(bool record, int n);
     Matrice* Loading();
     int Recording2(Matrice* matrix);
+    void InitMatrice();
 
 public slots:
-    //void actualiserAffichage(QTableWidgetItem * item);
-    void ChangerCellule(int row,int column);
-    void Afficher();
-    void LancerIterateur();
-    void ChangerRec(int state);
-    void ChangerNbGenerations(int val);
-    void NbGenerationsFini();
-    void NbIterations();
-    void FaireStop();
-    void RecupererTemps(int t);
-    void ValiderTempsFinal();
-    void ChargerMatrice();
-	void InitMatrice();
+    void ChangerCellule(int row,int column);   // changer la valeur d'une cellule
+    void Afficher();                // Afficher l'ensemble de la matrice
+    void LancerIterateur();         // Lancer l'itérateur une fois
+    void InfiniIterations();        // Lancer l'itérateur une infinité de fois
+    void StopInfini();              // Arrêter l'itérateur infini
+    void RecupererTemps(int t);     // Récupérer le temps entre 2 itérations
+    void ValiderTempsFinal();       // Valider le temps final entre 2 itérations
+    void ChangerNbGenerations(int val);         // Changer le Nombre de générations grâce au slider
+    void NbGenerationsFini();       // Valider le nombre de générations final
+    void LancerIterateurN();        // Lancer N itérations
+    void LancerNIterations();       // Lancer N itérations
+    void FaireStopN();              // Stopper les N itérations
+    void ChangerRec(int state);     // Changer l'état de rec
+
+    void ChargerMatrice();          // Charger une matrice
 };
 
 #endif // INTERFACEMATRICE_H
