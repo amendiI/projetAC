@@ -214,7 +214,7 @@ InterfaceMatrice::InterfaceMatrice(Matrice* cour, Iterateur* worker, vector<Etat
     tempsIteration->setSuffix("  ds");
     tempsIteration->setRange(1,100);
     tempsIteration->setValue(10);
-    temps = 10;
+    temps = 100;
 
     ValiderTemps = new QPushButton("Valider temps");
 

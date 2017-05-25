@@ -26,7 +26,7 @@ public:
 	void verification_donnee(int i, int j, vector<int>);
 
 
-	int applicationJeu(int* voi, int etat);
+    int applicationJeu(unsigned short *voi, int etat);
     int get_taille(){return taille;}
     int get_typevoisinage(){return type_voisinage;}
     int get_nbetat(){return n;}

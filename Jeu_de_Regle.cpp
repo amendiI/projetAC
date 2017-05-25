@@ -88,7 +88,7 @@ void Jeu_de_Regle::verification_donnee(int i,int j, vector<int> T)
         traitement_voisinage(i + 1, Ntab);
 }
 
-int Jeu_de_Regle::applicationJeu(int * voi, int etat)
+int Jeu_de_Regle::applicationJeu(unsigned short * voi, int etat)
 {
     bool bol;
     int vide;

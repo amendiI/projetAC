@@ -50,15 +50,17 @@ int Iterateur::transformMatrice(){
 void Iterateur::transformCellule(unsigned int cellule){
     somEnvironment(cellule);
 
-    int* etatsVoisinsCast =(int*)etatsVoisins;
-    Cell* c = matriceTransition->getCell(cellule);
-    int valeurCellule = (int)c->getValue();
-    unsigned short AppJeu = (unsigned short)regles->applicationJeu(etatsVoisinsCast,valeurCellule);
+    //int* etatsVoisinsCast =(int*)etatsVoisins;
+    //Cell* c = matriceTransition->getCell(cellule);
+    //int valeurCellule = (int)c->getValue();
+    //unsigned short AppJeu = (unsigned short)regles->applicationJeu(etatsVoisinsCast,valeurCellule);
 
     //cout << regles->applicationJeu(etatsVoisinsCast,valeurCellule) << endl;
 
-    matriceTransition->getCell(cellule)->setValue(AppJeu);
+    //matriceTransition->getCell(cellule)->setValue(AppJeu);
     //matriceTransition->getCell(cellule)->setValue((unsigned short)regles->applicationJeu((int*)etatsVoisins  , (int)cellule->getValue()));
+
+    matriceTransition->getCell(cellule)->setValue((unsigned short)regles->applicationJeu(etatsVoisins,(int)matriceCourante->getCell(cellule)->getValue()));
 }
 
 void Iterateur::somEnvironment(unsigned int cellule){
