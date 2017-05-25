@@ -84,7 +84,9 @@ void Iterateur::somEnvironment(unsigned int cellule){
 
 }
 
+/*
 void Iterateur::SetValMatriceTransition(unsigned int i, unsigned int j, unsigned int NewValue)
 {
     matriceTransition->setVal(i,j,NewValue);
 }
+*/

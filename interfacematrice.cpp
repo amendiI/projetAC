@@ -48,8 +48,8 @@ void InterfaceMatrice::ChangerCellule(int row, int column)
     {
         item->setText("0");
     }
-    //matcour->setVal(item->column(),item->row(),item->text().toInt(&ok,10));
-    travailleur->SetValMatriceTransition(item->column(),item->row(),item->text().toInt(&ok,10));
+    matcour->setVal(item->column(),item->row(),item->text().toUShort(&ok,10));
+    //travailleur->SetValMatriceTransition(item->column(),item->row(),item->text().toUShort(&ok,10));
     item->setBackground(*brushEtats.at(item->text().toInt(&ok,10)));
 }
 
@@ -109,7 +109,7 @@ void InterfaceMatrice::ChangerNbGenerations(int val)
 
 void InterfaceMatrice::NbGenerationsFini()
 {
-    if(nbGenerations == 1)
+    if(nbGenerations == 0)
         NbGenFinal = 1;
     else
         NbGenFinal = nbGenerations;
@@ -140,6 +140,7 @@ void InterfaceMatrice::FaireStop()
 
 void InterfaceMatrice::RecupererTemps(int t)
 {
+    printf("t = %d \n",t);
     if(t == 0)
         temps = 100;
     else
@@ -148,7 +149,10 @@ void InterfaceMatrice::RecupererTemps(int t)
 
 void InterfaceMatrice::ValiderTempsFinal()
 {
-    tempsfinal = temps;
+    if(temps == 0)
+        tempsfinal = 1;
+    else
+        tempsfinal = temps;
     tempsIteration->setDisabled(true);
     ValiderTemps->setDisabled(true);
 }
@@ -190,24 +194,45 @@ InterfaceMatrice::InterfaceMatrice(Matrice* cour, Iterateur* worker, vector<Etat
 
     //Initialisation des boutons
     playPause = new QPushButton("Play");
+
     Stop = new QPushButton("Stop");
+
     enregistrement = new QCheckBox("Enregistrer");
+
     saisieNbGenerations = new QSlider(Qt::Horizontal,parent);
+    saisieNbGenerations->setRange(1,100);
+    saisieNbGenerations->setValue(1);
+
     nbSlider = new QLCDNumber();
     nbSlider->setSegmentStyle(QLCDNumber::Flat);
+    nbSlider->display(1);
+    nbGenerations = 1;
+
     ValiderNbGen = new QPushButton("Valider");
+
     tempsIteration = new QSpinBox();
     tempsIteration->setSuffix("  ds");
+    tempsIteration->setRange(1,100);
+    tempsIteration->setValue(10);
+    temps = 10;
+
     ValiderTemps = new QPushButton("Valider temps");
 
     //Connecter les boutons à leurs slots
     QObject::connect(saisieNbGenerations,SIGNAL(valueChanged(int)),nbSlider,SLOT(display(int)));
+
     QObject::connect(playPause,SIGNAL(clicked()),this,SLOT(NbIterations()));
+
     QObject::connect(Stop,SIGNAL(clicked()),this,SLOT(FaireStop()));
+
     QObject::connect(enregistrement,SIGNAL(stateChanged(int)),this,SLOT(ChangerRec(int)));
+
     QObject::connect(saisieNbGenerations,SIGNAL(valueChanged(int)),this,SLOT(ChangerNbGenerations(int)));
+
     QObject::connect(ValiderNbGen,SIGNAL(clicked()),this,SLOT(NbGenerationsFini()));
+
     QObject::connect(tempsIteration,SIGNAL(valueChanged(int)),this,SLOT(RecupererTemps(int)));
+
     QObject::connect(ValiderTemps,SIGNAL(clicked()),this,SLOT(ValiderTempsFinal()));
 
     //Ajout des boutons aux Layout
@@ -232,6 +257,7 @@ InterfaceMatrice::InterfaceMatrice(Matrice* cour, Iterateur* worker, vector<Etat
             grilleCellule->setItem(i,j,itemCellule);
         }
     }
+
     QObject::connect(grilleCellule,SIGNAL(cellChanged(int,int)),this,SLOT(ChangerCellule(int,int)));
 
     //Définir la taille des cellules
