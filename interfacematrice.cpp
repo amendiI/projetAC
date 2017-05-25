@@ -197,7 +197,6 @@ void InterfaceMatrice::NbIterations()
     if(rec)
     {
         enr = Recording2(matcour);
-        printf("enr = %d \n",enr);
     }
 }
 
@@ -276,6 +275,7 @@ InterfaceMatrice::InterfaceMatrice(Matrice* cour, Iterateur* worker, vector<Etat
     Stop = new QPushButton("Stop");
 
     enregistrement = new QCheckBox("Enregistrer");
+    rec = false;
 
     saisieNbGenerations = new QSlider(Qt::Horizontal,parent);
     saisieNbGenerations->setRange(1,100);
