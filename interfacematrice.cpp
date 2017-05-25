@@ -355,35 +355,34 @@ InterfaceMatrice::InterfaceMatrice(Matrice* cour, Iterateur* worker, vector<Etat
     QObject::connect(Chargement,SIGNAL(clicked(bool)),this,SLOT(ChargerMatrice()));
 */
 
-        BoxMatriceAlea = new QGroupBox("Init Matrice :");
-        layoutMA = new QVBoxLayout(BoxMatriceAlea);
-        for (unsigned int i = 0; i <  Etats->size(); i++)
-        {
-            QHBoxLayout *layoutH = new QHBoxLayout();
-            QLabel * L = new QLabel();
-            L->setText(Etats->at(i)->GetNom());
-            QSpinBox *S = new QSpinBox();
-            S->setRange(0, 100);
-            QLabel * L2 = new QLabel();
-            L2->setText("%");
-            tabAlea.push_back(S);
-            layoutH->addWidget(L);
-            layoutH->addWidget(S);
-            layoutH->addWidget(L2);
-            layoutMA->addLayout(layoutH);
-            L->show();
-            S->show();
-            L2->show();
-        }
-        AleaBouton = new QPushButton("Go");
-        //connect
-        QObject::connect(AleaBouton, SIGNAL(clicked()), this, SLOT(InitMatrice()));
+    BoxMatriceAlea = new QGroupBox("Init Matrice :");
+    layoutMA = new QVBoxLayout(BoxMatriceAlea);
+    for (unsigned int i = 0; i <  Etats->size(); i++)
+    {
+        QHBoxLayout *layoutH = new QHBoxLayout();
+        QLabel * L = new QLabel();
+        L->setText(Etats->at(i)->GetNom());
+        QSpinBox *S = new QSpinBox();
+        S->setRange(0, 100);
+        QLabel * L2 = new QLabel();
+        L2->setText("%");
+        tabAlea.push_back(S);
+        layoutH->addWidget(L);
+        layoutH->addWidget(S);
+        layoutH->addWidget(L2);
+        layoutMA->addLayout(layoutH);
+        L->show();
+        S->show();
+        L2->show();
+    }
+    AleaBouton = new QPushButton("Go");
+    //connect
+    QObject::connect(AleaBouton, SIGNAL(clicked()), this, SLOT(InitMatrice()));
 
-        layoutMA->addWidget(AleaBouton);
-        AleaBouton->show();
-        LayoutSecondaire->addWidget(BoxMatriceAlea);
-        BoxMatriceAlea->show();
-
+    layoutMA->addWidget(AleaBouton);
+    AleaBouton->show();
+    LayoutSecondaire->addWidget(BoxMatriceAlea);
+    BoxMatriceAlea->show();
 
 
     //Ajout des boutons aux Layout
@@ -450,22 +449,30 @@ InterfaceMatrice::InterfaceMatrice(Matrice* cour, Iterateur* worker, vector<Etat
 // DESTRUCTEUR //
 InterfaceMatrice::~InterfaceMatrice()
 {
-    //delete
+    //delete boutons
     delete Play;
     delete Infini;
     delete PlayN;
     delete StopInf;
     delete StopN;
     delete ValiderTemps;
-    delete saisieNbGenerations;
     delete ValiderNbGen;
-    delete enregistrement;
+    delete Chargement;
+    delete AleaBouton;
 
+    //delete Affichage
+    delete saisieNbGenerations;
+    delete enregistrement;
     delete grilleCellule;
     delete nbSlider;
-    delete timer1;
-    delete Chargement;
+    delete brushEtats;
+    delete BoxMatriceAlea;
+    delete layoutMA;
+    delete tabAlea;
     delete tempsIteration;
+
+    //delete Iteration
+    delete timer1;
     matcour->~Matrice();
     travailleur->~Iterateur();
     delete matcour;
