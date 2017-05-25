@@ -38,10 +38,6 @@ InterfaceRegle::InterfaceRegle(QHBoxLayout *p, int v, int taille, Jeu_de_Regle *
 
     layoutPrincipal = new  QVBoxLayout(this);
 
-        chargerBouton = new QPushButton("Charger depuis...");
-        chargerBouton->show();
-        connect(chargerBouton, SIGNAL(clicked(bool)),this,SLOT(ChargerRegles()));
-        layoutPrincipal->addWidget(chargerBouton);
 
         layoutDA = new QHBoxLayout();
         layoutPrincipal->addLayout(layoutDA);
@@ -122,7 +118,6 @@ InterfaceRegle::InterfaceRegle(QHBoxLayout *p, int v, int taille, Jeu_de_Regle *
 
             enregistrerBouton = new QPushButton("Enregistrer sous...");
             enregistrerBouton->show();
-            connect(chargerBouton, SIGNAL(clicked(bool)),this,SLOT(EnregistrerRegles()));
             layoutBouton->addWidget(enregistrerBouton);
 
 

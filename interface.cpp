@@ -1,7 +1,8 @@
 #include "interface.h"
 
 void Interface::Reinitialisation() {
-	/*delete Ip;
+	/*
+	delete Ip;
 	delete Jdr_nt;
 	delete Jdr;
 

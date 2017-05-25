@@ -46,7 +46,6 @@ private:
     vector<EtatType *> *couleurs;
     QHBoxLayout* layoutPere;
     QVBoxLayout *layoutPrincipal;
-        QPushButton *chargerBouton;
         QHBoxLayout *layoutDA;
              QLabel *labelDepart;
              QComboBox *saisieDepart;

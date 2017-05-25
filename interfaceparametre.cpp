@@ -141,18 +141,13 @@ InterfaceParametre::InterfaceParametre(QHBoxLayout *p, Jeu_de_Regle* J, Jeu_de_R
     boutonLayout = new QHBoxLayout();
 
     validerBouton = new QPushButton("Valider");
-    enregistrerBouton = new QPushButton("Enregister sous...");
-
 
     connect(validerBouton, SIGNAL(clicked()),this,SLOT(ValiderParametres()));
-    connect(enregistrerBouton, SIGNAL(clicked()),this,SLOT(EnregistrerParametres()));
-
+   
 
     validerBouton->show();
-    enregistrerBouton->show();
 
     boutonLayout->addWidget(validerBouton);
-    boutonLayout->addWidget(enregistrerBouton);
 
     parametreLayout->addLayout(boutonLayout);
 
