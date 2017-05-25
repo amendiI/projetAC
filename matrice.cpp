@@ -16,7 +16,8 @@ Matrice::Matrice(const unsigned int newSize, const unsigned short nbPossibleStat
     cellules= new Cell[getNbCells()];
     switch(initOption){
     case 0:
-        for(unsigned int i=0;i<getNbCells();i++)cellules[i]=Cell();
+        for(unsigned int i=0;i<getNbCells();i++)
+			cellules[i]=Cell();
         break;
     case 1:
         srand((unsigned)time(NULL));
