@@ -137,11 +137,31 @@ void InterfaceMatrice::InfiniIterations()
     timer1 = new QTimer();
     QObject::connect(timer1,SIGNAL(timeout()),this,SLOT(LancerIterateur()));
     timer1->start(tempsfinal);
+
+    Infini->setDisabled(true);
+    PlayN->setDisabled(true);
+    StopN->setDisabled(true);
+    nbSlider->setDisabled(true);
+    ValiderNbGen->setDisabled(true);
+    tempsIteration->setDisabled(true);
+    ValiderTemps->setDisabled(true);
+    AleaBouton->setDisabled(true);
+    Play->setDisabled(true);
 }
 
 void InterfaceMatrice::StopInfini()
 {
     timer1->stop();
+
+    Infini->setEnabled(true);
+    PlayN->setEnabled(true);
+    StopN->setEnabled(true);
+    nbSlider->setEnabled(true);
+    ValiderNbGen->setEnabled(true);
+    tempsIteration->setEnabled(true);
+    ValiderTemps->setEnabled(true);
+    AleaBouton->setEnabled(true);
+    Play->setEnabled(true);
 }
 
 void InterfaceMatrice::RecupererTemps(int t)
@@ -203,7 +223,7 @@ void InterfaceMatrice::LancerIterateurN()
     QObject::connect(grilleCellule,SIGNAL(cellChanged(int,int)),this,SLOT(ChangerCellule(int,int)));
 }
 
-void InterfaceMatrice::LancerNIterations()
+void InterfaceMatrice::NIterations()
 {
     timer1 = new QTimer();
 
@@ -211,15 +231,31 @@ void InterfaceMatrice::LancerNIterations()
 
     stopNit = 0;
     timer1->start(tempsfinal);
+
+    PlayN->setDisabled(true);
+    Infini->setDisabled(true);
+    StopInf->setDisabled(true);
+    nbSlider->setDisabled(true);
+    ValiderNbGen->setDisabled(true);
+    tempsIteration->setDisabled(true);
+    ValiderTemps->setDisabled(true);
+    AleaBouton->setDisabled(true);
+    Play->setDisabled(true);
 }
 
 void InterfaceMatrice::FaireStopN()
 {
     timer1->stop();
+
+    PlayN->setEnabled(true);
+    Infini->setEnabled(true);
+    StopInf->setEnabled(true);
     nbSlider->setEnabled(true);
     ValiderNbGen->setEnabled(true);
     tempsIteration->setEnabled(true);
     ValiderTemps->setEnabled(true);
+    AleaBouton->setEnabled(true);
+    Play->setEnabled(true);
 }
 
 void InterfaceMatrice::ChangerRec(int state)
@@ -230,13 +266,6 @@ void InterfaceMatrice::ChangerRec(int state)
         rec = true;
 }
 
-void InterfaceMatrice::ChargerMatrice()
-{
-    matcour = Loading();
-    Afficher();
-}
-
-
 void InterfaceMatrice::InitMatrice()
 {
     int somme = 0;
@@ -245,9 +274,9 @@ void InterfaceMatrice::InitMatrice()
         somme += tabAlea.at(i)->value();
     }
     if (somme == 100){
-        for (int i = 0; i < matcour->getSize(); i++)
+        for (unsigned int i = 0; i < matcour->getSize(); i++)
         {
-            for (int j = 0; j < matcour->getSize(); j++)
+            for (unsigned int j = 0; j < matcour->getSize(); j++)
             {
                 int k = 0;
                 int r = (rand() % 100 + 1);
@@ -269,6 +298,11 @@ void InterfaceMatrice::InitMatrice()
 
 
 
+void InterfaceMatrice::ChargerMatrice()
+{
+    matcour = Loading();
+    Afficher();
+}
 
 // CONSTRUCTEURS //
 InterfaceMatrice::InterfaceMatrice()
@@ -342,7 +376,7 @@ InterfaceMatrice::InterfaceMatrice(Matrice* cour, Iterateur* worker, vector<Etat
     QObject::connect(Play,SIGNAL(clicked()),this,SLOT(LancerIterateur()));
     QObject::connect(Infini,SIGNAL(clicked(bool)),this,SLOT(InfiniIterations()));
     QObject::connect(StopInf,SIGNAL(clicked(bool)),this,SLOT(StopInfini()));
-    QObject::connect(PlayN,SIGNAL(clicked()),this,SLOT(LancerNIterations()));
+    QObject::connect(PlayN,SIGNAL(clicked()),this,SLOT(NIterations()));
     QObject::connect(StopN,SIGNAL(clicked(bool)),this,SLOT(FaireStopN()));
     QObject::connect(tempsIteration,SIGNAL(valueChanged(int)),this,SLOT(RecupererTemps(int)));
     QObject::connect(ValiderTemps,SIGNAL(clicked()),this,SLOT(ValiderTempsFinal()));
@@ -465,10 +499,8 @@ InterfaceMatrice::~InterfaceMatrice()
     delete enregistrement;
     delete grilleCellule;
     delete nbSlider;
-    delete brushEtats;
     delete BoxMatriceAlea;
     delete layoutMA;
-    delete tabAlea;
     delete tempsIteration;
 
     //delete Iteration

@@ -85,7 +85,6 @@ public:
     void playPause2(bool record, int n);
     Matrice* Loading();
     int Recording2(Matrice* matrix);
-    void InitMatrice();
 
 public slots:
     void ChangerCellule(int row,int column);   // changer la valeur d'une cellule
@@ -98,9 +97,10 @@ public slots:
     void ChangerNbGenerations(int val);         // Changer le Nombre de générations grâce au slider
     void NbGenerationsFini();       // Valider le nombre de générations final
     void LancerIterateurN();        // Lancer N itérations
-    void LancerNIterations();       // Lancer N itérations
+    void NIterations();       // Lancer N itérations
     void FaireStopN();              // Stopper les N itérations
     void ChangerRec(int state);     // Changer l'état de rec
+    void InitMatrice();
 
     void ChargerMatrice();          // Charger une matrice
 };
