@@ -27,6 +27,9 @@
 #include <QTextStream>
 #include <QRegExp>
 #include <QFileDialog>
+#include <QGroupBox>
+#include <QLabel>
+#include <QMessageBox>
 
 #include "matrice.h"
 #include "iterateur.h"
@@ -58,6 +61,12 @@ private:
     int tempsfinal;
     QPushButton* ValiderTemps;
     QPushButton* Chargement;
+	QGroupBox * BoxMatriceAlea;
+	QVBoxLayout * layoutMA;
+	vector<QSpinBox*> tabAlea;
+	QPushButton *AleaBouton;
+
+
 
 public:
     InterfaceMatrice();
@@ -83,6 +92,7 @@ public slots:
     void RecupererTemps(int t);
     void ValiderTempsFinal();
     void ChargerMatrice();
+	void InitMatrice();
 };
 
 #endif // INTERFACEMATRICE_H

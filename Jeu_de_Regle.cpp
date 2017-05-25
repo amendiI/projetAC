@@ -92,7 +92,6 @@ int Jeu_de_Regle::applicationJeu(unsigned short * voi, int etat)
 {
     bool bol;
     int vide;
-    //if L vide.
 	for (RegleProba R : L[etat])
 	{
         vide=0;

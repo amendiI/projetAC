@@ -234,6 +234,36 @@ void InterfaceMatrice::ChargerMatrice()
     Afficher();
 }
 
+void InterfaceMatrice::InitMatrice()
+{
+	int somme = 0;
+	for (unsigned int i = 0; i < Etats->size(); i++)
+	{
+		somme += tabAlea.at(i)->value();
+	}
+	if (somme == 100){
+		for (int i = 0; i < matcour->getSize(); i++)
+		{
+			for (int j = 0; j < matcour->getSize(); j++)
+			{
+				int k = 0;
+				int r = (rand() % 100 + 1);
+				somme = tabAlea.at(0)->value();
+				while (r > somme) {
+					k++;
+					somme += tabAlea.at(k)->value();
+				}
+				matcour->setVal(i, j, (unsigned short)k);
+			}
+		}
+		Afficher();
+	}
+	else {
+		QMessageBox::information(this, tr("Initialisation Matrice"), tr("Erreur : Les Valeurs sont fausses!"));
+
+	}
+}
+
 // CONSTRUCTEURS //
 InterfaceMatrice::InterfaceMatrice()
 {}
@@ -327,6 +357,37 @@ InterfaceMatrice::InterfaceMatrice(Matrice* cour, Iterateur* worker, vector<Etat
     LayoutSecondaire->addWidget(ValiderNbGen);
     LayoutSecondaire->addWidget(playPause);
     LayoutSecondaire->addWidget(Stop);
+
+	//Ajout de la box Matrice Aléa
+
+	BoxMatriceAlea = new QGroupBox("Init Matrice :");
+	layoutMA = new QVBoxLayout(BoxMatriceAlea);
+	for (unsigned int i = 0; i <  Etats->size(); i++)
+	{
+		QHBoxLayout *layoutH = new QHBoxLayout();
+		QLabel * L = new QLabel();
+		L->setText(Etats->at(i)->GetNom());
+		QSpinBox *S = new QSpinBox();
+		S->setRange(0, 100);
+		QLabel * L2 = new QLabel();
+		L2->setText("%");
+		tabAlea.push_back(S);
+		layoutH->addWidget(L);
+		layoutH->addWidget(S);
+		layoutH->addWidget(L2);
+		layoutMA->addLayout(layoutH);
+		L->show();
+		S->show();
+		L2->show();
+	}
+	AleaBouton = new QPushButton("Go");
+	//connect
+	QObject::connect(AleaBouton, SIGNAL(clicked()), this, SLOT(InitMatrice()));
+
+	layoutMA->addWidget(AleaBouton);
+	AleaBouton->show();
+	LayoutSecondaire->addWidget(BoxMatriceAlea);
+	BoxMatriceAlea->show();
 
     //Remplissage des cellules de grilleCellule avec les valeurs de la matrice
     for(i=0; i<matcour->getSize(); i++)
