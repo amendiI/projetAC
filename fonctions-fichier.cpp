@@ -5,10 +5,10 @@
 
 #include "matrice.h"
 
-Matrice* load(Matrice* matrix){
+Matrice* Loading(Matrice* matrix){
     QString textFichier;
     QFile fichier("input.matrix");
-	//TODO le chemin peut etre passé en paramètre pour etre fourni par un explorateur de fichiers
+        //TODO le chemin peut etre passe en parametre pour etre fourni par un explorateur de fichiers
     if(!fichier.open(QIODevice::ReadOnly|QIODevice::Text)) return NULL;
 	//le fichier ne s'est pas ouvert
     textFichier=fichier.readAll();
@@ -38,7 +38,7 @@ Matrice* load(Matrice* matrix){
 	return matrix;
 }
 
-int record(Matrice* matrix){   //store only one state (etat courrant)
+int Recording2(Matrice* matrix){   //store only one state (etat courrant)
     QString text="";
         text+=QString::number(matrix->getNbDimensions());
         text+=";";

@@ -105,7 +105,6 @@ int Jeu_de_Regle::applicationJeu(unsigned short * voi, int etat)
 			if (R.get_voisinage()[i] == -1)
 				vide++;
 		}
-        cout<<vide<<","<<n<<endl;
         if (bol|| vide == n)
 			if (R.get_probabilitee() == 100)
 				return R.get_arivee();

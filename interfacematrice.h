@@ -23,6 +23,10 @@
 #include <QScrollBar>
 #include <QTimer>
 #include <QSpinBox>
+#include <QFile>
+#include <QTextStream>
+#include <QRegExp>
+#include <QFileDialog>
 
 #include "matrice.h"
 #include "iterateur.h"
@@ -53,6 +57,7 @@ private:
     int temps;
     int tempsfinal;
     QPushButton* ValiderTemps;
+    QPushButton* Chargement;
 
 public:
     InterfaceMatrice();
@@ -62,6 +67,8 @@ public:
     void matriceAleatoire();
     void playPause1(bool record);
     void playPause2(bool record, int n);
+    Matrice* Loading();
+    int Recording2(Matrice* matrix);
 
 public slots:
     //void actualiserAffichage(QTableWidgetItem * item);
@@ -75,6 +82,7 @@ public slots:
     void FaireStop();
     void RecupererTemps(int t);
     void ValiderTempsFinal();
+    void ChargerMatrice();
 };
 
 #endif // INTERFACEMATRICE_H
