@@ -197,7 +197,6 @@ void InterfaceMatrice::NbIterations()
     if(rec)
     {
         enr = Recording2(matcour);
-        printf("enr = %d \n",enr);
     }
 }
 
