@@ -22,13 +22,15 @@ private:
     InterfaceMatrice * Im;
     Jeu_de_Regle_nt * Jdr_nt;
     Jeu_de_Regle* Jdr;
+	QPushButton * reinitBouton;
 
 public:
     explicit Interface(QWidget *parent = 0);
 
 signals:
 
-public slots:
+public slots :
+		void Reinitialisation();
 };
 
 #endif // INTERFACE_H

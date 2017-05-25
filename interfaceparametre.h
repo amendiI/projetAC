@@ -19,6 +19,7 @@
 #include <QGroupBox>
 #include "Jeu_de_Regle_nt.h"
 #include "Jeu_de_Regle.h"
+#include "interfaceregle.h"
 
 
 using namespace std;
@@ -29,6 +30,7 @@ class InterfaceParametre : public QWidget
 
 private:
 
+	InterfaceRegle * IR;
     Jeu_de_Regle_nt * Jdr_nt;
     Jeu_de_Regle * Jdr;
     vector<EtatType*> tabEtats;
@@ -61,7 +63,7 @@ private:
 public:
 
       InterfaceParametre(QHBoxLayout* p,Jeu_de_Regle* J, Jeu_de_Regle_nt *J_nt, QVBoxLayout *L,QWidget *parent = 0);
-
+	  ~InterfaceParametre();
       int VerifierParametreEtat(QColor c , QString n);
 
 

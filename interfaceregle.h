@@ -29,6 +29,7 @@
 #include "Jeu_de_Regle.h"
 #include "interfacematrice.h"
 
+
 using namespace std;
 
 class InterfaceRegle : public QWidget
@@ -37,6 +38,7 @@ class InterfaceRegle : public QWidget
 
 private:
 
+	InterfaceMatrice * IM;
     Jeu_de_Regle_nt *Jdr_nt;
     Jeu_de_Regle * Jdr;
     int tailleMatrice;

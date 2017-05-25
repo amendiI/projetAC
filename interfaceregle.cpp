@@ -208,9 +208,9 @@ void InterfaceRegle::ValiderRegles()
     matrice->setMoore(!voisinage);
     Iterateur* iterateur = new Iterateur();
     iterateur->setJDR(Jdr);
-    InterfaceMatrice* interMatrice = new InterfaceMatrice(matrice,iterateur,couleurs);
-    interMatrice->show();
-    layoutPere->addWidget(interMatrice);
+    IM = new InterfaceMatrice(matrice,iterateur,couleurs);
+    IM->show();
+    layoutPere->addWidget(IM);
 }
 
 bool InterfaceRegle::verifRegle() {

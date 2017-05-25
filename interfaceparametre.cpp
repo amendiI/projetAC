@@ -158,6 +158,11 @@ InterfaceParametre::InterfaceParametre(QHBoxLayout *p, Jeu_de_Regle* J, Jeu_de_R
 
 }
 
+InterfaceParametre::~InterfaceParametre()
+{
+	delete IR;
+}
+
 int InterfaceParametre::VerifierParametreEtat(QColor c, QString n)
 {
     if(n == "") return 1;
@@ -225,10 +230,10 @@ void InterfaceParametre::ValiderParametres(){
         fenetreEtat->setDisabled(true);
         validerBouton->setDisabled(true);
 
-        InterfaceRegle * I = new InterfaceRegle(layoutPere,saisieVoisinage->currentIndex(),saisieTaille->value(),Jdr, Jdr_nt, &tabEtats);
+        IR = new InterfaceRegle(layoutPere,saisieVoisinage->currentIndex(),saisieTaille->value(),Jdr, Jdr_nt, &tabEtats);
         Jdr_nt->set_val(saisieTaille->value(),(int)tabEtats.size(), saisieVoisinage->currentIndex() );
-        layoutParent->addWidget(I);
-        I->setVisible(true);
+        layoutParent->addWidget(IR);
+        IR->setVisible(true);
     }
 
     else {
