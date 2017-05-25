@@ -20,7 +20,6 @@ Matrice::Matrice(const unsigned int newSize, const unsigned short nbPossibleStat
 			cellules[i]=Cell();
         break;
     case 1:
-        srand((unsigned)time(NULL));
         for(unsigned int i=0;i<getNbCells();i++){
             cellules[i]=Cell();
             cellules[i].setValue(rand()%nbPS);

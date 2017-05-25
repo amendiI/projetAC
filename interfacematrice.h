@@ -27,6 +27,9 @@
 #include <QTextStream>
 #include <QRegExp>
 #include <QFileDialog>
+#include <QGroupBox>
+#include <QLabel>
+#include <QMessageBox>
 
 #include "matrice.h"
 #include "iterateur.h"
@@ -52,6 +55,9 @@ private: //variables
     vector<QBrush*> brushEtats;
     QLCDNumber *nbSlider;
     QSpinBox* tempsIteration;
+    QGroupBox * BoxMatriceAlea;
+    QVBoxLayout * layoutMA;
+    vector<QSpinBox*> tabAlea;
 
     //Iteration
     Matrice * matcour;
@@ -67,6 +73,7 @@ private: //variables
     QPushButton *ValiderNbGen;  // Valider le nombre N d'itérations
     QPushButton *ValiderTemps;  // Valider le temps entre deux itérations
     QPushButton *Chargement;    // Charger une matrice
+    QPushButton *AleaBouton;
 
 public:
     InterfaceMatrice();
@@ -78,6 +85,7 @@ public:
     void playPause2(bool record, int n);
     Matrice* Loading();
     int Recording2(Matrice* matrix);
+    void InitMatrice();
 
 public slots:
     void ChangerCellule(int row,int column);   // changer la valeur d'une cellule

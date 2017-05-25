@@ -10,7 +10,7 @@ InterfaceParametre::InterfaceParametre(QHBoxLayout *p, Jeu_de_Regle* J, Jeu_de_R
     layoutPere = p;
     Jdr = J;
     Jdr_nt = J_nt;
-    this->resize(400, 400);
+    this->resize(600, 600);
     layoutParent = L;
     parametreLayout = new QVBoxLayout(this);
 
