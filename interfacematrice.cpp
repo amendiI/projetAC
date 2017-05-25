@@ -83,28 +83,6 @@ int InterfaceMatrice::Recording2(Matrice* matrix){   //store only one state (eta
 
 
 // PUBLIC SLOTS //
-
-/*
-void InterfaceMatrice::actualiserAffichage(QTableWidgetItem * item)
-{
-    bool ok = true;
-    int val;
-
-    printf("coucou, change la valeur mec ! \n");
-
-    val = item->text().toInt(&ok,10);
-    if(val > Etats->size() || val < 0)
-    {
-        printf("coucou, valeur pas bonne \n");
-        val = 0;
-        item->setText(QString::number(val));
-    }
-
-    matcour->setVal(item->column(),item->row(),val);
-    item->setBackground(*brushEtats.at(val));
-}
-*/
-
 void InterfaceMatrice::ChangerCellule(int row, int column)
 {
     QTableWidgetItem* item = grilleCellule->item(row,column);
@@ -140,11 +118,9 @@ void InterfaceMatrice::Afficher()
 void InterfaceMatrice::LancerIterateur()
 {
     unsigned int i,j;
-
     QObject::disconnect(grilleCellule,SIGNAL(cellChanged(int,int)),this,SLOT(ChangerCellule(int,int)));
 
     travailleur->transformMatrice();
-
     for(i=0;i<matcour->getSize();i++)
     {
         for(j=0;j<matcour->getSize();j++)
@@ -156,12 +132,34 @@ void InterfaceMatrice::LancerIterateur()
     QObject::connect(grilleCellule,SIGNAL(cellChanged(int,int)),this,SLOT(ChangerCellule(int,int)));
 }
 
-void InterfaceMatrice::ChangerRec(int state)
+void InterfaceMatrice::InfiniIterations()
 {
-    if(state == 0 || state == 1)
-        rec = false;
+    timer1 = new QTimer();
+    QObject::connect(timer1,SIGNAL(timeout()),this,SLOT(LancerIterateur()));
+    timer1->start(tempsfinal);
+}
+
+void InterfaceMatrice::StopInfini()
+{
+    timer1->stop();
+}
+
+void InterfaceMatrice::RecupererTemps(int t)
+{
+    if(t == 0)
+        temps = 100;
     else
-        rec = true;
+        temps = t*100;         //100ds = 1s.
+}
+
+void InterfaceMatrice::ValiderTempsFinal()
+{
+    if(temps == 0)
+        tempsfinal = 1;
+    else
+        tempsfinal = temps;
+    tempsIteration->setDisabled(true);
+    ValiderTemps->setDisabled(true);
 }
 
 void InterfaceMatrice::ChangerNbGenerations(int val)
@@ -182,25 +180,40 @@ void InterfaceMatrice::NbGenerationsFini()
     ValiderNbGen->setDisabled(true);
 }
 
-void InterfaceMatrice::NbIterations()
+void InterfaceMatrice::LancerIterateurN()
 {
-    timer1 = new QTimer();
-    QTimer * timer2 = new QTimer();
+    unsigned int i,j;
+    QObject::disconnect(grilleCellule,SIGNAL(cellChanged(int,int)),this,SLOT(ChangerCellule(int,int)));
 
-    QObject::connect(timer1,SIGNAL(timeout()),this,SLOT(LancerIterateur()));
-    QObject::connect(timer2,SIGNAL(timeout()),timer1,SLOT(stop()));
-
-    timer1->start(tempsfinal);
-    timer2->start(tempsfinal*(NbGenFinal+1));    //de 1 à 10 = 9 itérations --> +1
-
-    int enr;
-    if(rec)
+    travailleur->transformMatrice();
+    for(i=0;i<matcour->getSize();i++)
     {
-        enr = Recording2(matcour);
+        for(j=0;j<matcour->getSize();j++)
+        {
+            itemCellule->setText(QString::number(matcour->getVal(i,j)));
+        }
     }
+    Afficher();
+
+    if(stopNit == NbGenFinal)
+    {
+        timer1->stop();
+    }
+    stopNit++;
+    QObject::connect(grilleCellule,SIGNAL(cellChanged(int,int)),this,SLOT(ChangerCellule(int,int)));
 }
 
-void InterfaceMatrice::FaireStop()
+void InterfaceMatrice::LancerNIterations()
+{
+    timer1 = new QTimer();
+
+    QObject::connect(timer1,SIGNAL(timeout()),this,SLOT(LancerIterateurN()));
+
+    stopNit = 0;
+    timer1->start(tempsfinal);
+}
+
+void InterfaceMatrice::FaireStopN()
 {
     timer1->stop();
     nbSlider->setEnabled(true);
@@ -209,30 +222,23 @@ void InterfaceMatrice::FaireStop()
     ValiderTemps->setEnabled(true);
 }
 
-void InterfaceMatrice::RecupererTemps(int t)
+void InterfaceMatrice::ChangerRec(int state)
 {
-    printf("t = %d \n",t);
-    if(t == 0)
-        temps = 100;
+    if(state == 0 || state == 1)
+        rec = false;
     else
-        temps = t*100;         //100ds = 1s.
+        rec = true;
 }
 
-void InterfaceMatrice::ValiderTempsFinal()
-{
-    if(temps == 0)
-        tempsfinal = 1;
-    else
-        tempsfinal = temps;
-    tempsIteration->setDisabled(true);
-    ValiderTemps->setDisabled(true);
-}
+
 
 void InterfaceMatrice::ChargerMatrice()
 {
     matcour = Loading();
     Afficher();
 }
+
+
 
 // CONSTRUCTEURS //
 InterfaceMatrice::InterfaceMatrice()
@@ -270,12 +276,23 @@ InterfaceMatrice::InterfaceMatrice(Matrice* cour, Iterateur* worker, vector<Etat
     QVBoxLayout *LayoutMatrice = new QVBoxLayout();
 
     //Initialisation des boutons
-    playPause = new QPushButton("Play");
+    tempsIteration = new QSpinBox();
+    tempsIteration->setSuffix("  ds");
+    tempsIteration->setRange(1,100);
+    tempsIteration->setValue(10);
+    temps = 100;
 
-    Stop = new QPushButton("Stop");
+    ValiderTemps = new QPushButton("Valider temps");
 
-    enregistrement = new QCheckBox("Enregistrer");
-    rec = false;
+    Play = new QPushButton("Play 1 fois");
+
+    Infini = new QPushButton("Infini");
+
+    StopInf = new QPushButton("Stop Infini");
+
+    PlayN = new QPushButton("Play N fois");
+
+    StopN = new QPushButton("Stop N itérations");
 
     saisieNbGenerations = new QSlider(Qt::Horizontal,parent);
     saisieNbGenerations->setRange(1,100);
@@ -288,45 +305,52 @@ InterfaceMatrice::InterfaceMatrice(Matrice* cour, Iterateur* worker, vector<Etat
 
     ValiderNbGen = new QPushButton("Valider");
 
-    tempsIteration = new QSpinBox();
-    tempsIteration->setSuffix("  ds");
-    tempsIteration->setRange(1,100);
-    tempsIteration->setValue(10);
-    temps = 100;
-
-    ValiderTemps = new QPushButton("Valider temps");
-
-    Chargement = new QPushButton("Charger Matrice");
+    enregistrement = new QCheckBox("Enregistrer");
+    rec = false;
 
     //Connecter les boutons à leurs slots
-    QObject::connect(saisieNbGenerations,SIGNAL(valueChanged(int)),nbSlider,SLOT(display(int)));
+    QObject::connect(Play,SIGNAL(clicked()),this,SLOT(LancerIterateur()));
 
-    QObject::connect(playPause,SIGNAL(clicked()),this,SLOT(NbIterations()));
+    QObject::connect(Infini,SIGNAL(clicked(bool)),this,SLOT(InfiniIterations()));
 
-    QObject::connect(Stop,SIGNAL(clicked()),this,SLOT(FaireStop()));
+    QObject::connect(StopInf,SIGNAL(clicked(bool)),this,SLOT(StopInfini()));
 
-    QObject::connect(enregistrement,SIGNAL(stateChanged(int)),this,SLOT(ChangerRec(int)));
+    QObject::connect(PlayN,SIGNAL(clicked()),this,SLOT(LancerNIterations()));
 
-    QObject::connect(saisieNbGenerations,SIGNAL(valueChanged(int)),this,SLOT(ChangerNbGenerations(int)));
-
-    QObject::connect(ValiderNbGen,SIGNAL(clicked()),this,SLOT(NbGenerationsFini()));
+    QObject::connect(StopN,SIGNAL(clicked(bool)),this,SLOT(FaireStopN()));
 
     QObject::connect(tempsIteration,SIGNAL(valueChanged(int)),this,SLOT(RecupererTemps(int)));
 
     QObject::connect(ValiderTemps,SIGNAL(clicked()),this,SLOT(ValiderTempsFinal()));
 
+    QObject::connect(saisieNbGenerations,SIGNAL(valueChanged(int)),nbSlider,SLOT(display(int)));
+
+    QObject::connect(ValiderNbGen,SIGNAL(clicked()),this,SLOT(NbGenerationsFini()));
+
+    QObject::connect(saisieNbGenerations,SIGNAL(valueChanged(int)),this,SLOT(ChangerNbGenerations(int)));
+
+    QObject::connect(enregistrement,SIGNAL(stateChanged(int)),this,SLOT(ChangerRec(int)));
+
+/*
     QObject::connect(Chargement,SIGNAL(clicked(bool)),this,SLOT(ChargerMatrice()));
+*/
 
     //Ajout des boutons aux Layout
-    LayoutSecondaire->addWidget(Chargement);
-    LayoutSecondaire->addWidget(enregistrement);
     LayoutSecondaire->addWidget(tempsIteration);
     LayoutSecondaire->addWidget(ValiderTemps);
+    LayoutSecondaire->addWidget(Play);
+    LayoutSecondaire->addWidget(Infini);
+    LayoutSecondaire->addWidget(StopInf);
     LayoutSecondaire->addWidget(saisieNbGenerations);
     LayoutSecondaire->addWidget(nbSlider);
     LayoutSecondaire->addWidget(ValiderNbGen);
-    LayoutSecondaire->addWidget(playPause);
-    LayoutSecondaire->addWidget(Stop);
+    LayoutSecondaire->addWidget(PlayN);
+    LayoutSecondaire->addWidget(StopN);
+    LayoutSecondaire->addWidget(enregistrement);
+
+    /*
+    LayoutSecondaire->addWidget(Chargement);
+*/
 
     //Remplissage des cellules de grilleCellule avec les valeurs de la matrice
     for(i=0; i<matcour->getSize(); i++)
@@ -376,16 +400,25 @@ InterfaceMatrice::InterfaceMatrice(Matrice* cour, Iterateur* worker, vector<Etat
 InterfaceMatrice::~InterfaceMatrice()
 {
     //delete
-    delete grilleCellule;
-    delete playPause;
-    delete enregistrement;
+    delete Play;
+    delete Infini;
+    delete PlayN;
+    delete StopInf;
+    delete StopN;
+    delete ValiderTemps;
     delete saisieNbGenerations;
+    delete ValiderNbGen;
+    delete enregistrement;
+
+    delete grilleCellule;
     delete nbSlider;
-    delete Stop;
     delete timer1;
+    delete Chargement;
+    delete tempsIteration;
+    matcour->~Matrice();
+    travailleur->~Iterateur();
     delete matcour;
     delete travailleur;
-    delete ValiderNbGen;
 }
 
 
