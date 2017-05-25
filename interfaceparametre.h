@@ -58,7 +58,6 @@ private:
                     QVBoxLayout *fenetreEtatLayout;
         QHBoxLayout *boutonLayout;
             QPushButton *validerBouton;
-            QPushButton *enregistrerBouton;
 
 public:
 

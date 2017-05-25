@@ -465,10 +465,8 @@ InterfaceMatrice::~InterfaceMatrice()
     delete enregistrement;
     delete grilleCellule;
     delete nbSlider;
-    delete brushEtats;
     delete BoxMatriceAlea;
     delete layoutMA;
-    delete tabAlea;
     delete tempsIteration;
 
     //delete Iteration
