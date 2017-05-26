@@ -1,39 +1,11 @@
 #include "interfaceregle.h"
 
-InterfaceRegle::InterfaceRegle(QHBoxLayout *p, int v, int taille, Jeu_de_Regle *J, Jeu_de_Regle_nt* J_nt, vector<EtatType *> *tabEtats, QWidget *parent) : QWidget(parent)
+InterfaceRegle::InterfaceRegle()
 {
-    couleurs = tabEtats;
-    layoutPere = p;
-    voisinage = v;
-    tailleMatrice = taille;
-    Jdr = J;
-    Jdr_nt = J_nt;
     saisieDepart = new QComboBox();
     saisieArrive = new QComboBox();
     saisieArriveProba = new QComboBox();
     layoutTabSaisieRegle = new QGridLayout();
-
-    for(unsigned int i = 0; i<tabEtats->size(); i++){
-        QColor c = tabEtats->at(i)->GetColor();
-        QString n = tabEtats->at(i)->GetNom();
-        saisieDepart->addItem(n);
-        saisieArrive->addItem(n);
-        saisieArriveProba->addItem(n);
-
-        QLineEdit *E = new QLineEdit();
-        QString cname = c.name();
-        cname.push_front("background-color: ");
-        E->setStyleSheet(cname);
-        E->setText("  ");
-        E->setReadOnly(true);
-        layoutTabSaisieRegle->addWidget(E,0,i);
-        E->show();
-        QLineEdit *F = new QLineEdit();
-        tabSaisieRegle.push_back(F);
-        layoutTabSaisieRegle->addWidget(F,1,i);
-        F->show();
-
-    }
 
 
     layoutPrincipal = new  QVBoxLayout(this);
@@ -123,8 +95,6 @@ InterfaceRegle::InterfaceRegle(QHBoxLayout *p, int v, int taille, Jeu_de_Regle *
 
 }
 
-
-
 vector<QLineEdit *> InterfaceRegle::getVectorRegle()
 {
     return tabSaisieRegle;
@@ -165,31 +135,12 @@ void InterfaceRegle::ajouterRegle()
     }
 }
 
-void InterfaceRegle::EnregistrerRegles(){
-    QString fichier = QFileDialog::getSaveFileName(this, "Enregistrer un fichier", QString(), "Fichier Texte(*.txt *.ol *.fe)");
-    QFile file(fichier);
-     /*
-    // Ouverture en écriture seule et petites optimisations avec QIODevice::Text
-    if(!file.open(QIODevice::WriteOnly | QIODevice::Text))
-    return;
-    // On écrit à l'emplacement du fichier en mettant le contenu de la zone de texte dedans
-    file.write(zoneTexte->toPlainText().toAscii());
-     */
-}
-
-void  InterfaceRegle::ChargerRegles(){
-
-    QString fichier = QFileDialog::getOpenFileName(this, "Ouvrir un fichier", QString(), "Fichiers Texte (*.txt)");
-
-}
-
-void InterfaceRegle::ValiderRegles()
+void InterfaceRegle::ValiderRegles()//TODO facultatif
 {
     for(unsigned int i = 0; i<r.size(); i++){
         Jdr_nt->ajout_regle(r.at(i)->getDepart(),r.at(i)->getArrivee(),r.at(i)->getRegle(), r.at(i)->getProba());
     }
     Jdr->set_value(*Jdr_nt);
-    delete Jdr_nt;
     saisieDepart->setDisabled(true);
     saisieArriveProba->setDisabled(true);
     saisieArrive->setDisabled(true);
@@ -199,13 +150,6 @@ void InterfaceRegle::ValiderRegles()
     fenetreRegle->setDisabled(true);
     validerBouton->setDisabled(true);
 
-    Matrice* matrice = new Matrice(tailleMatrice,(unsigned int)tabSaisieRegle.size(),0);
-    matrice->setMoore(!voisinage);
-    Iterateur* iterateur = new Iterateur();
-    iterateur->setJDR(Jdr);
-    IM = new InterfaceMatrice(matrice,iterateur,couleurs);
-    IM->show();
-    layoutPere->addWidget(IM);
 }
 
 bool InterfaceRegle::verifRegle() {
@@ -220,4 +164,50 @@ bool InterfaceRegle::verifRegle() {
         }
     }
     return true;
+}
+
+void InterfaceRegle::EnregistrerRegles(){
+
+}
+
+void InterfaceRegle::ChargerRegles(){
+
+}
+
+void InterfaceRegle::setTableauEtats(vector<EtatType *> *tabEtats)
+{
+    for(unsigned int i = 0; i<tabEtats->size(); i++){
+        QColor c = tabEtats->at(i)->GetColor();
+        QString n = tabEtats->at(i)->GetNom();
+        saisieDepart->addItem(n);
+        saisieArrive->addItem(n);
+        saisieArriveProba->addItem(n);
+
+        QLineEdit *E = new QLineEdit();
+        QString cname = c.name();
+        cname.push_front("background-color: ");
+        E->setStyleSheet(cname);
+        E->setText("  ");
+        E->setReadOnly(true);
+        layoutTabSaisieRegle->addWidget(E,0,i);
+        E->show();
+        QLineEdit *F = new QLineEdit();
+        tabSaisieRegle.push_back(F);
+        layoutTabSaisieRegle->addWidget(F,1,i);
+        F->show();
+
+    }
+}
+
+void InterfaceRegle::setJDR(Jeu_de_Regle *Jeu)
+{
+    if(Jeu == NULL)
+        return;
+    Jdr = Jeu;
+    Jdr_nt = new Jeu_de_Regle_nt();
+}
+
+Jeu_de_Regle_nt *InterfaceRegle::getJDR_nt()
+{
+    return Jdr_nt;
 }

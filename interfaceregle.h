@@ -26,12 +26,8 @@ class InterfaceRegle : public QWidget
 
 private:
 
-	InterfaceMatrice * IM;
     Jeu_de_Regle_nt *Jdr_nt;
     Jeu_de_Regle * Jdr;
-    int tailleMatrice;
-    int voisinage;
-    vector<EtatType *> *couleurs;
     QHBoxLayout* layoutPere;
     QVBoxLayout *layoutPrincipal;
         QHBoxLayout *layoutDA;
@@ -58,15 +54,17 @@ private:
             QPushButton *enregistrerBouton;
 
 public:
-    explicit InterfaceRegle(QWidget *parent = 0);
+    //explicit InterfaceRegle(QWidget *parent = 0);
 
-    InterfaceRegle(QHBoxLayout* p,int v,int taille,Jeu_de_Regle *J, Jeu_de_Regle_nt* J_nt, vector<EtatType *> *tabEtats, QWidget *parent = 0);
+    InterfaceRegle();
 
     vector<QLineEdit*> getVectorRegle();
 
     bool verifRegle();
 
-signals:
+    void setTableauEtats(vector <EtatType*> *tableau);
+    void setJDR(Jeu_de_Regle *Jeu);
+    Jeu_de_Regle_nt * getJDR_nt();
 
 public slots:
 

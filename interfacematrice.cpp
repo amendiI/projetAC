@@ -65,12 +65,100 @@ int InterfaceMatrice::Recording2(Matrice* matrix){   //store only one state (eta
 }
 
 
+void InterfaceMatrice::setMatrice(Matrice *matrice)
+{
+    if(matrice == NULL)return;
+    matcour = matrice;
+    unsigned int i,j;
+    bool ok = true;
+    int val;
+
+    //Initialisation grilleCellule avec taille matrice
+    //grilleCellule = new QTableWidget(this);
+    grilleCellule->setRowCount(matcour->getSize());
+    grilleCellule->setColumnCount(matcour->getSize());
+
+    //Remplissage des cellules de grilleCellule avec les valeurs de la matrice
+    for(i=0; i<matcour->getSize(); i++)
+    {
+        for(j=0; j<matcour->getSize(); j++)
+        {
+            itemCellule = new QTableWidgetItem(QString::number(matcour->getVal(i,j)));
+            itemCellule->setTextAlignment(Qt::AlignCenter);
+            val = itemCellule->text().toInt(&ok,10);
+            itemCellule->setBackground(*brushEtats.at(val));
+            grilleCellule->setItem(i,j,itemCellule);
+        }
+    }
+
+    QObject::connect(grilleCellule,SIGNAL(cellChanged(int,int)),this,SLOT(ChangerCellule(int,int)));
+
+    //Définir la taille des cellules
+    int taille = matcour->getSize();
+    int sizeCell = 800/taille;
+
+    for(int c=0;c<grilleCellule->columnCount();c++)
+    {
+        grilleCellule->setColumnWidth(c,sizeCell);
+        grilleCellule->setRowHeight(c,sizeCell);
+    }
+
+    setMaximumSize(400+taille*sizeCell+3,20+taille*sizeCell+3);
+
+    //Resize de grilleCellule dans la fenêtre
+    grilleCellule->setFixedSize(sizeCell*taille+3,sizeCell*taille+3);
+    grilleCellule->horizontalHeader()->hide();
+    grilleCellule->verticalHeader()->hide();
+}
+
+void InterfaceMatrice::setIterateur(Iterateur *iterateur)
+{
+    if(iterateur != NULL)
+        travailleur = iterateur;
+    travailleur->setMatrice(matcour);
+}
+
+void InterfaceMatrice::setTableauEtats(vector<EtatType *> *type)
+{
+    if(type == NULL)return;
+        Etats = type;
+
+    //Initialisation des couleurs possibles des cellules
+    for(unsigned int i=0; i<Etats->size();i++)
+    {
+        QBrush* B = new QBrush(Etats->at(i)->GetColor());
+        brushEtats.push_back(B);
+    }
+
+    for (unsigned int i = 0; i <  Etats->size(); i++)
+    {
+        QHBoxLayout *layoutH = new QHBoxLayout();
+        QLabel * L = new QLabel();
+        L->setText(Etats->at(i)->GetNom());
+        QSpinBox *S = new QSpinBox();
+        S->setRange(0, 100);
+        QLabel * L2 = new QLabel();
+        L2->setText("%");
+        tabAlea.push_back(S);
+        layoutH->addWidget(L);
+        layoutH->addWidget(S);
+        layoutH->addWidget(L2);
+        layoutMA->addLayout(layoutH);
+        L->show();
+        S->show();
+        L2->show();
+    }
+
+}
+
+
+
 // PUBLIC SLOTS //
 void InterfaceMatrice::ChangerCellule(int row, int column)
 {
     QTableWidgetItem* item = grilleCellule->item(row,column);
     bool ok = true;
-    if(!(item->text().toInt(&ok,10) < Etats->size()))
+    if(!(item->text().toUInt(&ok,10) < Etats->size()))
     {
         item->setText("0");
     }
@@ -289,38 +377,16 @@ void InterfaceMatrice::ChargerMatrice()
 
 // CONSTRUCTEURS //
 InterfaceMatrice::InterfaceMatrice()
-{}
-
-InterfaceMatrice::InterfaceMatrice(Matrice* cour, Iterateur* worker, vector<EtatType *> *type)
 {
-    //Initialisation matrice courante et Iterateur
-    matcour = cour;
-    travailleur = worker;
-    travailleur->setMatrice(matcour);
-    Etats = type;
-
-    //Initialisation des couleurs possibles des cellules
-    for(unsigned int i=0; i<Etats->size();i++)
-    {
-        QBrush* B = new QBrush(Etats->at(i)->GetColor());
-        brushEtats.push_back(B);
-    }
-
-    //variables
-    unsigned int i,j;
-    bool ok = true;
-    int val;
-
-    //Initialisation grilleCellule avec taille matrice
-    grilleCellule = new QTableWidget(this);
-    grilleCellule->setRowCount(matcour->getSize());
-    grilleCellule->setColumnCount(matcour->getSize());
+    //Initialisation matrice courante
+    matcour = NULL;
+    travailleur=NULL;
+    Etats=NULL;
 
     //Initialisation des Layout
-    QWidget *parent = 0;
-    QHBoxLayout *layoutPrincipal = new QHBoxLayout();
-    QFormLayout *LayoutSecondaire = new QFormLayout();
-    QVBoxLayout *LayoutMatrice = new QVBoxLayout();
+    layoutPrincipal = new QHBoxLayout();
+    LayoutSecondaire = new QFormLayout();
+    LayoutMatrice = new QVBoxLayout();
 
     //Initialisation des boutons
     tempsIteration = new QSpinBox();
@@ -328,6 +394,8 @@ InterfaceMatrice::InterfaceMatrice(Matrice* cour, Iterateur* worker, vector<Etat
     tempsIteration->setRange(1,100);
     tempsIteration->setValue(10);
     temps = 100;
+
+    grilleCellule = new QTableWidget(this);
 
     ValiderTemps = new QPushButton("Valider temps");
 
@@ -341,6 +409,7 @@ InterfaceMatrice::InterfaceMatrice(Matrice* cour, Iterateur* worker, vector<Etat
 
     StopN = new QPushButton("Stop N itérations");
 
+    QWidget *parent = 0;
     saisieNbGenerations = new QSlider(Qt::Horizontal,parent);
     saisieNbGenerations->setRange(1,100);
     saisieNbGenerations->setValue(1);
@@ -368,38 +437,16 @@ InterfaceMatrice::InterfaceMatrice(Matrice* cour, Iterateur* worker, vector<Etat
     QObject::connect(saisieNbGenerations,SIGNAL(valueChanged(int)),this,SLOT(ChangerNbGenerations(int)));
     QObject::connect(enregistrement,SIGNAL(stateChanged(int)),this,SLOT(ChangerRec(int)));
 
-/*
-    QObject::connect(Chargement,SIGNAL(clicked(bool)),this,SLOT(ChargerMatrice()));
-*/
-
     BoxMatriceAlea = new QGroupBox("Init Matrice :");
     layoutMA = new QVBoxLayout(BoxMatriceAlea);
-    for (unsigned int i = 0; i <  Etats->size(); i++)
-    {
-        QHBoxLayout *layoutH = new QHBoxLayout();
-        QLabel * L = new QLabel();
-        L->setText(Etats->at(i)->GetNom());
-        QSpinBox *S = new QSpinBox();
-        S->setRange(0, 100);
-        QLabel * L2 = new QLabel();
-        L2->setText("%");
-        tabAlea.push_back(S);
-        layoutH->addWidget(L);
-        layoutH->addWidget(S);
-        layoutH->addWidget(L2);
-        layoutMA->addLayout(layoutH);
-        L->show();
-        S->show();
-        L2->show();
-    }
     AleaBouton = new QPushButton("Go");
     //connect
     QObject::connect(AleaBouton, SIGNAL(clicked()), this, SLOT(InitMatrice()));
 
     layoutMA->addWidget(AleaBouton);
-    AleaBouton->show();
+    //AleaBouton->show();
     LayoutSecondaire->addWidget(BoxMatriceAlea);
-    BoxMatriceAlea->show();
+    //BoxMatriceAlea->show();
 
 
     //Ajout des boutons aux Layout
@@ -415,43 +462,8 @@ InterfaceMatrice::InterfaceMatrice(Matrice* cour, Iterateur* worker, vector<Etat
     LayoutSecondaire->addWidget(StopN);
     LayoutSecondaire->addWidget(enregistrement);
 
-    /*
-    LayoutSecondaire->addWidget(Chargement);
-*/
-
-    //Remplissage des cellules de grilleCellule avec les valeurs de la matrice
-    for(i=0; i<matcour->getSize(); i++)
-    {
-        for(j=0; j<matcour->getSize(); j++)
-        {
-            itemCellule = new QTableWidgetItem(QString::number(matcour->getVal(i,j)));
-            itemCellule->setTextAlignment(Qt::AlignCenter);
-            val = itemCellule->text().toInt(&ok,10);
-            itemCellule->setBackground(*brushEtats.at(val));
-            grilleCellule->setItem(i,j,itemCellule);
-        }
-    }
-
-    QObject::connect(grilleCellule,SIGNAL(cellChanged(int,int)),this,SLOT(ChangerCellule(int,int)));
-
-    //Définir la taille des cellules
-    int taille = matcour->getSize();
-    int sizeCell = 800/taille;
-
-    for(int c=0;c<grilleCellule->columnCount();c++)
-    {
-        grilleCellule->setColumnWidth(c,sizeCell);
-        grilleCellule->setRowHeight(c,sizeCell);
-    }
-
-    setMaximumSize(400+taille*sizeCell+3,20+taille*sizeCell+3);
-
-    //Resize de grilleCellule dans la fenêtre
-    grilleCellule->setFixedSize(sizeCell*taille+3,sizeCell*taille+3);
-    grilleCellule->horizontalHeader()->hide();
-    grilleCellule->verticalHeader()->hide();
-
     //Ajout de grilleCellule dans le Layout
+    grilleCellule->setFixedSize(803,803);
     LayoutMatrice->addWidget(grilleCellule);
 
     //Ajout des Layout dans le layoutPrincipal

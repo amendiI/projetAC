@@ -3,11 +3,12 @@
 
 #include <QWidget>
 #include <QVBoxLayout>
+
 #include "interfaceparametre.h"
 #include "interfaceregle.h"
 #include "interfacematrice.h"
 #include "Jeu_de_Regle_nt.h"
-#include "Jeu_de_Regle.h"
+#include "iterateur.h"
 
 class Interface : public QWidget
 {
@@ -17,20 +18,22 @@ private:
 
     QVBoxLayout *layout;
     QHBoxLayout *layoutH;
-    InterfaceParametre *Ip;
-    InterfaceRegle *Ir;
-    InterfaceMatrice * Im;
-    Jeu_de_Regle_nt * Jdr_nt;
-    Jeu_de_Regle* Jdr;
+    InterfaceParametre *interP;
+    InterfaceRegle *interR;
+    InterfaceMatrice * interM;
 	QPushButton * reinitBouton;
+
+    Jeu_de_Regle* jdr;
+    Matrice * matrix;
+    Iterateur * worker;
+
 
 public:
     explicit Interface(QWidget *parent = 0);
 
-signals:
-
 public slots :
-		void Reinitialisation();
+    void recevePara(unsigned int size,unsigned short nbPS,int v,vector<EtatType*>* d);
+    void Reinitialisation();
 };
 
 #endif // INTERFACE_H

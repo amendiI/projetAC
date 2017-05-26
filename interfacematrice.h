@@ -55,6 +55,9 @@ private: //variables
     QLCDNumber *nbSlider;
     QSpinBox *tempsIteration;
     QGroupBox *BoxMatriceAlea;
+    QHBoxLayout *layoutPrincipal;
+    QFormLayout *LayoutSecondaire;
+    QVBoxLayout *LayoutMatrice;
     QVBoxLayout *layoutMA;
     vector<QSpinBox*> tabAlea;
 
@@ -76,7 +79,7 @@ private: //variables
 
 public:
     InterfaceMatrice();
-    InterfaceMatrice(Matrice* cour,Iterateur* worker,vector<EtatType*> *type);
+    //InterfaceMatrice(Matrice* cour,Iterateur* worker,vector<EtatType*> *type);
     ~InterfaceMatrice();
     void modificationGrille();
     void matriceAleatoire();
@@ -84,6 +87,12 @@ public:
     void playPause2(bool record, int n);
     Matrice* Loading();
     int Recording2(Matrice* matrix);
+
+    void setMatrice(Matrice* matrice);
+    void setIterateur(Iterateur* iterateur);
+    void setTableauEtats(vector<EtatType*> *type);
+
+
 
 public slots:
     void ChangerCellule(int row,int column);   // changer la valeur d'une cellule
