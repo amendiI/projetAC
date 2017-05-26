@@ -16,7 +16,40 @@ void Interface::Reinitialisation() {
 void  Interface::Charger() {
 
 	QString fichier = QFileDialog::getOpenFileName(this, "Ouvrir un fichier", QString(), "Fichiers Texte (*.txt)");
+	QFile file(fichier);
 
+	if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+		return;
+
+	QTextStream in(&file);
+	QString str;
+	bool ok = true;
+	int nbEtats;
+
+	interP->setTailleMatrice(in.readLine().split(';')[0].toInt(&ok, 10));
+	interP->setTypeVoisinage(in.readLine().split(';')[0].toInt());
+	nbEtats = in.readLine().split(';')[0].toInt();
+
+	for (int i = 0; i < nbEtats; i++)
+	{
+		str = in.readLine();
+		interP->ajouterEtatChargement(str.split(',')[0], str.split(',')[1]);
+	}
+	interP->ValiderParametres();
+	for (str = in.readLine(); !str.isEmpty(); str = in.readLine()) 
+	{
+		QString str2;
+		vector<QString> R;
+		str2 = str.split('(')[1];
+		str2.chop(3);
+		str2.remove(0, 1);
+		for (int i = 0; i < nbEtats; i++)
+		{
+			R.push_back(str2.split(',')[i]);
+		}
+		interR->ajouterRegleChargement(str.split(',')[0], str.split(',')[1], str.split(',')[2], str.split(',')[3], R);
+	}
+	file.close();
 }
 
 void Interface::Enregistrer() {

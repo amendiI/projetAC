@@ -66,6 +66,9 @@ public:
 	  int getNbEtats();
 	  QString getNomEtat(int i);
 	  QString getColorStrEtat(int i);
+	  void setTailleMatrice(int i);
+	  void setTypeVoisinage(int i);
+	  void ajouterEtatChargement(QString nom, QString colorStr);
 
 
 signals:

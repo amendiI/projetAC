@@ -232,3 +232,7 @@ QString InterfaceRegle::getVoisinage(int i, int j)
 {
 	return QString::fromStdString(r.at(i)->getRegle()[j]);
 }
+
+void InterfaceRegle::ajouterRegleChargement(int d, int a, int p, int ap, vector<QString> regle)
+{
+}

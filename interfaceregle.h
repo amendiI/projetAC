@@ -69,6 +69,7 @@ public:
 	int getProbaRegle(int i);
 	int getProbaArriveeRegle(int i);
 	QString getVoisinage(int i, int j);
+	void ajouterRegleChargement(int d, int a, int p, int ap, vector<QString> regle);
 
 
 signals:
