@@ -74,7 +74,6 @@ void InterfaceMatrice::setMatrice(Matrice *matrice)
     int val;
 
     //Initialisation grilleCellule avec taille matrice
-    //grilleCellule = new QTableWidget(this);
     grilleCellule->setRowCount(matcour->getSize());
     grilleCellule->setColumnCount(matcour->getSize());
 
@@ -163,7 +162,6 @@ void InterfaceMatrice::ChangerCellule(int row, int column)
         item->setText("0");
     }
     matcour->setVal(item->row(), item->column(),item->text().toUShort(&ok,10));
-    //travailleur->SetValMatriceTransition(item->column(),item->row(),item->text().toUShort(&ok,10));
     item->setBackground(*brushEtats.at(item->text().toInt(&ok,10)));
 }
 
@@ -238,20 +236,24 @@ void InterfaceMatrice::StopInfini()
 
 void InterfaceMatrice::RecupererTemps(int t)
 {
-    if(t == 0)
-        temps = 100;
+    if(t < 250)
+        temps = 250;
     else
-        temps = t*100;         //100ds = 1s.
+        temps = t;         //1000ms = 1s.
 }
 
 void InterfaceMatrice::ValiderTempsFinal()
 {
-    if(temps == 1)
-        tempsfinal = 100;
+    if(temps < 250)
+    {
+        tempsfinal = 250;
+    }
     else
+    {
         tempsfinal = temps;
-    tempsIteration->setDisabled(true);
-    ValiderTemps->setDisabled(true);
+        tempsIteration->setDisabled(true);
+        ValiderTemps->setDisabled(true);
+    }
 }
 
 void InterfaceMatrice::ChangerNbGenerations(int val)
@@ -397,10 +399,10 @@ InterfaceMatrice::InterfaceMatrice()
 
     //Initialisation des boutons
     tempsIteration = new QSpinBox();
-    tempsIteration->setSuffix("  ds");
-    tempsIteration->setRange(1,100);
-    tempsIteration->setValue(10);
-    temps = 100;
+    tempsIteration->setSuffix("  ms");
+    tempsIteration->setRange(250,10000);
+    tempsIteration->setValue(250);
+    temps = 250;
 
     grilleCellule = new QTableWidget(this);
 
@@ -408,7 +410,6 @@ InterfaceMatrice::InterfaceMatrice()
     AleaBouton = new QPushButton("Go");
     AleaBouton->setDisabled(true);
     ValiderTemps = new QPushButton("Valider temps");
-    //ValiderTemps->setDisabled(true);
     Play = new QPushButton("Play 1 fois");
     Play->setDisabled(true);
     Infini = new QPushButton("Infini");

@@ -16,29 +16,23 @@ InterfaceRegle::InterfaceRegle()
 
              labelDepart = new QLabel();
              labelDepart->setText("Depart :");
-             labelDepart->show();
              layoutDA->addWidget(labelDepart);
 
-             saisieDepart->show();
              layoutDA->addWidget(saisieDepart);
 
              labelArrive = new QLabel();
              labelArrive->setText("Arrive :");
-             labelArrive->show();
              layoutDA->addWidget(labelArrive);
 
-             saisieArrive->show();
              layoutDA->addWidget(saisieArrive);
         layoutProba = new QHBoxLayout();
         layoutPrincipal->addLayout(layoutProba);
 
             labelProba = new QLabel();
             labelProba->setText("Proba ?");
-            labelProba->show();
             layoutProba->addWidget(labelProba);
 
             checkProba = new QCheckBox();
-            checkProba->show();
             connect(checkProba, SIGNAL(stateChanged(int)),this,SLOT(CheckboxStateChanged()));
             layoutProba->addWidget(checkProba);
 
@@ -49,10 +43,8 @@ InterfaceRegle::InterfaceRegle()
 
             labelArriveP = new QLabel();
             labelArriveP->setText("%    Arrive p-1 :");
-            labelArriveP->show();
             layoutProba->addWidget(labelArriveP);
 
-            saisieArriveProba->show();
             saisieArriveProba->setDisabled(true);
             layoutProba->addWidget(saisieArriveProba);
 
@@ -74,8 +66,6 @@ InterfaceRegle::InterfaceRegle()
         fenetreRegleScroll->setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOn);
         fenetreRegleScroll->setWidgetResizable(true);
 
-        fenetreRegleScroll->show();
-
         fenetreRegleScroll->setWidget(fenetreRegle);
 
         layoutPrincipal->addWidget(fenetreRegleScroll);
@@ -84,7 +74,6 @@ InterfaceRegle::InterfaceRegle()
         layoutPrincipal->addLayout(layoutBouton);
 
             validerBouton = new QPushButton("Valider");
-            validerBouton->show();
             connect(validerBouton, SIGNAL(clicked(bool)),this,SLOT(ValiderRegles()));
             layoutBouton->addWidget(validerBouton);
 

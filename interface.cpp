@@ -92,10 +92,7 @@ Interface::Interface(QWidget *parent) : QWidget(parent)
     interP=new InterfaceParametre();
     interR=new InterfaceRegle();
     interM=new InterfaceMatrice();
-    /*interP->setParent(this);
-    interR->setParent(this);
-    interM->setParent(this);
-*/
+
     reinitBouton = new QPushButton("Reinitialiser");
 	chargerBouton = new QPushButton("Charger depuis...");
 	enregistrerBouton = new QPushButton("Enregistrer sous...");
@@ -103,24 +100,17 @@ Interface::Interface(QWidget *parent) : QWidget(parent)
     layoutH = new QHBoxLayout();
     layout = new QVBoxLayout();
 	layoutV = new QVBoxLayout(this);
-	layoutV->addWidget(reinitBouton);
 	layoutV->addLayout(layoutH);
     layoutH->addLayout(layout);
     
+    layout->addWidget(reinitBouton);
 	layout->addWidget(chargerBouton);
     layout->addWidget(interP);
     layout->addWidget(interR);
 	layout->addWidget(enregistrerBouton);
     layoutH->addWidget(interM);
 
-	reinitBouton->show();
-	chargerBouton->show();
-	enregistrerBouton->show();
 	enregistrerBouton->setDisabled(true);
-    interP->setVisible(true);
-    interR->setVisible(true);
-    interM->setVisible(true);
-
 
     interR->setJDR(jdr);
     interM->setIterateur(worker);

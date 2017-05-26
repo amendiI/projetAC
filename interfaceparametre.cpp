@@ -20,9 +20,6 @@ InterfaceParametre::InterfaceParametre()
     saisieTaille->setRange(1, 100);
     saisieTaille->setValue(10);
 
-    tailleLabel->show();
-    saisieTaille->show();
-
     tailleLayout->addWidget(tailleLabel);
     tailleLayout->addWidget(saisieTaille);
 
@@ -38,9 +35,6 @@ InterfaceParametre::InterfaceParametre()
     saisieVoisinage->addItem("Moore");
     saisieVoisinage->addItem("VonNeumman");
 
-    typeLabel->show();
-    saisieVoisinage->show();
-
     typeLayout->addWidget(typeLabel);
     typeLayout->addWidget(saisieVoisinage);
 
@@ -50,7 +44,6 @@ InterfaceParametre::InterfaceParametre()
 
     boxEtat = new QGroupBox("Etat :");
     //boxEtat->setStyleSheet("border-style: outset; border-width: 2px;");
-    boxEtat->show();
 
 
         //BOX ETAT LAYOUT
@@ -63,9 +56,6 @@ InterfaceParametre::InterfaceParametre()
         saisieNomEtat = new QLineEdit();
 
         nomLabel->setText("Nom de l\'Etat : ");
-
-        nomLabel->show();
-        saisieNomEtat->show();
 
         nomLayout->addWidget(nomLabel);
         nomLayout->addWidget(saisieNomEtat);
@@ -88,11 +78,6 @@ InterfaceParametre::InterfaceParametre()
             saisieCouleurEtat->model()->setData(idx, color, Qt::BackgroundColorRole);
         }
 
-        //connect(saisieCouleurEtat, SIGNAL(ischanged()),this,SLOT(modifEtat()));
-
-        couleurLabel->show();
-        saisieCouleurEtat->show();
-
         couleurLayout->addWidget(couleurLabel);
         couleurLayout->addWidget(saisieCouleurEtat);
 
@@ -100,8 +85,6 @@ InterfaceParametre::InterfaceParametre()
 
         //BOUTON AJOUTER
         ajouterEtatbouton = new QPushButton("+ Ajouter");
-
-        ajouterEtatbouton->show();
 
         connect(ajouterEtatbouton, SIGNAL(clicked()),this,SLOT(ajoutEtat()));
 
@@ -119,8 +102,6 @@ InterfaceParametre::InterfaceParametre()
         fenetreEtatScroll->setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOn);
         fenetreEtatScroll->setWidgetResizable(true);
 
-        fenetreEtatScroll->show();
-
         fenetreEtatScroll->setWidget(fenetreEtat);
 
         boxEtatLayout->addWidget(fenetreEtatScroll);
@@ -133,9 +114,6 @@ InterfaceParametre::InterfaceParametre()
     validerBouton = new QPushButton("Valider");
 
     connect(validerBouton, SIGNAL(clicked()),this,SLOT(ValiderParametres()));
-
-
-    validerBouton->show();
 
     boutonLayout->addWidget(validerBouton);
 
