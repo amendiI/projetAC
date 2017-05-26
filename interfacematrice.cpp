@@ -1,23 +1,6 @@
 #include "interfacematrice.h"
 
 // FONCTION STATIQUE //
-static QSize myGetQTableWidgetSize(QTableWidget *table) {
-   int wid = table->verticalHeader()->width();
-   for (int i = 0; i < table->columnCount(); i++)
-   {
-       wid += table->columnWidth(i);
-   }
-
-   int hei = table->horizontalHeader()->height();
-   for (int j = 0; j < table->rowCount(); j++)
-   {
-       hei += table->rowHeight(j);
-   }
-
-   return QSize(wid, hei);
-}
-
-
 Matrice* InterfaceMatrice::Loading(){
     Matrice* matrix;
     QString chemin = QFileDialog::getSaveFileName(this, "Enregistrer un fichier", QString(), "Fichier Texte(*.txt *.ol *.fe)");
@@ -215,7 +198,7 @@ void InterfaceMatrice::LancerIterateurN()
     }
     Afficher();
 
-    if(stopNit == NbGenFinal)
+    if((stopNit-1) == NbGenFinal)
     {
         timer1->stop();
     }
