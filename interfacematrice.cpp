@@ -401,20 +401,18 @@ InterfaceMatrice::InterfaceMatrice()
 
     grilleCellule = new QTableWidget(this);
 
+    // Initialisation Boutons
     AleaBouton = new QPushButton("Go");
-
     ValiderTemps = new QPushButton("Valider temps");
-
     Play = new QPushButton("Play 1 fois");
-
     Infini = new QPushButton("Infini");
-
     StopInf = new QPushButton("Stop Infini");
-
     PlayN = new QPushButton("Play N fois");
-
     StopN = new QPushButton("Stop N itérations");
+    Chargement = new QPushButton("Charger matrice");
+    Enregistrer = new QPushButton("Enregistrer matrice");
 
+    // Initialisation Autres Widgets
     QWidget *parent = 0;
     saisieNbGenerations = new QSlider(Qt::Horizontal,parent);
     saisieNbGenerations->setRange(1,100);
@@ -429,10 +427,6 @@ InterfaceMatrice::InterfaceMatrice()
 
     enregistrement = new QCheckBox("Enregistrer");
     rec = false;
-
-    Chargement = new QPushButton("Charger matrice");
-
-    Enregistrer = new QPushButton("Enregistrer matrice");
 
     //Connecter les boutons à leurs slots
     QObject::connect(Play,SIGNAL(clicked()),this,SLOT(LancerIterateur()));
@@ -451,7 +445,6 @@ InterfaceMatrice::InterfaceMatrice()
     QObject::connect(AleaBouton, SIGNAL(clicked()), this, SLOT(InitMatrice()));
 
     //BOX ET LAYOUTS
-
     BoxMatriceAlea = new QGroupBox("Init Matrice :");
     InfiniBox = new QGroupBox("Iterations Infinies :");
     NIteBox = new QGroupBox("Iterations N fois :");
