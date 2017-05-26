@@ -70,6 +70,9 @@ public:
 	int getProbaArriveeRegle(int i);
 	QString getVoisinage(int i, int j);
 
+
+signals:
+	void validerInterR();
 public slots:
 
     void CheckboxStateChanged();

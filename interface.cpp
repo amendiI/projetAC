@@ -54,6 +54,11 @@ void Interface::Enregistrer() {
 	file.close();
 }
 
+void Interface::InterROK()
+{
+	enregistrerBouton->setDisabled(false);
+}
+
 void Interface::recevePara(unsigned int size,unsigned short nbPS,int v,vector<EtatType*>* d){
     matrix=new Matrice(size,nbPS,0);
     interR->setTableauEtats(d);
@@ -111,6 +116,7 @@ Interface::Interface(QWidget *parent) : QWidget(parent)
 	reinitBouton->show();
 	chargerBouton->show();
 	enregistrerBouton->show();
+	enregistrerBouton->setDisabled(true);
     interP->setVisible(true);
     interR->setVisible(true);
     interM->setVisible(true);
@@ -123,4 +129,5 @@ Interface::Interface(QWidget *parent) : QWidget(parent)
     //QObject::connect(reinitBouton, SIGNAL(clicked()), this, SLOT(Reinitialisation()));
 	QObject::connect(chargerBouton, SIGNAL(clicked()), this, SLOT(Charger()));
 	QObject::connect(enregistrerBouton, SIGNAL(clicked()), this, SLOT(Enregistrer()));
+	QObject::connect(interR, SIGNAL(validerInterR()), this, SLOT(InterROK()));
 }

@@ -39,6 +39,7 @@ public slots :
     void Reinitialisation();
 	void Charger();
 	void Enregistrer();
+	void InterROK();
 };
 
 #endif // INTERFACE_H

@@ -147,6 +147,7 @@ void InterfaceRegle::ValiderRegles()//TODO facultatif
     fenetreRegle->setDisabled(true);
     validerBouton->setDisabled(true);
 
+	emit validerInterR();
 }
 
 bool InterfaceRegle::verifRegle() {
