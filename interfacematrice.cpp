@@ -242,8 +242,6 @@ void InterfaceMatrice::RecupererTemps(int t)
         temps = 100;
     else
         temps = t*100;         //100ds = 1s.
-
-    //ValiderTemps->setEnabled(true);
 }
 
 void InterfaceMatrice::ValiderTempsFinal()
@@ -272,6 +270,7 @@ void InterfaceMatrice::NbGenerationsFini()
         NbGenFinal = nbGenerations;
     nbSlider->setDisabled(true);
     ValiderNbGen->setDisabled(true);
+    saisieNbGenerations->setDisabled(true);
 }
 
 void InterfaceMatrice::LancerIterateurN()

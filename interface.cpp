@@ -57,6 +57,9 @@ void Interface::Enregistrer() {
 void Interface::InterROK()
 {
 	enregistrerBouton->setDisabled(false);
+    interM->Play->setEnabled(true);
+    interM->Infini->setEnabled(true);
+    interM->PlayN->setEnabled(true);
 }
 
 void Interface::recevePara(unsigned int size,unsigned short nbPS,int v,vector<EtatType*>* d){
@@ -66,9 +69,6 @@ void Interface::recevePara(unsigned int size,unsigned short nbPS,int v,vector<Et
     interM->setMatrice(matrix);
     interM->Chargement->setEnabled(true);
     interM->Enregistrer->setEnabled(true);
-    interM->Play->setEnabled(true);
-    interM->Infini->setEnabled(true);
-    interM->PlayN->setEnabled(true);
     interM->AleaBouton->setEnabled(true);
     worker->setMatrice(matrix);
     if(v==1)matrix->setMoore(true);
