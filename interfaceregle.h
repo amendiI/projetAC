@@ -1,25 +1,13 @@
 #ifndef INTERFACEREGLE_H
 #define INTERFACEREGLE_H
 
-//#include <QObject>
-//#include <vector>
 #include <etattype.h>
 #include "qspinbox.h"
 #include "qcombobox.h"
-//#include "qframe.h"
-//#include "qscrollbar.h"
-//#include "qpushbutton.h"
 #include "qlineedit.h"
-//#include "qcolordialog.h"
-//#include "qfiledialog.h"
-//#include <vector>
-//#include "QString"
 #include "qscrollarea.h"
-//#include <QVBoxLayout>
 #include <QLabel>
-//#include <QGroupBox>
 #include <QCheckBox>
-//#include <QTableWidget>
 #include "regletype.h"
 #include <QFile>
 #include <QFileDialog>

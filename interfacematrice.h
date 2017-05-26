@@ -8,7 +8,6 @@
 #include <QPushButton>
 #include <QCheckBox>
 #include <QSlider>
-
 #include <QHeaderView>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -54,15 +53,15 @@ private: //variables
     vector<EtatType*> *Etats;
     vector<QBrush*> brushEtats;
     QLCDNumber *nbSlider;
-    QSpinBox* tempsIteration;
-    QGroupBox * BoxMatriceAlea;
-    QVBoxLayout * layoutMA;
+    QSpinBox *tempsIteration;
+    QGroupBox *BoxMatriceAlea;
+    QVBoxLayout *layoutMA;
     vector<QSpinBox*> tabAlea;
 
     //Iteration
-    Matrice * matcour;
-    Iterateur* travailleur;
-    QTimer* timer1;
+    Matrice *matcour;
+    Iterateur *travailleur;
+    QTimer *timer1;
 
     //Boutons
     QPushButton *Play;      // lancer UNE itération
