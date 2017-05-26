@@ -10,7 +10,6 @@
 #include <QCheckBox>
 #include "regletype.h"
 #include <QFile>
-#include <QFileDialog>
 #include <QRegExp>
 #include <QMessageBox>
 #include "Jeu_de_Regle_nt.h"

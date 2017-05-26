@@ -2,8 +2,6 @@
 #define INTERFACEMATRICE_H
 
 #include <QWidget>
-#include <QObject>
-#include <QTableWidget>
 #include <QTableWidgetItem>
 #include <QPushButton>
 #include <QCheckBox>
@@ -19,7 +17,6 @@
 #include <QBrush>
 #include <QSize>
 #include <QLCDNumber>
-#include <QScrollBar>
 #include <QTimer>
 #include <QSpinBox>
 #include <QFile>

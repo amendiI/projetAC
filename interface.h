@@ -23,8 +23,8 @@ private:
     InterfaceRegle *interR;
     InterfaceMatrice * interM;
 	QPushButton * reinitBouton;
-	QPushButton *chargerBouton; //
-	QPushButton *enregistrerBouton; //
+    QPushButton *chargerBouton;
+    QPushButton *enregistrerBouton;
 
     Jeu_de_Regle* jdr;
     Matrice * matrix;
