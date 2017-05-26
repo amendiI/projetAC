@@ -209,6 +209,7 @@ void InterfaceMatrice::InfiniIterations()
     QObject::connect(timer1,SIGNAL(timeout()),this,SLOT(LancerIterateur()));
     timer1->start(tempsfinal);
 
+    StopInf->setEnabled(true);
     Infini->setDisabled(true);
     PlayN->setDisabled(true);
     StopN->setDisabled(true);
@@ -241,12 +242,14 @@ void InterfaceMatrice::RecupererTemps(int t)
         temps = 100;
     else
         temps = t*100;         //100ds = 1s.
+
+    //ValiderTemps->setEnabled(true);
 }
 
 void InterfaceMatrice::ValiderTempsFinal()
 {
-    if(temps == 0)
-        tempsfinal = 1;
+    if(temps == 1)
+        tempsfinal = 100;
     else
         tempsfinal = temps;
     tempsIteration->setDisabled(true);
@@ -303,6 +306,7 @@ void InterfaceMatrice::NIterations()
     stopNit = 0;
     timer1->start(tempsfinal);
 
+    StopN->setEnabled(true);
     PlayN->setDisabled(true);
     Infini->setDisabled(true);
     StopInf->setDisabled(true);
@@ -403,14 +407,23 @@ InterfaceMatrice::InterfaceMatrice()
 
     // Initialisation Boutons
     AleaBouton = new QPushButton("Go");
+    AleaBouton->setDisabled(true);
     ValiderTemps = new QPushButton("Valider temps");
+    //ValiderTemps->setDisabled(true);
     Play = new QPushButton("Play 1 fois");
+    Play->setDisabled(true);
     Infini = new QPushButton("Infini");
+    Infini->setDisabled(true);
     StopInf = new QPushButton("Stop Infini");
+    StopInf->setDisabled(true);
     PlayN = new QPushButton("Play N fois");
+    PlayN->setDisabled(true);
     StopN = new QPushButton("Stop N itérations");
+    StopN->setDisabled(true);
     Chargement = new QPushButton("Charger matrice");
+    Chargement->setDisabled(true);
     Enregistrer = new QPushButton("Enregistrer matrice");
+    Enregistrer->setDisabled(true);
 
     // Initialisation Autres Widgets
     QWidget *parent = 0;
