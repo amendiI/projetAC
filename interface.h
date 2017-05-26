@@ -17,11 +17,14 @@ class Interface : public QWidget
 private:
 
     QVBoxLayout *layout;
+	QVBoxLayout *layoutV;
     QHBoxLayout *layoutH;
     InterfaceParametre *interP;
     InterfaceRegle *interR;
     InterfaceMatrice * interM;
 	QPushButton * reinitBouton;
+	QPushButton *chargerBouton; //
+	QPushButton *enregistrerBouton; //
 
     Jeu_de_Regle* jdr;
     Matrice * matrix;
@@ -34,6 +37,8 @@ public:
 public slots :
     void recevePara(unsigned int size,unsigned short nbPS,int v,vector<EtatType*>* d);
     void Reinitialisation();
+	void Charger();
+	void Enregistrer();
 };
 
 #endif // INTERFACE_H

@@ -48,6 +48,7 @@ RegleType::RegleType(vector<RegleType*> *p, int d, int a, vector<QLineEdit *> *b
        labelregles->show();
        layout->addWidget(labelregles);
        supprimerBouton = new QPushButton("X");
+	   supprimerBouton->setStyleSheet("background-color: red");
        supprimerBouton->show();
        QObject::connect(supprimerBouton, SIGNAL(clicked()),this,SLOT(Supprimer()));
        layout->addWidget(supprimerBouton);

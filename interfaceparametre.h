@@ -34,7 +34,6 @@ private:
     QVBoxLayout * layoutParent;
     QHBoxLayout* layoutPere;
     QVBoxLayout *parametreLayout;
-        QPushButton *chargerBouton;
         QHBoxLayout *tailleLayout;
             QLabel *tailleLabel;
             QSpinBox *saisieTaille;
@@ -62,6 +61,12 @@ public:
       InterfaceParametre(QHBoxLayout* p,Jeu_de_Regle* J, Jeu_de_Regle_nt *J_nt, QVBoxLayout *L,QWidget *parent = 0);
 	  ~InterfaceParametre();
       int VerifierParametreEtat(QColor c , QString n);
+	  int getTaille();
+	  int getVoisinage();
+	  int getNbEtats();
+	  QString getNomEtat(int i);
+	  QString getColorStrEtat(int i);
+
 
 signals:
       void validP(unsigned int,unsigned short,int,vector<EtatType*>*);
@@ -70,8 +75,6 @@ signals:
 public slots:
 
       void ajoutEtat();
-      void EnregistrerParametres();
-      void ChargerParametres();
       void ValiderParametres();
 };
 

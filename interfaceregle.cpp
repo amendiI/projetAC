@@ -88,9 +88,6 @@ InterfaceRegle::InterfaceRegle()
             connect(validerBouton, SIGNAL(clicked(bool)),this,SLOT(ValiderRegles()));
             layoutBouton->addWidget(validerBouton);
 
-            enregistrerBouton = new QPushButton("Enregistrer sous...");
-            enregistrerBouton->show();
-            layoutBouton->addWidget(enregistrerBouton);
 
 
 }
@@ -166,13 +163,6 @@ bool InterfaceRegle::verifRegle() {
     return true;
 }
 
-void InterfaceRegle::EnregistrerRegles(){
-
-}
-
-void InterfaceRegle::ChargerRegles(){
-
-}
 
 void InterfaceRegle::setTableauEtats(vector<EtatType *> *tabEtats)
 {
@@ -210,4 +200,34 @@ void InterfaceRegle::setJDR(Jeu_de_Regle *Jeu)
 Jeu_de_Regle_nt *InterfaceRegle::getJDR_nt()
 {
     return Jdr_nt;
+}
+
+int InterfaceRegle::getNbRegles()
+{
+	return (int)r.size();
+}
+
+int InterfaceRegle::getDepartRegle(int i)
+{
+	return r.at(i)->getDepart();
+}
+
+int InterfaceRegle::getArriveeRegle(int i)
+{
+	return r.at(i)->getArrivee();
+}
+
+int InterfaceRegle::getProbaRegle(int i)
+{
+	return r.at(i)->getProba()[0];
+}
+
+int InterfaceRegle::getProbaArriveeRegle(int i)
+{
+	return r.at(i)->getProba()[1];
+}
+
+QString InterfaceRegle::getVoisinage(int i, int j)
+{
+	return QString::fromStdString(r.at(i)->getRegle()[j]);
 }

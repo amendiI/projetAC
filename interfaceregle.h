@@ -41,7 +41,6 @@ private:
             QSpinBox *saisieProba;
             QLabel *labelArriveP;
             QComboBox *saisieArriveProba;
-        //Manque la partie affichage;
         QGridLayout *layoutTabSaisieRegle;
         vector<QLineEdit*> tabSaisieRegle;
         QPushButton *ajouterBouton;
@@ -51,7 +50,6 @@ private:
             vector<RegleType *> r;
         QHBoxLayout *layoutBouton;
             QPushButton *validerBouton;
-            QPushButton *enregistrerBouton;
 
 public:
     //explicit InterfaceRegle(QWidget *parent = 0);
@@ -65,13 +63,17 @@ public:
     void setTableauEtats(vector <EtatType*> *tableau);
     void setJDR(Jeu_de_Regle *Jeu);
     Jeu_de_Regle_nt * getJDR_nt();
+	int getNbRegles();
+	int getDepartRegle(int i);
+	int getArriveeRegle(int i);
+	int getProbaRegle(int i);
+	int getProbaArriveeRegle(int i);
+	QString getVoisinage(int i, int j);
 
 public slots:
 
     void CheckboxStateChanged();
     void ajouterRegle();
-    void EnregistrerRegles();
-    void ChargerRegles();
     void ValiderRegles();
 
 };

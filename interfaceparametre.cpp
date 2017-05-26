@@ -159,12 +159,6 @@ InterfaceParametre::InterfaceParametre()
     this->resize(600, 600);
     parametreLayout = new QVBoxLayout(this);
 
-    //BOUTON CHARGER
-    chargerBouton= new QPushButton("Charger depuis...");
-    connect(chargerBouton,SIGNAL(clicked()),this,SLOT(ChargerParametres()));
-
-    parametreLayout->addWidget(chargerBouton);
-
     //TAILLE LAYOUT
     tailleLayout = new QHBoxLayout();
 
@@ -313,6 +307,31 @@ int InterfaceParametre::VerifierParametreEtat(QColor c, QString n)
     return 0;
 }
 
+int InterfaceParametre::getTaille()
+{
+	return saisieTaille->value();
+}
+
+int InterfaceParametre::getVoisinage()
+{
+	return saisieVoisinage->currentIndex();
+}
+
+int InterfaceParametre::getNbEtats()
+{
+	return (int) tabEtats.size();
+}
+
+QString InterfaceParametre::getNomEtat(int i)
+{
+	return tabEtats.at(i)->GetNom();
+}
+
+QString InterfaceParametre::getColorStrEtat(int i)
+{
+	return tabEtats.at(i)->GetColor().name();
+}
+
 void InterfaceParametre::ajoutEtat(){
 
     int v = VerifierParametreEtat(QColor(saisieCouleurEtat->currentText()),saisieNomEtat->text());
@@ -339,28 +358,9 @@ void InterfaceParametre::ajoutEtat(){
 }
 
 
-void InterfaceParametre::EnregistrerParametres(){
-    QString fichier = QFileDialog::getSaveFileName(this, "Enregistrer un fichier", QString(), "Fichier Texte(*.txt *.ol *.fe)");
-    QFile file(fichier);
-     /*
-    // Ouverture en écriture seule et petites optimisations avec QIODevice::Text
-    if(!file.open(QIODevice::WriteOnly | QIODevice::Text))
-    return;
-    // On écrit à l'emplacement du fichier en mettant le contenu de la zone de texte dedans
-    file.write(zoneTexte->toPlainText().toAscii());
-     */
-}
-
-void  InterfaceParametre::ChargerParametres(){
-
-    QString fichier = QFileDialog::getOpenFileName(this, "Ouvrir un fichier", QString(), "Fichiers Texte (*.txt)");
-
-}
-
 void InterfaceParametre::ValiderParametres(){
 
     if(!tabEtats.empty()){
-        chargerBouton->setDisabled(true);
         saisieTaille->setDisabled(true);
         saisieVoisinage->setDisabled(true);
         saisieNomEtat->setText("");
