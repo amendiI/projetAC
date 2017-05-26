@@ -209,6 +209,7 @@ void InterfaceMatrice::InfiniIterations()
     QObject::connect(timer1,SIGNAL(timeout()),this,SLOT(LancerIterateur()));
     timer1->start(tempsfinal);
 
+    StopInf->setEnabled(true);
     Infini->setDisabled(true);
     PlayN->setDisabled(true);
     StopN->setDisabled(true);
@@ -241,12 +242,14 @@ void InterfaceMatrice::RecupererTemps(int t)
         temps = 100;
     else
         temps = t*100;         //100ds = 1s.
+
+    //ValiderTemps->setEnabled(true);
 }
 
 void InterfaceMatrice::ValiderTempsFinal()
 {
-    if(temps == 0)
-        tempsfinal = 1;
+    if(temps == 1)
+        tempsfinal = 100;
     else
         tempsfinal = temps;
     tempsIteration->setDisabled(true);
@@ -303,6 +306,7 @@ void InterfaceMatrice::NIterations()
     stopNit = 0;
     timer1->start(tempsfinal);
 
+    StopN->setEnabled(true);
     PlayN->setDisabled(true);
     Infini->setDisabled(true);
     StopInf->setDisabled(true);
@@ -367,12 +371,16 @@ void InterfaceMatrice::InitMatrice()
     }
 }
 
-
-
 void InterfaceMatrice::ChargerMatrice()
 {
     matcour = Loading();
     Afficher();
+}
+
+void InterfaceMatrice::EnregistrerMatrice()
+{
+    int record = Recording2(matcour);
+    cout << record << endl;
 }
 
 // CONSTRUCTEURS //
@@ -397,18 +405,27 @@ InterfaceMatrice::InterfaceMatrice()
 
     grilleCellule = new QTableWidget(this);
 
+    // Initialisation Boutons
+    AleaBouton = new QPushButton("Go");
+    AleaBouton->setDisabled(true);
     ValiderTemps = new QPushButton("Valider temps");
-
+    //ValiderTemps->setDisabled(true);
     Play = new QPushButton("Play 1 fois");
-
+    Play->setDisabled(true);
     Infini = new QPushButton("Infini");
-
+    Infini->setDisabled(true);
     StopInf = new QPushButton("Stop Infini");
-
+    StopInf->setDisabled(true);
     PlayN = new QPushButton("Play N fois");
-
+    PlayN->setDisabled(true);
     StopN = new QPushButton("Stop N itérations");
+    StopN->setDisabled(true);
+    Chargement = new QPushButton("Charger matrice");
+    Chargement->setDisabled(true);
+    Enregistrer = new QPushButton("Enregistrer matrice");
+    Enregistrer->setDisabled(true);
 
+    // Initialisation Autres Widgets
     QWidget *parent = 0;
     saisieNbGenerations = new QSlider(Qt::Horizontal,parent);
     saisieNbGenerations->setRange(1,100);
@@ -436,31 +453,44 @@ InterfaceMatrice::InterfaceMatrice()
     QObject::connect(ValiderNbGen,SIGNAL(clicked()),this,SLOT(NbGenerationsFini()));
     QObject::connect(saisieNbGenerations,SIGNAL(valueChanged(int)),this,SLOT(ChangerNbGenerations(int)));
     QObject::connect(enregistrement,SIGNAL(stateChanged(int)),this,SLOT(ChangerRec(int)));
-
-    BoxMatriceAlea = new QGroupBox("Init Matrice :");
-    layoutMA = new QVBoxLayout(BoxMatriceAlea);
-    AleaBouton = new QPushButton("Go");
-    //connect
+    QObject::connect(Enregistrer,SIGNAL(clicked(bool)),this,SLOT(EnregistrerMatrice()));
+    QObject::connect(Chargement,SIGNAL(clicked(bool)),this,SLOT(ChargerMatrice()));
     QObject::connect(AleaBouton, SIGNAL(clicked()), this, SLOT(InitMatrice()));
 
+    //BOX ET LAYOUTS
+    BoxMatriceAlea = new QGroupBox("Init Matrice :");
+    InfiniBox = new QGroupBox("Iterations Infinies :");
+    NIteBox = new QGroupBox("Iterations N fois :");
+    ValiderParamBox = new QGroupBox("Valider Paramètres :");
+
+    layoutMA = new QVBoxLayout(BoxMatriceAlea);
+    InfiniLayout = new QVBoxLayout(InfiniBox);
+    NIteLayout = new QVBoxLayout(NIteBox);
+    ValiderParamLayout = new QVBoxLayout(ValiderParamBox);
+
+    //Ajout des Widgets aux Layout
+    ValiderParamLayout->addWidget(tempsIteration);
+    ValiderParamLayout->addWidget(ValiderTemps);
+    ValiderParamLayout->addWidget(enregistrement);
+
+    InfiniLayout->addWidget(Infini);
+    InfiniLayout->addWidget(StopInf);
+
+    NIteLayout->addWidget(nbSlider);
+    NIteLayout->addWidget(saisieNbGenerations);
+    NIteLayout->addWidget(ValiderNbGen);
+    NIteLayout->addWidget(PlayN);
+    NIteLayout->addWidget(StopN);
+
     layoutMA->addWidget(AleaBouton);
-    //AleaBouton->show();
     LayoutSecondaire->addWidget(BoxMatriceAlea);
-    //BoxMatriceAlea->show();
-
-
-    //Ajout des boutons aux Layout
-    LayoutSecondaire->addWidget(tempsIteration);
-    LayoutSecondaire->addWidget(ValiderTemps);
     LayoutSecondaire->addWidget(Play);
-    LayoutSecondaire->addWidget(Infini);
-    LayoutSecondaire->addWidget(StopInf);
-    LayoutSecondaire->addWidget(saisieNbGenerations);
-    LayoutSecondaire->addWidget(nbSlider);
-    LayoutSecondaire->addWidget(ValiderNbGen);
-    LayoutSecondaire->addWidget(PlayN);
-    LayoutSecondaire->addWidget(StopN);
-    LayoutSecondaire->addWidget(enregistrement);
+    LayoutSecondaire->addWidget(ValiderParamBox);
+    LayoutSecondaire->addWidget(InfiniBox);
+    LayoutSecondaire->addWidget(NIteBox);
+
+    LayoutSecondaire->addWidget(Enregistrer);
+    LayoutSecondaire->addWidget(Chargement);
 
     //Ajout de grilleCellule dans le Layout
     grilleCellule->setFixedSize(803,803);

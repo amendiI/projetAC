@@ -59,6 +59,12 @@ private: //variables
     QFormLayout *LayoutSecondaire;
     QVBoxLayout *LayoutMatrice;
     QVBoxLayout *layoutMA;
+    QGroupBox *InfiniBox;
+    QVBoxLayout *InfiniLayout;
+    QGroupBox *NIteBox;
+    QVBoxLayout *NIteLayout;
+    QGroupBox *ValiderParamBox;
+    QVBoxLayout *ValiderParamLayout;
     vector<QSpinBox*> tabAlea;
 
     //Iteration
@@ -67,17 +73,19 @@ private: //variables
     QTimer *timer1;
 
     //Boutons
+    QPushButton *ValiderNbGen;  // Valider le nombre N d'itérations
+    QPushButton *ValiderTemps;  // Valider le temps entre deux itérations
+
+public:
+    QPushButton *AleaBouton;    // Initialiser aleatoirement la matrice
     QPushButton *Play;      // lancer UNE itération
     QPushButton *Infini;    // lancer une INFINITE d'itérations
     QPushButton *PlayN;     // lancer N itérations
     QPushButton *StopInf;      // Stopper l'infinité d'itérations
     QPushButton *StopN;     // Stopper les N itérations
-    QPushButton *ValiderNbGen;  // Valider le nombre N d'itérations
-    QPushButton *ValiderTemps;  // Valider le temps entre deux itérations
     QPushButton *Chargement;    // Charger une matrice
-    QPushButton *AleaBouton;
+    QPushButton *Enregistrer; // Pour enregistrer une fois
 
-public:
     InterfaceMatrice();
     //InterfaceMatrice(Matrice* cour,Iterateur* worker,vector<EtatType*> *type);
     ~InterfaceMatrice();
@@ -108,9 +116,9 @@ public slots:
     void NIterations();       // Lancer N itérations
     void FaireStopN();              // Stopper les N itérations
     void ChangerRec(int state);     // Changer l'état de rec
-    void InitMatrice();
-
+    void InitMatrice();             // initialiser aleatoirement la matrice
     void ChargerMatrice();          // Charger une matrice
+    void EnregistrerMatrice();
 };
 
 #endif // INTERFACEMATRICE_H
