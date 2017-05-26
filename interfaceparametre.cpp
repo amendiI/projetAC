@@ -169,12 +169,12 @@ void InterfaceParametre::setTailleMatrice(int i)
 
 void InterfaceParametre::setTypeVoisinage(int i)
 {
-	saisieVoisinage->currentIndex(i);
+	saisieVoisinage->setCurrentIndex(i);
 }
 
 void InterfaceParametre::ajouterEtatChargement(QString nom, QString colorStr)
 {
-	int v = VerifierParametreEtat(QColor(colorStr), nom);
+	int v = false; // VerifierParametreEtat(QColor(colorStr), nom);
 	if (v == 0) {
 		EtatType *E = new EtatType(&tabEtats, colorStr, nom, fenetreEtat);
 		fenetreEtatLayout->addWidget(E);

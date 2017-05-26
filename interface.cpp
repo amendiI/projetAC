@@ -36,6 +36,7 @@ void  Interface::Charger() {
 		interP->ajouterEtatChargement(str.split(',')[0], str.split(',')[1]);
 	}
 	interP->ValiderParametres();
+
 	for (str = in.readLine(); !str.isEmpty(); str = in.readLine()) 
 	{
 		QString str2;
@@ -47,7 +48,7 @@ void  Interface::Charger() {
 		{
 			R.push_back(str2.split(',')[i]);
 		}
-		interR->ajouterRegleChargement(str.split(',')[0], str.split(',')[1], str.split(',')[2], str.split(',')[3], R);
+		interR->ajouterRegleChargement(str.split(',')[0].toInt(), str.split(',')[1].toInt(), str.split(',')[2].toInt(), str.split(',')[3].toInt(), R);
 	}
 	file.close();
 }
