@@ -125,7 +125,7 @@ void InterfaceMatrice::setTableauEtats(vector<EtatType *> *type)
     //Initialisation des couleurs possibles des cellules
     for(unsigned int i=0; i<Etats->size();i++)
     {
-        QBrush* B = new QBrush(Etats->at(i)->GetColor());
+        QBrush* B = new QBrush(Etats->at(i)->GetQColor());
         brushEtats.push_back(B);
     }
 

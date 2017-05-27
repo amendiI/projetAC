@@ -157,17 +157,16 @@ bool InterfaceRegle::verifRegle() {
 void InterfaceRegle::setTableauEtats(vector<EtatType *> *tabEtats)
 {
     for(unsigned int i = 0; i<tabEtats->size(); i++){
-        QColor c = tabEtats->at(i)->GetColor();
         QString n = tabEtats->at(i)->GetNom();
         saisieDepart->addItem(n);
         saisieArrive->addItem(n);
         saisieArriveProba->addItem(n);
 
         QLineEdit *E = new QLineEdit();
-        QString cname = c.name();
+        QString cname = tabEtats->at(i)->GetColor();
         cname.push_front("background-color: ");
         E->setStyleSheet(cname);
-        E->setText("  ");
+        E->setText("");
         E->setReadOnly(true);
         layoutTabSaisieRegle->addWidget(E,0,i);
         E->show();

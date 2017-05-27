@@ -12,13 +12,13 @@ void EtatType::Supprimer(){
 EtatType::EtatType(vector<EtatType *> *V, QString c, QString s, QWidget *parent):QWidget(parent) {
 
     vectPere = V;
-    couleur = QColor(c);
+    couleur = c;
     c.push_front("background-color: ");
 
     layout = new QHBoxLayout(this) ;
 
     echantillonCouleur = new QLineEdit();
-    echantillonCouleur->setText("  ");
+    echantillonCouleur->setText("");
     echantillonCouleur->setReadOnly(true);
     echantillonCouleur->setStyleSheet(c);
 
@@ -47,9 +47,14 @@ EtatType::EtatType(vector<EtatType *> *V, QString c, QString s, QWidget *parent)
 EtatType::~EtatType(){
 }
 
-QColor EtatType::GetColor()
+QString EtatType::GetColor()
 {
     return couleur;
+}
+
+QColor EtatType::GetQColor()
+{
+    return QColor(couleur);
 }
 
 QString EtatType::GetNom()

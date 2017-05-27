@@ -130,7 +130,7 @@ int InterfaceParametre::VerifierParametreEtat(QColor c, QString n)
 {
     if(n == "") return 1;
     for(unsigned int i = 0; i<tabEtats.size(); i++){
-        if (tabEtats.at(i)->GetColor() == c) return 2;
+        if (tabEtats.at(i)->GetQColor() == c) return 2;
         if (tabEtats.at(i)->GetNom() == n) return 3;
     }
     return 0;
@@ -158,7 +158,7 @@ QString InterfaceParametre::getNomEtat(int i)
 
 QString InterfaceParametre::getColorStrEtat(int i)
 {
-	return tabEtats.at(i)->GetColor().name();
+    return tabEtats.at(i)->GetColor();
 }
 
 
@@ -174,7 +174,7 @@ void InterfaceParametre::setTypeVoisinage(int i)
 
 void InterfaceParametre::ajouterEtatChargement(QString nom, QString colorStr)
 {
-	int v = false; // VerifierParametreEtat(QColor(colorStr), nom);
+    int v = VerifierParametreEtat(QColor(colorStr), nom);
 	if (v == 0) {
 		EtatType *E = new EtatType(&tabEtats, colorStr, nom, fenetreEtat);
 		fenetreEtatLayout->addWidget(E);
