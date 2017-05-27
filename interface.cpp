@@ -47,7 +47,7 @@ void  Interface::Charger() {
 		{
 			R.push_back(str2.split(',')[i]);
 		}
-		interR->ajouterRegleChargement(str.split(',')[0], str.split(',')[1], str.split(',')[2], str.split(',')[3], R);
+//		interR->ajouterRegleChargement(str.split(',')[0], str.split(',')[1], str.split(',')[2], str.split(',')[3], R);
 	}
 	file.close();
 }

@@ -169,7 +169,7 @@ void InterfaceParametre::setTailleMatrice(int i)
 
 void InterfaceParametre::setTypeVoisinage(int i)
 {
-	saisieVoisinage->currentIndex(i);
+    //saisieVoisinage->currentIndex(i);
 }
 
 void InterfaceParametre::ajouterEtatChargement(QString nom, QString colorStr)
