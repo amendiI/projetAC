@@ -118,6 +118,7 @@ void Interface::recevePara(unsigned int size,unsigned short nbPS,int v,vector<Et
 
 Interface::Interface(QWidget *parent) : QWidget(parent)
 {
+    QDesktopWidget *desktop = new QDesktopWidget;
     matrix=NULL;
     worker=new Iterateur();
     jdr = new Jeu_de_Regle();
@@ -125,7 +126,7 @@ Interface::Interface(QWidget *parent) : QWidget(parent)
 
     interP=new InterfaceParametre();
     interR=new InterfaceRegle();
-    interM=new InterfaceMatrice();
+    interM=new InterfaceMatrice(desktop->screenGeometry().height()-50);
 
     reinitBouton = new QPushButton("Reinitialiser");
 	chargerBouton = new QPushButton("Charger depuis...");
