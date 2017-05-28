@@ -10,7 +10,6 @@ class Jeu_de_Regle_nt
 {
 private:
 	list<Regle_nt> L;
-	int taille;
 	int nb_etat;
 	int type_voisinage;
 
@@ -20,7 +19,7 @@ public:
 	~Jeu_de_Regle_nt();
 
     //setter, joue le rôle du construceteur dans les specifications
-    void set_val(int taille, int nombre_etat, int type_voisinage);
+    void set_val(int nombre_etat, int type_voisinage);
 
     //ajoute une règle dans la liste
     void ajout_regle(int d, int a, string* voi, int p[2]);

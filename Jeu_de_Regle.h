@@ -11,7 +11,6 @@ private:
 	int arrivee;
 	int depart;
 	vector<string> voisinage;//erreur dans les specification, ce n'es pas un int mais un tableau de string
-	int taille;
 	int type_voisinage;
 	int n;
 
@@ -27,7 +26,6 @@ public:
 
 
     int applicationJeu(unsigned short *voi, int etat);
-    int get_taille(){return taille;}
     int get_typevoisinage(){return type_voisinage;}
     int get_nbetat(){return n;}
 };

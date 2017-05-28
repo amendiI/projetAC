@@ -16,14 +16,3 @@ int RegleProba::get_probabilitee(){return probabilitee;}
 
 int RegleProba::get_etatP(){return etatP;}
 
-void RegleProba::aff()
-{
-	cout << "etat depart :" <<etat_depart<< endl;
-	cout << "etat arivee :" << etat_arivee << endl;
-	cout << "voisinage : ";
-	for (int i = 0; i < n; i++)
-	{
-		cout << voisinage[i] <<",";
-	}
-	cout << endl;
-}

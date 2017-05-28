@@ -22,12 +22,3 @@ vector<string> Regle_nt::get_voisinage(){return voisinage;}
 
 int* Regle_nt::get_probabilitee(){return probabilitee;}
 
-void Regle_nt::affichage()
-{	
-	cout << "(" << etat_depart << "," << etat_arrivee << ")" << endl;
-	for (int i = 0; i < n; i++)
-	{
-		cout << voisinage[i]<<"|";
-	}
-	cout << endl;
-}

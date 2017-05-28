@@ -20,7 +20,6 @@ bool Tpresision(Regle_nt R1, Regle_nt R2)//pas dans les specifications mais obli
 void Jeu_de_Regle::set_value(Jeu_de_Regle_nt jdrnt)
 {
 	L.clear();
-	taille = jdrnt.get_taille();
 	n = jdrnt.get_n();
     if(jdrnt.get_type_voisinage())
         type_voisinage = 9;
@@ -51,7 +50,7 @@ void Jeu_de_Regle::traitement_voisinage(int i, vector<int> T)
 	if (voisinage[i].find("+", voisinage[i].size()-1)!=-1)
 	{
 		int x=stoi(tmp.erase(voisinage[i].size() - 1, 1));
-		for (int j = x; j <=taille; j++)
+        for (int j = x; j <=type_voisinage; j++)
 			verification_donnee(i, j, T);
 	}
 	else if (voisinage[i].find("-", voisinage[i].size() - 1) != -1)
