@@ -1,6 +1,7 @@
 #ifndef ETATTYPE_H
 #define ETATTYPE_H
 
+#include <QWidget>
 #include <QPushButton>
 #include <QHBoxLayout>
 #include <QLineEdit>

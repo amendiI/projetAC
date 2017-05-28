@@ -41,7 +41,6 @@ private: //variables
     int temps;
     int tempsfinal;
     int stopNit;
-    int hauteurEcran;
 
     //Affichage
     QCheckBox *enregistrement;
@@ -84,7 +83,7 @@ public:
     QPushButton *Chargement;    // Charger une matrice
     QPushButton *Enregistrer; // Pour enregistrer une fois
 
-    InterfaceMatrice(int hE);
+    InterfaceMatrice();
     //InterfaceMatrice(Matrice* cour,Iterateur* worker,vector<EtatType*> *type);
     ~InterfaceMatrice();
     void modificationGrille();

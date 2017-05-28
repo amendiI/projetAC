@@ -3,7 +3,6 @@
 
 #include <QWidget>
 #include <QVBoxLayout>
-#include <QDesktopWidget>
 
 #include "interfaceparametre.h"
 #include "interfaceregle.h"
