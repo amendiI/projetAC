@@ -148,14 +148,25 @@ void InterfaceRegle::griser(bool b) {
 	ajouterBouton->setDisabled(b);
 }
 
-void InterfaceRegle::reinit() {
+void InterfaceRegle::reinit() 
+{
+	for (size_t i = 0; i < r.size(); i++)
+		r[i]->hide();
 	r.clear();
-	for (unsigned int i = 0; i < tabSaisieRegle.size(); i++) {
-		layoutTabSaisieRegle->removeWidget(layoutTabSaisieRegle->itemAtPosition(0,i)->widget());
-		layoutTabSaisieRegle->removeWidget(layoutTabSaisieRegle->itemAtPosition(1, i)->widget());
-	}
 	delete Jdr_nt;
-	Jdr_nt = NULL;
+	Jdr_nt = new Jeu_de_Regle_nt();
+	
+	for (size_t i = 0; i < tabSaisieRegle.size(); i++)
+		tabSaisieRegle[i]->hide();
+	tabSaisieRegle.clear();
+
+	QLayoutItem* il;
+	while ((il = layoutTabSaisieRegle->takeAt(0)) != 0)
+	{
+			il->widget()->hide();
+			il->widget()->close();
+			delete il;
+	}
 }
 
 bool InterfaceRegle::verifRegle() {

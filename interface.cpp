@@ -109,16 +109,16 @@ void Interface::recevePara(unsigned int size,unsigned short nbPS,int v,vector<Et
 void Interface::Reinitialisation()
 {
 	interM->reinit();
-	/*interR->reinit();
+	interR->reinit();
 	interP->reinit();
 
-	delete matrix; matrix = NULL;
+	matrix = NULL;
 	delete worker; worker = new Iterateur(); worker->setJDR(jdr);
 	delete jdr;  jdr = new Jeu_de_Regle();
 
 	interM->griser(true);
 	interR->griser(true);
-	*/
+	interP->griser(false);
 }
 
 Interface::Interface(QWidget *parent) : QWidget(parent)

@@ -29,8 +29,8 @@ Matrice::Matrice(const unsigned int newSize, const unsigned short nbPossibleStat
 }
 
 Matrice::~Matrice(){
-    for(unsigned int i=0;i<getNbCells();i++)free(&cellules[i]);
-    free(cellules);
+ 
+		delete[] cellules;
 }
 
 void Matrice::setMoore(const bool isMoore){

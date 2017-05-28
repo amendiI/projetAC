@@ -55,6 +55,7 @@ private: //variables
     QFormLayout *LayoutSecondaire;
     QVBoxLayout *LayoutMatrice;
     QVBoxLayout *layoutMA;
+	QGridLayout *layoutGridMA;
     QGroupBox *InfiniBox;
     QVBoxLayout *InfiniLayout;
     QGroupBox *NIteBox;

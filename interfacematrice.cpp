@@ -132,7 +132,6 @@ void InterfaceMatrice::setTableauEtats(vector<EtatType *> *type)
 
     for (unsigned int i = 0; i <  Etats->size(); i++)
     {
-        QHBoxLayout *layoutH = new QHBoxLayout();
         QLabel * L = new QLabel();
         L->setText(Etats->at(i)->GetNom());
         QSpinBox *S = new QSpinBox();
@@ -140,15 +139,10 @@ void InterfaceMatrice::setTableauEtats(vector<EtatType *> *type)
         QLabel * L2 = new QLabel();
         L2->setText("%");
         tabAlea.push_back(S);
-        layoutH->addWidget(L);
-        layoutH->addWidget(S);
-        layoutH->addWidget(L2);
-        layoutMA->addLayout(layoutH);
-        L->show();
-        S->show();
-        L2->show();
+		layoutGridMA->addWidget(L,i, 0);
+		layoutGridMA->addWidget(S,i,1);
+		layoutGridMA->addWidget(L2,i,2);
     }
-
 }
 
 
@@ -404,20 +398,25 @@ void InterfaceMatrice::griser(bool b)
 
 void InterfaceMatrice::reinit()
 {
-	/*
-	for (unsigned int i = 0; i < Etats->size(); i++) {
-		QLayoutItem * il = layoutMA->itemAt(i);
-		il->layout()->removeWidget(il->layout()->itemAt(0)->widget());
-		il->layout()->removeWidget(il->layout()->itemAt(1)->widget());
-		il->layout()->removeWidget(il->layout()->itemAt(3)->widget());
-		layoutMA->removeItem(il);
-	} 
+	QLayoutItem *il;
 
-	matcour = NULL;
+	while ((il = layoutGridMA->takeAt(0)) != 0)
+	{
+		il->widget()->hide();
+		il->widget()->close();
+	}
+
+	for (size_t i = 0; i < tabAlea.size(); i++)
+		tabAlea[i]->hide();
+	tabAlea.clear();
+
+	
+
+	delete matcour; matcour = NULL;
 	travailleur = NULL;
 	Etats = NULL;
-	*/
-	delete grilleCellule; grilleCellule = new QTableWidget();
+	delete grilleCellule;
+	grilleCellule = new QTableWidget();
 	grilleCellule->setFixedSize(803, 803);
 	LayoutMatrice->addWidget(grilleCellule);
 }
@@ -495,6 +494,7 @@ InterfaceMatrice::InterfaceMatrice()
     ValiderParamBox = new QGroupBox("Valider Paramètres :");
 
     layoutMA = new QVBoxLayout(BoxMatriceAlea);
+	layoutGridMA = new QGridLayout();
     InfiniLayout = new QVBoxLayout(InfiniBox);
     NIteLayout = new QVBoxLayout(NIteBox);
     ValiderParamLayout = new QVBoxLayout(ValiderParamBox);
@@ -514,6 +514,7 @@ InterfaceMatrice::InterfaceMatrice()
     NIteLayout->addWidget(StopN);
 
     layoutMA->addWidget(AleaBouton);
+	layoutMA->addLayout(layoutGridMA);
     LayoutSecondaire->addWidget(BoxMatriceAlea);
     LayoutSecondaire->addWidget(Play);
     LayoutSecondaire->addWidget(ValiderParamBox);

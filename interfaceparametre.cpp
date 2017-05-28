@@ -198,6 +198,8 @@ void InterfaceParametre::griser(bool b)
 
 void InterfaceParametre::reinit()
 {
+	for (size_t i = 0; i < tabEtats.size(); i++)
+		tabEtats[i]->hide();
 	tabEtats.clear();
 }
 
