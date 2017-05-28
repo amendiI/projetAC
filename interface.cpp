@@ -156,6 +156,10 @@ Interface::Interface(QWidget *parent) : QWidget(parent)
 	QObject::connect(chargerBouton, SIGNAL(clicked()), this, SLOT(Charger()));
 	QObject::connect(enregistrerBouton, SIGNAL(clicked()), this, SLOT(Enregistrer()));
 	QObject::connect(interR, SIGNAL(validerInterR()), this, SLOT(InterROK()));
+<<<<<<< HEAD
 	QObject::connect(quitterBouton, SIGNAL(clicked()), qApp, SLOT(quit())); // connecte le bouton à la fonction quit
+=======
+	QObject::connect(quitterBouton, SIGNAL(clicked()), qApp, SLOT(quit())); // connecte le bouton à la fonction quit
+>>>>>>> a993c6265709d3f6563d501e9618de2c5f73de04
 
 }
