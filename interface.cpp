@@ -95,7 +95,7 @@ void Interface::recevePara(unsigned int size,unsigned short nbPS,int v,vector<Et
     interM->AleaBouton->setEnabled(true);
     worker->setMatrice(matrix);
     if(v==0)matrix->setMoore(true);
-    interR->getJDR_nt()->set_val(size,nbPS,v);
+    interR->getJDR_nt()->set_val(nbPS,v);
 
     interM->Afficher();
     interM->update();

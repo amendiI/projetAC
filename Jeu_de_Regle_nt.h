@@ -29,7 +29,6 @@ public:
 
     //getters
 	list<Regle_nt> get_List();//pas dans les specifications
-	int get_taille();
 	int get_n();
 	int get_type_voisinage();
 };

@@ -127,7 +127,7 @@ void InterfaceRegle::ajouterRegle()
 void InterfaceRegle::genererJdrnt() {
 	Jeu_de_Regle_nt *tmp = Jdr_nt;
 	Jdr_nt = new Jeu_de_Regle_nt();
-	Jdr_nt->set_val(tmp->get_taille(),tmp->get_n(),tmp->get_type_voisinage());
+	Jdr_nt->set_val(tmp->get_n(),tmp->get_type_voisinage());
 	delete tmp;
 	for (unsigned int i = 0; i<r.size(); i++) {
 		Jdr_nt->ajout_regle(r.at(i)->getDepart(), r.at(i)->getArrivee(), r.at(i)->getRegle(), r.at(i)->getProba());

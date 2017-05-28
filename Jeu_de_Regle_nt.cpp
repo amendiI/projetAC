@@ -14,7 +14,6 @@ void Jeu_de_Regle_nt::ajout_regle(int d, int a, string* voi, int p[2])
 {
 	Regle_nt rnt = Regle_nt(d, a, voi, p,nb_etat);
 	L.emplace_front(rnt);
-	L.front().affichage();
 }
 
 list<Regle_nt> Jeu_de_Regle_nt::get_List(){return L;}
