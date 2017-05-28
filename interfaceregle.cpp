@@ -224,4 +224,14 @@ QString InterfaceRegle::getVoisinage(int i, int j)
 
 void InterfaceRegle::ajouterRegleChargement(int d, int a, int p, int ap, vector<QString> regle)
 {
+	saisieDepart->setCurrentIndex(d);
+	saisieArrive->setCurrentIndex(a);
+	checkProba->setChecked(true);
+	saisieProba->setValue(p);
+	saisieArriveProba->setCurrentIndex(ap);
+	for (unsigned int i = 0; i < tabSaisieRegle.size(); i++)
+	{
+		tabSaisieRegle.at(i)->setText(regle.at(i));
+	}
+	
 }

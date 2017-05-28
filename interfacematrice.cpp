@@ -94,7 +94,7 @@ void InterfaceMatrice::setMatrice(Matrice *matrice)
 
     //Définir la taille des cellules
     int taille = matcour->getSize();
-    int sizeCell = 800/taille;
+    int sizeCell = (hauteurEcran-50)/taille;      //changer ici par hauteurEcran-50
 
     for(int c=0;c<grilleCellule->columnCount();c++)
     {
@@ -385,12 +385,13 @@ void InterfaceMatrice::EnregistrerMatrice()
 }
 
 // CONSTRUCTEURS //
-InterfaceMatrice::InterfaceMatrice()
+InterfaceMatrice::InterfaceMatrice(int hE)
 {
     //Initialisation matrice courante
     matcour = NULL;
     travailleur=NULL;
     Etats=NULL;
+    hauteurEcran = hE;
 
     //Initialisation des Layout
     layoutPrincipal = new QHBoxLayout();
@@ -493,7 +494,7 @@ InterfaceMatrice::InterfaceMatrice()
     LayoutSecondaire->addWidget(Chargement);
 
     //Ajout de grilleCellule dans le Layout
-    grilleCellule->setFixedSize(803,803);
+    grilleCellule->setFixedSize(hauteurEcran-47,hauteurEcran-47);       //A changer! avec la taille de l'ecran -100? px
     LayoutMatrice->addWidget(grilleCellule);
 
     //Ajout des Layout dans le layoutPrincipal

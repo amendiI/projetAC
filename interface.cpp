@@ -36,6 +36,7 @@ void  Interface::Charger() {
 		interP->ajouterEtatChargement(str.split(',')[0], str.split(',')[1]);
 	}
 	interP->ValiderParametres();
+
 	for (str = in.readLine(); !str.isEmpty(); str = in.readLine()) 
 	{
 		QString str2;
@@ -47,7 +48,11 @@ void  Interface::Charger() {
 		{
 			R.push_back(str2.split(',')[i]);
 		}
+<<<<<<< HEAD
 //		interR->ajouterRegleChargement(str.split(',')[0], str.split(',')[1], str.split(',')[2], str.split(',')[3], R);
+=======
+		interR->ajouterRegleChargement(str.split(',')[0].toInt(), str.split(',')[1].toInt(), str.split(',')[2].toInt(), str.split(',')[3].toInt(), R);
+>>>>>>> b86d5e5d3a31f99ec6a5b9d47a3db495aeab55ff
 	}
 	file.close();
 }
@@ -117,6 +122,7 @@ void Interface::recevePara(unsigned int size,unsigned short nbPS,int v,vector<Et
 
 Interface::Interface(QWidget *parent) : QWidget(parent)
 {
+    QDesktopWidget *desktop = new QDesktopWidget;
     matrix=NULL;
     worker=new Iterateur();
     jdr = new Jeu_de_Regle();
@@ -145,8 +151,9 @@ Interface::Interface(QWidget *parent) : QWidget(parent)
 
 	enregistrerBouton->setDisabled(true);
 
-    interR->setJDR(jdr);
-    interM->setIterateur(worker);
+    interP=new InterfaceParametre();
+    interR=new InterfaceRegle();
+    interM=new InterfaceMatrice(desktop->screenGeometry().height()-50);
 
     QObject::connect(interP,SIGNAL(validP(unsigned int,unsigned short,int,vector<EtatType*>*)),this,SLOT(recevePara(uint,unsigned short,int,vector<EtatType*>*)));
     //QObject::connect(reinitBouton, SIGNAL(clicked()), this, SLOT(Reinitialisation()));
