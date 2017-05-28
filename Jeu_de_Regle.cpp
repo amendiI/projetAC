@@ -19,6 +19,7 @@ bool Tpresision(Regle_nt R1, Regle_nt R2)//pas dans les specifications mais obli
 
 void Jeu_de_Regle::set_value(Jeu_de_Regle_nt jdrnt)
 {
+	L.clear();
 	taille = jdrnt.get_taille();
 	n = jdrnt.get_n();
     if(jdrnt.get_type_voisinage())

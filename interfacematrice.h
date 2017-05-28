@@ -12,7 +12,6 @@
 #include <QFormLayout>
 #include <cstdlib>
 #include <ctime>
-//#include <windows.h>
 #include <QString>
 #include <QBrush>
 #include <QSize>

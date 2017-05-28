@@ -76,7 +76,8 @@ signals:
 public slots:
 
     void CheckboxStateChanged();
-    void ajouterRegle();
+    void ajouterRegle(); 
+	void genererJdrnt();
     void ValiderRegles();
 
 };

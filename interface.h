@@ -3,15 +3,8 @@
 
 #include <QWidget>
 #include <QVBoxLayout>
-<<<<<<< HEAD
-=======
 #include <QDesktopWidget>
 #include <QApplication>
-<<<<<<< HEAD
->>>>>>> a993c6265709d3f6563d501e9618de2c5f73de04
-=======
->>>>>>> a993c6265709d3f6563d501e9618de2c5f73de04
-
 #include "interfaceparametre.h"
 #include "interfaceregle.h"
 #include "interfacematrice.h"

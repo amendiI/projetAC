@@ -59,7 +59,6 @@ void Iterateur::transformCellule(unsigned int cellule){
 
     //matriceTransition->getCell(cellule)->setValue(AppJeu);
     //matriceTransition->getCell(cellule)->setValue((unsigned short)regles->applicationJeu((int*)etatsVoisins  , (int)cellule->getValue()));
-
     matriceTransition->getCell(cellule)->setValue((unsigned short)regles->applicationJeu(etatsVoisins,(int)matriceCourante->getCell(cellule)->getValue()));
 }
 

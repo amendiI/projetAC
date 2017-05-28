@@ -6,6 +6,7 @@ Matrice* InterfaceMatrice::Loading(){
     QString chemin = QFileDialog::getSaveFileName(this, "Enregistrer un fichier", QString(), "Fichier Texte(*.txt *.ol *.fe)");
     QString textFichier;
     QFile fichier(chemin);
+
     //TODO le chemin peut etre passé en paramètre pour etre fourni par un explorateur de fichiers
     if(!fichier.open(QIODevice::ReadOnly|QIODevice::Text)) return NULL;
     //le fichier ne s'est pas ouvert
@@ -407,10 +408,10 @@ InterfaceMatrice::InterfaceMatrice()
     grilleCellule = new QTableWidget(this);
 
     // Initialisation Boutons
-    AleaBouton = new QPushButton("Go");
+    AleaBouton = new QPushButton("Genérer");
     AleaBouton->setDisabled(true);
     ValiderTemps = new QPushButton("Valider temps");
-    Play = new QPushButton("Play 1 fois");
+    Play = new QPushButton("Pas à Pas");
     Play->setDisabled(true);
     Infini = new QPushButton("Infini");
     Infini->setDisabled(true);

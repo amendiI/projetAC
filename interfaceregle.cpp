@@ -37,7 +37,7 @@ InterfaceRegle::InterfaceRegle()
             layoutProba->addWidget(checkProba);
 
             saisieProba = new QSpinBox();
-            saisieProba->setRange(1,99);
+            saisieProba->setRange(1,100);
             saisieProba->setDisabled(true);
             layoutProba->addWidget(saisieProba);
 
@@ -99,43 +99,46 @@ void InterfaceRegle::CheckboxStateChanged(){
 
 void InterfaceRegle::ajouterRegle()
 {
-    if(verifRegle()) {
-        RegleType *E;
-        if (checkProba->checkState() == Qt::Checked)
-            {E = new RegleType(&r, saisieDepart->currentIndex(), saisieArrive->currentIndex() , &tabSaisieRegle, saisieProba->value(), saisieArriveProba->currentIndex());}
-        else
-            { E = new RegleType(&r, saisieDepart->currentIndex(), saisieArrive->currentIndex() , &tabSaisieRegle, 100, saisieArrive->currentIndex());}
+	if (verifRegle()) {
+		RegleType *E;
+		if (checkProba->checkState() == Qt::Checked)
+		{
+			E = new RegleType(&r, saisieDepart->currentIndex(), saisieArrive->currentIndex(), &tabSaisieRegle, saisieProba->value(), saisieArriveProba->currentIndex());
+		}
+		else
+		{
+			E = new RegleType(&r, saisieDepart->currentIndex(), saisieArrive->currentIndex(), &tabSaisieRegle, 100, saisieArrive->currentIndex());
+		}
+		QObject::connect(E, SIGNAL(suppr()), this, SLOT(genererJdrnt()));
+		E->show();
+		fenetreRegleLayout->addWidget(E);
+		r.push_back(E);
 
-        E->show();
-        fenetreRegleLayout->addWidget(E);
-        r.push_back(E);
+		saisieDepart->setCurrentIndex(0);
+		saisieArrive->setCurrentIndex(0);
+		saisieArriveProba->setCurrentIndex(0);
+		saisieProba->setValue(1);
+		checkProba->setChecked(false);
+		for (unsigned int i = 0; i < tabSaisieRegle.size(); i++) {
+			tabSaisieRegle.at(i)->setText("");
+		}
+		genererJdrnt();
+	}
+}
 
-        saisieDepart->setCurrentIndex(0);
-        saisieArrive->setCurrentIndex(0);
-        saisieArriveProba->setCurrentIndex(0);
-        saisieProba->setValue(1);
-        checkProba->setChecked(false);
-        for (unsigned int i = 0; i<tabSaisieRegle.size(); i++){
-            tabSaisieRegle.at(i)->setText("");
-        }
-    }
+void InterfaceRegle::genererJdrnt() {
+	Jeu_de_Regle_nt *tmp = Jdr_nt;
+	Jdr_nt = new Jeu_de_Regle_nt();
+	Jdr_nt->set_val(tmp->get_taille(),tmp->get_n(),tmp->get_type_voisinage());
+	delete tmp;
+	for (unsigned int i = 0; i<r.size(); i++) {
+		Jdr_nt->ajout_regle(r.at(i)->getDepart(), r.at(i)->getArrivee(), r.at(i)->getRegle(), r.at(i)->getProba());
+	}
 }
 
 void InterfaceRegle::ValiderRegles()//TODO facultatif
 {
-    for(unsigned int i = 0; i<r.size(); i++){
-        Jdr_nt->ajout_regle(r.at(i)->getDepart(),r.at(i)->getArrivee(),r.at(i)->getRegle(), r.at(i)->getProba());
-    }
     Jdr->set_value(*Jdr_nt);
-    saisieDepart->setDisabled(true);
-    saisieArriveProba->setDisabled(true);
-    saisieArrive->setDisabled(true);
-    saisieProba->setDisabled(true);
-    checkProba->setDisabled(true);
-    ajouterBouton->setDisabled(true);
-    fenetreRegle->setDisabled(true);
-    validerBouton->setDisabled(true);
-
 	emit validerInterR();
 }
 
@@ -232,5 +235,6 @@ void InterfaceRegle::ajouterRegleChargement(int d, int a, int p, int ap, vector<
 	{
 		tabSaisieRegle.at(i)->setText(regle.at(i));
 	}
+	ajouterRegle();
 	
 }

@@ -5,6 +5,7 @@ void RegleType::Supprimer(){
     vector<RegleType *>::iterator it = vectPere->begin();
     while(this != *it) it++;
     vectPere->erase(it);
+	emit suppr();
     delete(this);
 }
 

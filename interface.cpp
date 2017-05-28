@@ -1,16 +1,8 @@
 #include "interface.h"
 
-void Interface::Reinitialisation() {
-	/*
-	delete Ip;
-	delete Jdr_nt;
-	delete Jdr;
-
-	Jdr_nt = new Jeu_de_Regle_nt();
-	Jdr = new Jeu_de_Regle();
-	Ip = new InterfaceParametre(layoutH, Jdr, Jdr_nt, layout);
-	Ip->show();
-	layout->addWidget(Ip);*/
+void Interface::Reinitialisation()
+{
+	
 }
 
 void  Interface::Charger() {
@@ -33,7 +25,8 @@ void  Interface::Charger() {
 	for (int i = 0; i < nbEtats; i++)
 	{
 		str = in.readLine();
-		interP->ajouterEtatChargement(str.split(',')[0], str.split(',')[1]);
+		QString c = str.split(',')[1]; c .chop(1);
+		interP->ajouterEtatChargement(str.split(',')[0], c);
 	}
 	interP->ValiderParametres();
 
@@ -42,8 +35,7 @@ void  Interface::Charger() {
 		QString str2;
 		vector<QString> R;
 		str2 = str.split('(')[1];
-		str2.chop(3);
-		str2.remove(0, 1);
+		str2.chop(2);
 		for (int i = 0; i < nbEtats; i++)
 		{
 			R.push_back(str2.split(',')[i]);
@@ -105,7 +97,7 @@ void Interface::recevePara(unsigned int size,unsigned short nbPS,int v,vector<Et
     interM->Enregistrer->setEnabled(true);
     interM->AleaBouton->setEnabled(true);
     worker->setMatrice(matrix);
-    if(v==1)matrix->setMoore(true);
+    if(v==0)matrix->setMoore(true);
     interR->getJDR_nt()->set_val(size,nbPS,v);
 
     interM->Afficher();
@@ -156,10 +148,6 @@ Interface::Interface(QWidget *parent) : QWidget(parent)
 	QObject::connect(chargerBouton, SIGNAL(clicked()), this, SLOT(Charger()));
 	QObject::connect(enregistrerBouton, SIGNAL(clicked()), this, SLOT(Enregistrer()));
 	QObject::connect(interR, SIGNAL(validerInterR()), this, SLOT(InterROK()));
-<<<<<<< HEAD
 	QObject::connect(quitterBouton, SIGNAL(clicked()), qApp, SLOT(quit())); // connecte le bouton à la fonction quit
-=======
-	QObject::connect(quitterBouton, SIGNAL(clicked()), qApp, SLOT(quit())); // connecte le bouton à la fonction quit
->>>>>>> a993c6265709d3f6563d501e9618de2c5f73de04
 
 }

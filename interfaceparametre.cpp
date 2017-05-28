@@ -174,26 +174,14 @@ void InterfaceParametre::setTypeVoisinage(int i)
 
 void InterfaceParametre::ajouterEtatChargement(QString nom, QString colorStr)
 {
-    int v = VerifierParametreEtat(QColor(colorStr), nom);
-	if (v == 0) {
 		EtatType *E = new EtatType(&tabEtats, colorStr, nom, fenetreEtat);
 		fenetreEtatLayout->addWidget(E);
 		tabEtats.push_back(E);
 
 		saisieNomEtat->setText("");
 		saisieCouleurEtat->setCurrentIndex(0);
-	}
-	else if (v == 1) {
-		QMessageBox::information(this, tr("Parametre"), tr("Erreur : Pas de Nom pour l'Etat"));
-	}
-	else if (v == 2) {
-		QMessageBox::information(this, tr("Parametre"), tr("Erreur : Couleur deja utilise"));
-
-	}
-	else if (v == 3) {
-		QMessageBox::information(this, tr("Parametre"), tr("Erreur : Nom deja utilise"));
-
-	}
+ 
+	
 }
 
 void InterfaceParametre::ajoutEtat(){
