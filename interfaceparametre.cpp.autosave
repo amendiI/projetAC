@@ -1,5 +1,4 @@
 <<<<<<< HEAD
-<<<<<<< HEAD
 #include "interfaceparametre.h"
 #include <QApplication>
 #include <QObject>
