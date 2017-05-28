@@ -404,16 +404,22 @@ void InterfaceMatrice::griser(bool b)
 
 void InterfaceMatrice::reinit()
 {
+	/*
 	for (unsigned int i = 0; i < Etats->size(); i++) {
 		QLayoutItem * il = layoutMA->itemAt(i);
+		il->layout()->removeWidget(il->layout()->itemAt(0)->widget());
+		il->layout()->removeWidget(il->layout()->itemAt(1)->widget());
+		il->layout()->removeWidget(il->layout()->itemAt(3)->widget());
 		layoutMA->removeItem(il);
-	}
+	} 
+
 	matcour = NULL;
 	travailleur = NULL;
 	Etats = NULL;
-	
+	*/
 	delete grilleCellule; grilleCellule = new QTableWidget();
 	grilleCellule->setFixedSize(803, 803);
+	LayoutMatrice->addWidget(grilleCellule);
 }
 
 // CONSTRUCTEURS //

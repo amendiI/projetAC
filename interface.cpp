@@ -109,7 +109,7 @@ void Interface::recevePara(unsigned int size,unsigned short nbPS,int v,vector<Et
 void Interface::Reinitialisation()
 {
 	interM->reinit();
-	interR->reinit();
+	/*interR->reinit();
 	interP->reinit();
 
 	delete matrix; matrix = NULL;
@@ -118,6 +118,7 @@ void Interface::Reinitialisation()
 
 	interM->griser(true);
 	interR->griser(true);
+	*/
 }
 
 Interface::Interface(QWidget *parent) : QWidget(parent)
@@ -157,7 +158,7 @@ Interface::Interface(QWidget *parent) : QWidget(parent)
     interM->setIterateur(worker);
 
     QObject::connect(interP,SIGNAL(validP(unsigned int,unsigned short,int,vector<EtatType*>*)),this,SLOT(recevePara(uint,unsigned short,int,vector<EtatType*>*)));
-    //QObject::connect(reinitBouton, SIGNAL(clicked()), this, SLOT(Reinitialisation()));
+    QObject::connect(reinitBouton, SIGNAL(clicked()), this, SLOT(Reinitialisation()));
 	QObject::connect(chargerBouton, SIGNAL(clicked()), this, SLOT(Charger()));
 	QObject::connect(enregistrerBouton, SIGNAL(clicked()), this, SLOT(Enregistrer()));
 	QObject::connect(interR, SIGNAL(validerInterR()), this, SLOT(InterROK()));
