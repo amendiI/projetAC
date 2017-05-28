@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 	srand((unsigned)time(NULL));
     Interface *I = new Interface();
-    I->show();
+    I->showFullScreen();
 
     return a.exec();
 }
