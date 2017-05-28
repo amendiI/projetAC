@@ -3,6 +3,11 @@
 
 #include <QWidget>
 #include <QVBoxLayout>
+<<<<<<< HEAD
+=======
+#include <QDesktopWidget>
+#include <QApplication>
+>>>>>>> a993c6265709d3f6563d501e9618de2c5f73de04
 
 #include "interfaceparametre.h"
 #include "interfaceregle.h"
@@ -17,11 +22,12 @@ class Interface : public QWidget
 private:
 
     QVBoxLayout *layout;
-	QVBoxLayout *layoutV;
+	QHBoxLayout *layoutB;
     QHBoxLayout *layoutH;
     InterfaceParametre *interP;
     InterfaceRegle *interR;
     InterfaceMatrice * interM;
+	QPushButton * quitterBouton;
 	QPushButton * reinitBouton;
     QPushButton *chargerBouton;
     QPushButton *enregistrerBouton;

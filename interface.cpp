@@ -127,17 +127,19 @@ Interface::Interface(QWidget *parent) : QWidget(parent)
     interR=new InterfaceRegle();
     interM=new InterfaceMatrice();
 
+	quitterBouton = new QPushButton("Quitter");
     reinitBouton = new QPushButton("Reinitialiser");
 	chargerBouton = new QPushButton("Charger depuis...");
 	enregistrerBouton = new QPushButton("Enregistrer sous...");
 
-    layoutH = new QHBoxLayout();
+    layoutH = new QHBoxLayout(this);
     layout = new QVBoxLayout();
-	layoutV = new QVBoxLayout(this);
-	layoutV->addLayout(layoutH);
+	layoutB = new QHBoxLayout();
+	layout->addLayout(layoutB);
     layoutH->addLayout(layout);
     
-    layout->addWidget(reinitBouton);
+	layoutB->addWidget(quitterBouton);
+    layoutB->addWidget(reinitBouton);
 	layout->addWidget(chargerBouton);
     layout->addWidget(interP);
     layout->addWidget(interR);
@@ -154,4 +156,6 @@ Interface::Interface(QWidget *parent) : QWidget(parent)
 	QObject::connect(chargerBouton, SIGNAL(clicked()), this, SLOT(Charger()));
 	QObject::connect(enregistrerBouton, SIGNAL(clicked()), this, SLOT(Enregistrer()));
 	QObject::connect(interR, SIGNAL(validerInterR()), this, SLOT(InterROK()));
+	QObject::connect(quitterBouton, SIGNAL(clicked()), qApp, SLOT(quit())); // connecte le bouton à la fonction quit
+
 }
