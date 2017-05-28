@@ -15,7 +15,7 @@ class EtatType : public QWidget
 private:
 
     vector<EtatType*> *vectPere;
-    QColor couleur;
+    QString couleur;
     QPushButton *supprimer;
     QHBoxLayout *layout;
     QLineEdit *nom;
@@ -24,7 +24,8 @@ private:
 public:
     EtatType(vector<EtatType*> *V,QString c, QString s, QWidget *parent = 0);
     ~EtatType();
-    QColor GetColor();
+    QString GetColor();
+    QColor GetQColor();
     QString GetNom();
 
 public slots:

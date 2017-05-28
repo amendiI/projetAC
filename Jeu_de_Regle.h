@@ -6,7 +6,7 @@
 class Jeu_de_Regle
 {
 private:
-	vector<list<RegleProba>> L;
+    vector<list<RegleProba> > L;
 	int probabilitee[2];
 	int arrivee;
 	int depart;

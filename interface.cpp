@@ -130,7 +130,7 @@ Interface::Interface(QWidget *parent) : QWidget(parent)
 
     interP=new InterfaceParametre();
     interR=new InterfaceRegle();
-    interM=new InterfaceMatrice();
+    interM=new InterfaceMatrice(desktop->screenGeometry().height()-50);
 
     reinitBouton = new QPushButton("Reinitialiser");
 	chargerBouton = new QPushButton("Charger depuis...");
