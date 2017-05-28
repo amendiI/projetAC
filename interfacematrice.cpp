@@ -202,12 +202,13 @@ void InterfaceMatrice::LancerIterateur()
     QObject::connect(grilleCellule,SIGNAL(cellChanged(int,int)),this,SLOT(ChangerCellule(int,int)));
 }
 
+
+
 void InterfaceMatrice::InfiniIterations()
 {
     timer1 = new QTimer();
     QObject::connect(timer1,SIGNAL(timeout()),this,SLOT(LancerIterateur()));
     timer1->start(tempsfinal);
-
     StopInf->setEnabled(true);
     Infini->setDisabled(true);
     PlayN->setDisabled(true);
@@ -385,6 +386,36 @@ void InterfaceMatrice::EnregistrerMatrice()
     cout << record << endl;
 }
 
+void InterfaceMatrice::griser(bool b)
+{
+	AleaBouton->setDisabled(b);
+	ValiderTemps->setDisabled(!b);
+	Play->setDisabled(b);
+	Infini->setDisabled(b);
+	StopInf->setDisabled(b);
+	PlayN->setDisabled(b);
+	StopN->setDisabled(b);
+	Chargement->setDisabled(b);
+	Enregistrer->setDisabled(b);
+	ValiderNbGen->setDisabled(!b);
+	enregistrement->setDisabled(!b);
+	nbSlider->setDisabled(!b);
+}
+
+void InterfaceMatrice::reinit()
+{
+	for (unsigned int i = 0; i < Etats->size(); i++) {
+		QLayoutItem * il = layoutMA->itemAt(i);
+		layoutMA->removeItem(il);
+	}
+	matcour = NULL;
+	travailleur = NULL;
+	Etats = NULL;
+	
+	delete grilleCellule; grilleCellule = new QTableWidget();
+	grilleCellule->setFixedSize(803, 803);
+}
+
 // CONSTRUCTEURS //
 InterfaceMatrice::InterfaceMatrice()
 {
@@ -409,22 +440,15 @@ InterfaceMatrice::InterfaceMatrice()
 
     // Initialisation Boutons
     AleaBouton = new QPushButton("Genérer");
-    AleaBouton->setDisabled(true);
     ValiderTemps = new QPushButton("Valider temps");
     Play = new QPushButton("Pas à Pas");
-    Play->setDisabled(true);
     Infini = new QPushButton("Infini");
-    Infini->setDisabled(true);
     StopInf = new QPushButton("Stop Infini");
-    StopInf->setDisabled(true);
     PlayN = new QPushButton("Play N fois");
-    PlayN->setDisabled(true);
     StopN = new QPushButton("Stop N itérations");
-    StopN->setDisabled(true);
     Chargement = new QPushButton("Charger matrice");
-    Chargement->setDisabled(true);
     Enregistrer = new QPushButton("Enregistrer matrice");
-    Enregistrer->setDisabled(true);
+
 
     // Initialisation Autres Widgets
     QWidget *parent = 0;
@@ -503,6 +527,7 @@ InterfaceMatrice::InterfaceMatrice()
 
     //layoutPrincipal dans la fenêtre
     this->setLayout(layoutPrincipal);
+	griser(true);
 
 }
 

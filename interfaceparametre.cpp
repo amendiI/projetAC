@@ -184,6 +184,23 @@ void InterfaceParametre::ajouterEtatChargement(QString nom, QString colorStr)
 	
 }
 
+void InterfaceParametre::griser(bool b)
+{
+	saisieTaille->setDisabled(b);
+	saisieVoisinage->setDisabled(b);
+	saisieNomEtat->setText("");
+	saisieNomEtat->setDisabled(b);
+	saisieCouleurEtat->setDisabled(b);
+	ajouterEtatbouton->setDisabled(b);
+	fenetreEtat->setDisabled(b);
+	validerBouton->setDisabled(b);
+}
+
+void InterfaceParametre::reinit()
+{
+	tabEtats.clear();
+}
+
 void InterfaceParametre::ajoutEtat(){
 
     int v = VerifierParametreEtat(QColor(saisieCouleurEtat->currentText()),saisieNomEtat->text());
@@ -213,15 +230,7 @@ void InterfaceParametre::ajoutEtat(){
 void InterfaceParametre::ValiderParametres(){
 
     if(!tabEtats.empty()){
-        saisieTaille->setDisabled(true);
-        saisieVoisinage->setDisabled(true);
-        saisieNomEtat->setText("");
-        saisieNomEtat->setDisabled(true);
-        saisieCouleurEtat->setDisabled(true);
-        ajouterEtatbouton->setDisabled(true);
-        fenetreEtat->setDisabled(true);
-        validerBouton->setDisabled(true);
-
+		griser(true);
         emit validP((unsigned int)saisieTaille->value(),(unsigned short)tabEtats.size(), saisieVoisinage->currentIndex(), &tabEtats);
     }
 

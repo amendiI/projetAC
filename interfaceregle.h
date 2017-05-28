@@ -58,9 +58,10 @@ public:
     vector<QLineEdit*> getVectorRegle();
 
     bool verifRegle();
-
     void setTableauEtats(vector <EtatType*> *tableau);
     void setJDR(Jeu_de_Regle *Jeu);
+	void griser(bool b);
+	void reinit();
     Jeu_de_Regle_nt * getJDR_nt();
 	int getNbRegles();
 	int getDepartRegle(int i);

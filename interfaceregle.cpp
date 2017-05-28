@@ -76,9 +76,7 @@ InterfaceRegle::InterfaceRegle()
             validerBouton = new QPushButton("Valider");
             connect(validerBouton, SIGNAL(clicked(bool)),this,SLOT(ValiderRegles()));
             layoutBouton->addWidget(validerBouton);
-
-
-
+			griser(true);
 }
 
 vector<QLineEdit *> InterfaceRegle::getVectorRegle()
@@ -140,6 +138,24 @@ void InterfaceRegle::ValiderRegles()//TODO facultatif
 {
     Jdr->set_value(*Jdr_nt);
 	emit validerInterR();
+}
+
+void InterfaceRegle::griser(bool b) {
+	saisieArrive->setDisabled(b);
+	saisieDepart->setDisabled(b);
+	checkProba->setDisabled(b);
+	validerBouton->setDisabled(b);
+	ajouterBouton->setDisabled(b);
+}
+
+void InterfaceRegle::reinit() {
+	r.clear();
+	for (unsigned int i = 0; i < tabSaisieRegle.size(); i++) {
+		layoutTabSaisieRegle->removeWidget(layoutTabSaisieRegle->itemAtPosition(0,i)->widget());
+		layoutTabSaisieRegle->removeWidget(layoutTabSaisieRegle->itemAtPosition(1, i)->widget());
+	}
+	delete Jdr_nt;
+	Jdr_nt = NULL;
 }
 
 bool InterfaceRegle::verifRegle() {

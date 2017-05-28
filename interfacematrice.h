@@ -95,7 +95,8 @@ public:
     void setMatrice(Matrice* matrice);
     void setIterateur(Iterateur* iterateur);
     void setTableauEtats(vector<EtatType*> *type);
-
+	void griser(bool b);
+	void reinit();
 
 
 public slots:

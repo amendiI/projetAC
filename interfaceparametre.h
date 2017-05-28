@@ -69,6 +69,8 @@ public:
 	  void setTailleMatrice(int i);
 	  void setTypeVoisinage(int i);
 	  void ajouterEtatChargement(QString nom, QString colorStr);
+	  void griser(bool b);
+	  void reinit();
 
 
 signals:
