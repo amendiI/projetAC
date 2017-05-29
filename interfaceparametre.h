@@ -75,7 +75,7 @@ public:
 
 signals:
       void validP(unsigned int,unsigned short,int,vector<EtatType*>*);
-
+	  void ajouterUn();
 
 public slots:
 

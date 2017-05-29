@@ -42,6 +42,7 @@ public slots :
 	void Charger();
 	void Enregistrer();
 	void InterROK();
+	void griserChargement();
 };
 
 #endif // INTERFACE_H

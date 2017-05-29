@@ -180,8 +180,7 @@ void InterfaceParametre::ajouterEtatChargement(QString nom, QString colorStr)
 
 		saisieNomEtat->setText("");
 		saisieCouleurEtat->setCurrentIndex(0);
- 
-	
+		emit ajouterUn();
 }
 
 void InterfaceParametre::griser(bool b)
@@ -225,7 +224,7 @@ void InterfaceParametre::ajoutEtat(){
         QMessageBox::information(this,tr("Parametre"),tr("Erreur : Nom deja utilise"));
 
     }
-
+	emit ajouterUn();
 }
 
 

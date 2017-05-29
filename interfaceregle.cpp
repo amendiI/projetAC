@@ -5,7 +5,7 @@ InterfaceRegle::InterfaceRegle()
     saisieDepart = new QComboBox();
     saisieArrive = new QComboBox();
     saisieArriveProba = new QComboBox();
-    layoutTabSaisieRegle = new QGridLayout();
+	layoutTabSaisieRegle = new QGridLayout();
 
 
     layoutPrincipal = new  QVBoxLayout(this);

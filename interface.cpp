@@ -85,6 +85,11 @@ void Interface::InterROK()
     interM->PlayN->setEnabled(true);
 }
 
+void Interface::griserChargement()
+{
+	chargerBouton->setDisabled(true);
+}
+
 void Interface::recevePara(unsigned int size,unsigned short nbPS,int v,vector<EtatType*>* d){
     matrix=new Matrice(size,nbPS,0);
     interR->setTableauEtats(d);
@@ -104,6 +109,7 @@ void Interface::recevePara(unsigned int size,unsigned short nbPS,int v,vector<Et
     interM->repaint();
     interR->repaint();
 	interR->griser(false);
+	reinitBouton->setEnabled(true);
 }
 
 void Interface::Reinitialisation()
@@ -119,6 +125,8 @@ void Interface::Reinitialisation()
 	interM->griser(true);
 	interR->griser(true);
 	interP->griser(false);
+	chargerBouton->setDisabled(false);
+	reinitBouton->setDisabled(true);
 }
 
 Interface::Interface(QWidget *parent) : QWidget(parent)
@@ -153,6 +161,7 @@ Interface::Interface(QWidget *parent) : QWidget(parent)
     layoutH->addWidget(interM);
 
 	enregistrerBouton->setDisabled(true);
+	reinitBouton->setDisabled(true);
 
     interR->setJDR(jdr);
     interM->setIterateur(worker);
@@ -163,5 +172,6 @@ Interface::Interface(QWidget *parent) : QWidget(parent)
 	QObject::connect(enregistrerBouton, SIGNAL(clicked()), this, SLOT(Enregistrer()));
 	QObject::connect(interR, SIGNAL(validerInterR()), this, SLOT(InterROK()));
 	QObject::connect(quitterBouton, SIGNAL(clicked()), qApp, SLOT(quit())); // connecte le bouton à la fonction quit
+	QObject::connect(interP, SIGNAL(ajouterUn()), this, SLOT(griserChargement()));
 
 }

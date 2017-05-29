@@ -286,7 +286,7 @@ void InterfaceMatrice::LancerIterateurN()
     }
     Afficher();
 
-    if((stopNit-1) == NbGenFinal)
+    if((stopNit+1) == NbGenFinal)
     {
         timer1->stop();
     }
@@ -328,6 +328,7 @@ void InterfaceMatrice::FaireStopN()
     ValiderTemps->setEnabled(true);
     AleaBouton->setEnabled(true);
     Play->setEnabled(true);
+	saisieNbGenerations->setEnabled(true);
 }
 
 void InterfaceMatrice::ChangerRec(int state)
@@ -410,7 +411,7 @@ void InterfaceMatrice::reinit()
 		tabAlea[i]->hide();
 	tabAlea.clear();
 
-	
+	brushEtats.clear();
 
 	delete matcour; matcour = NULL;
 	travailleur = NULL;
