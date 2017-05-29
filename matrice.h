@@ -9,6 +9,7 @@
 #include <cell.h>
 
 #define nbDim 2
+#define maxTransition 1000
 
 class Matrice
 {

@@ -1,69 +1,8 @@
 #include "interfacematrice.h"
 
 // FONCTION STATIQUE //
-Matrice* InterfaceMatrice::Loading(){
-    Matrice* matrix;
-    QString chemin = QFileDialog::getSaveFileName(this, "Enregistrer un fichier", QString(), "Fichier Texte(*.txt *.ol *.fe)");
-    QString textFichier;
-    QFile fichier(chemin);
-
-    //TODO le chemin peut etre passé en paramètre pour etre fourni par un explorateur de fichiers
-    if(!fichier.open(QIODevice::ReadOnly|QIODevice::Text)) return NULL;
-    //le fichier ne s'est pas ouvert
-    textFichier=fichier.readAll();
-    fichier.close();
-    QRegExp rx("^(\\d+);(\\d+);(\\d+);\\{(\\d+)(?:,\\d+)*\\}$");
-    if(rx.indexIn(textFichier) != 0) return NULL;
-    //mauvaise syntaxe de fichier !
-    bool tmpB=true;
-    unsigned short tmp, size=rx.cap(3).toUInt(&tmpB,10), nbPS=rx.cap(2).toUShort(&tmpB,10);
-    if(!tmpB)return NULL;
-    //erreur de conversion
-    matrix=new Matrice(size,nbPS);
-    textFichier.remove(0,textFichier.indexOf("{"));
-    rx.setPattern("(\\d+)");
-    unsigned int cmpt=0,stop=matrix->getNbCells();
-    int pos=0;
-    while((pos=rx.indexIn(textFichier,pos)) != -1 && cmpt<stop){
-        tmp=rx.cap(1).toUShort(&tmpB,10);
-        if(tmp>=nbPS)return NULL;
-        //valeur incorrecte dans le fichier
-        matrix->getCell(cmpt)->setValue(tmp);
-        pos+=rx.matchedLength();
-        cmpt++;
-    }
-    if(!tmpB)return NULL;
-    //erreur de conversion
-    return matrix;
-}
 
 
-int InterfaceMatrice::Recording2(Matrice* matrix){   //store only one state (etat courrant)
-    QString text="";
-        text+=QString::number(matrix->getNbDimensions());
-        text+=";";
-        text+=QString::number(matrix->getNbPossibleStates());
-        text+=";";
-        text+=QString::number(matrix->getSize());
-        text+=";";
-    QString file = QFileDialog::getSaveFileName(this, "Enregistrer un fichier", QString(), "Fichier Texte(*.txt *.ol *.fe)");
-    QString chemin(file);
-    //TODO le chemin peut etre passé en paramètre pour etre fourni par un explorateur de fichiers
-    QFile fichier(chemin);
-    if(!fichier.open(QIODevice::WriteOnly|QIODevice::Text)) return 1;//le fichier ne s'est pas ouvert
-    unsigned int i=0;
-    text+="{";
-    text+=QString::number(matrix->getCell(i)->getValue());
-    for(i=1;i<matrix->getNbCells();i++){
-        text+=",";
-        text+=QString::number(matrix->getCell(i)->getValue());
-    }
-    text+="}";
-    QTextStream flux(&fichier);
-    flux << text;
-    fichier.close();
-    return 0;
-}
 
 
 void InterfaceMatrice::setMatrice(Matrice *matrice)
@@ -369,18 +308,6 @@ void InterfaceMatrice::InitMatrice()
     }
 }
 
-void InterfaceMatrice::ChargerMatrice()
-{
-    matcour = Loading();
-    Afficher();
-}
-
-void InterfaceMatrice::EnregistrerMatrice()
-{
-    int record = Recording2(matcour);
-    cout << record << endl;
-}
-
 void InterfaceMatrice::griser(bool b)
 {
 	AleaBouton->setDisabled(b);
@@ -454,6 +381,8 @@ InterfaceMatrice::InterfaceMatrice()
     StopN = new QPushButton("Stop N itérations");
     Chargement = new QPushButton("Charger matrice");
     Enregistrer = new QPushButton("Enregistrer matrice");
+    ChargementTransition = new QPushButton("Charger des Transitions");
+    ValiderAppliIte = new QPushButton("Valider");
 
 
     // Initialisation Autres Widgets
@@ -472,6 +401,8 @@ InterfaceMatrice::InterfaceMatrice()
     enregistrement = new QCheckBox("Enregistrer");
     rec = false;
 
+    VersionIte = new QSpinBox(); VersionIte->setRange(0,5);
+
     //Connecter les boutons à leurs slots
     QObject::connect(Play,SIGNAL(clicked()),this,SLOT(LancerIterateur()));
     QObject::connect(Infini,SIGNAL(clicked(bool)),this,SLOT(InfiniIterations()));
@@ -484,8 +415,6 @@ InterfaceMatrice::InterfaceMatrice()
     QObject::connect(ValiderNbGen,SIGNAL(clicked()),this,SLOT(NbGenerationsFini()));
     QObject::connect(saisieNbGenerations,SIGNAL(valueChanged(int)),this,SLOT(ChangerNbGenerations(int)));
     QObject::connect(enregistrement,SIGNAL(stateChanged(int)),this,SLOT(ChangerRec(int)));
-    QObject::connect(Enregistrer,SIGNAL(clicked(bool)),this,SLOT(EnregistrerMatrice()));
-    QObject::connect(Chargement,SIGNAL(clicked(bool)),this,SLOT(ChargerMatrice()));
     QObject::connect(AleaBouton, SIGNAL(clicked()), this, SLOT(InitMatrice()));
 
     //BOX ET LAYOUTS
@@ -493,12 +422,14 @@ InterfaceMatrice::InterfaceMatrice()
     InfiniBox = new QGroupBox("Iterations Infinies :");
     NIteBox = new QGroupBox("Iterations N fois :");
     ValiderParamBox = new QGroupBox("Valider Paramètres :");
+    BoxChoixVersion = new QGroupBox("Choix Version");
 
     layoutMA = new QVBoxLayout(BoxMatriceAlea);
 	layoutGridMA = new QGridLayout();
     InfiniLayout = new QVBoxLayout(InfiniBox);
     NIteLayout = new QVBoxLayout(NIteBox);
     ValiderParamLayout = new QVBoxLayout(ValiderParamBox);
+    LayoutBoxChoix = new QVBoxLayout(BoxChoixVersion);
 
     //Ajout des Widgets aux Layout
     ValiderParamLayout->addWidget(tempsIteration);
@@ -514,6 +445,9 @@ InterfaceMatrice::InterfaceMatrice()
     NIteLayout->addWidget(PlayN);
     NIteLayout->addWidget(StopN);
 
+    LayoutBoxChoix->addWidget(VersionIte);
+    LayoutBoxChoix->addWidget(ValiderAppliIte);
+
     layoutMA->addWidget(AleaBouton);
 	layoutMA->addLayout(layoutGridMA);
     LayoutSecondaire->addWidget(BoxMatriceAlea);
@@ -524,6 +458,9 @@ InterfaceMatrice::InterfaceMatrice()
 
     LayoutSecondaire->addWidget(Enregistrer);
     LayoutSecondaire->addWidget(Chargement);
+    LayoutSecondaire->addWidget(ChargementTransition);
+
+    LayoutSecondaire->addWidget(BoxChoixVersion);
 
     //Ajout de grilleCellule dans le Layout
     grilleCellule->setFixedSize(803,803);

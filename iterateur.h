@@ -7,25 +7,30 @@
 class Iterateur
 {
 public:
-	/*- Constructeurs -*/
+    /*- Constructeurs -*/
     Iterateur();
-	/*- Destructeur -*/
+    /*- Destructeur -*/
     ~Iterateur();
-	/*- Setters -*/
+    /*- Setters -*/
     void setMatrice(Matrice * addrM);
     void setJDR(Jeu_de_Regle * addrJDR);
-	/*- Méthodes de mise en oeuvre -*/
+    void setApplication(int app);
+    void setTransitions(unsigned short **trans);
+    /*- Méthodes de mise en oeuvre -*/
     int transformMatrice();
-    //void SetValMatriceTransition(unsigned int i,unsigned int j,unsigned int NewValue);
 private:
-	/*- Attributs -*/
+    /*- Attributs -*/
     Matrice* matriceCourante;
     Matrice* matriceTransition;
     Jeu_de_Regle * regles;
+    unsigned short* voisins;
     unsigned short* etatsVoisins;
-	/*- Méthode de mise en oeuvre -*/
+    unsigned short** transitionTable;//format: CN(ne)E(se)S(sw)W(nw)C'
+    int application;
+    /*- Méthode de mise en oeuvre -*/
     void transformCellule(unsigned int cellule);
     void somEnvironment(unsigned int cellule);
+    void applyTransitionTable(unsigned int cellNumber);
 };
 
 #endif // ITERATEUR_H

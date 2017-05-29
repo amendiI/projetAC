@@ -63,6 +63,8 @@ private: //variables
     QGroupBox *ValiderParamBox;
     QVBoxLayout *ValiderParamLayout;
     vector<QSpinBox*> tabAlea;
+    QGroupBox *BoxChoixVersion;
+    QVBoxLayout * LayoutBoxChoix;
 
     //Iteration
     Matrice *matcour;
@@ -73,6 +75,7 @@ private: //variables
     QPushButton *ValiderNbGen;  // Valider le nombre N d'itérations
     QPushButton *ValiderTemps;  // Valider le temps entre deux itérations
 
+
 public:
     QPushButton *AleaBouton;    // Initialiser aleatoirement la matrice
     QPushButton *Play;      // lancer UNE itération
@@ -82,6 +85,10 @@ public:
     QPushButton *StopN;     // Stopper les N itérations
     QPushButton *Chargement;    // Charger une matrice
     QPushButton *Enregistrer; // Pour enregistrer une fois
+    QSpinBox *VersionIte;
+    QPushButton* ValiderAppliIte;
+    QPushButton *ChargementTransition;
+
 
     InterfaceMatrice();
     //InterfaceMatrice(Matrice* cour,Iterateur* worker,vector<EtatType*> *type);
@@ -90,8 +97,6 @@ public:
     void matriceAleatoire();
     void playPause1(bool record);
     void playPause2(bool record, int n);
-    Matrice* Loading();
-    int Recording2(Matrice* matrix);
 
     void setMatrice(Matrice* matrice);
     void setIterateur(Iterateur* iterateur);
@@ -115,8 +120,6 @@ public slots:
     void FaireStopN();              // Stopper les N itérations
     void ChangerRec(int state);     // Changer l'état de rec
     void InitMatrice();             // initialiser aleatoirement la matrice
-    void ChargerMatrice();          // Charger une matrice
-    void EnregistrerMatrice();
 };
 
 #endif // INTERFACEMATRICE_H

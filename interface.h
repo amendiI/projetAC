@@ -42,7 +42,11 @@ public slots :
 	void Charger();
 	void Enregistrer();
 	void InterROK();
-	void griserChargement();
+    void griserChargement();
+    void LoadingMatrice();
+    void RecordingMatrice();
+    void loadTransitionTable();
+    void setIteratorAppli();
 };
 
 #endif // INTERFACE_H
