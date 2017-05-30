@@ -1,0 +1,11 @@
+50;
+1;
+8;
+0,aliceblue;
+1,aqua;
+2,black;
+3,darkcyan;
+4,chartreuse;
+5,darkred;
+6,gold;
+7,firebrick;

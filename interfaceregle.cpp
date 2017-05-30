@@ -167,6 +167,11 @@ void InterfaceRegle::reinit()
 			il->widget()->close();
 			delete il;
 	}
+
+	saisieDepart->clear();
+	saisieArrive->clear();
+	saisieArriveProba->clear();
+
 }
 
 bool InterfaceRegle::verifRegle() {

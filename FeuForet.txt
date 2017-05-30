@@ -1,0 +1,9 @@
+50;
+1;
+4;
+A,darkolivegreen;
+F,red;
+C,dimgray;
+V,white;
+0,1,100,1,(,1+,,);
+1,2,100,2,(,,,);

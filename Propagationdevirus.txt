@@ -1,0 +1,9 @@
+10;
+0;
+4;
+sain,gold;
+malade,crimson;
+immunisé,darkgreen;
+mort,black;
+0,1,80,0,(,1+,,);
+1,2,50,3,(,,,);

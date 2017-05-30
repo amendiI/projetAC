@@ -42,9 +42,6 @@ int Iterateur::transformMatrice(){
         transformCellule(i);
     }
     for(i=0;i<matriceCourante->getNbCells();i++){
-        if(matriceTransition->getCell(i)->getValue()!=0){
-            application=1;
-        }
         matriceCourante->getCell(i)->setValue(matriceTransition->getCell(i)->getValue());
     }
     return 0;
@@ -139,18 +136,6 @@ void Iterateur::applyTransitionTable(unsigned int cellNumber){
     matriceTransition->getCell(cellNumber)->setValue(transitionTable[i][9]);}
     else{
         for(i=0;i<maxTransition;i++){
-            /*
-            unsigned short a=transitionTable[i][0],
-                    b=transitionTable[i][1],
-                    c=transitionTable[i][2],
-                    d=transitionTable[i][3],
-                    e=transitionTable[i][4],
-                    f=transitionTable[i][5],
-                    b2=voisins[0],
-                    c2=voisins[2],
-                    d2=voisins[4],
-                    e2=voisins[6];
-            */
             if(
         voisins[0]==transitionTable[i][1] &&
         voisins[2]==transitionTable[i][2] &&
