@@ -22,6 +22,8 @@ Jeu_de_Regle::~Jeu_de_Regle() {}
 void Jeu_de_Regle::set_value(Jeu_de_Regle_nt jdrnt)
 {
 	//nettoie la liste au cas ou il existe quelque chose
+	for (size_t i = 0; i < L.size(); i++)
+		L[i].clear();
 	L.clear();
 
 	//récuperation des données

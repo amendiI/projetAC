@@ -236,7 +236,6 @@ void Interface::Reinitialisation()
 
 	matrix = NULL;
 	delete worker; worker = new Iterateur(); worker->setJDR(jdr);
-	delete jdr;  jdr = new Jeu_de_Regle();
 
 	interM->griser(true);
 	interR->griser(true);
