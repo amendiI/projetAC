@@ -70,10 +70,12 @@ public:
 	int getProbaArriveeRegle(int i);
 	QString getVoisinage(int i, int j);
 	void ajouterRegleChargement(int d, int a, int p, int ap, vector<QString> regle);
-
+	void griserIteration();
+	void degriserIteration();
 
 signals:
 	void validerInterR();
+
 public slots:
 
     void CheckboxStateChanged();

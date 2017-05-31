@@ -42,7 +42,7 @@ private: //variables
     int stopNit;
 
     //Affichage
-    QCheckBox *enregistrement;
+    //QCheckBox *enregistrement;
     QSlider *saisieNbGenerations;
     QTableWidget *grilleCellule;
     QTableWidgetItem *itemCellule;
@@ -63,8 +63,8 @@ private: //variables
     QGroupBox *ValiderParamBox;
     QVBoxLayout *ValiderParamLayout;
     vector<QSpinBox*> tabAlea;
-    QGroupBox *BoxChoixVersion;
-    QVBoxLayout * LayoutBoxChoix;
+    //QGroupBox *BoxChoixVersion;
+    //QVBoxLayout * LayoutBoxChoix;
 
     //Iteration
     Matrice *matcour;
@@ -85,9 +85,9 @@ public:
     QPushButton *StopN;     // Stopper les N itérations
     QPushButton *Chargement;    // Charger une matrice
     QPushButton *Enregistrer; // Pour enregistrer une fois
-    QSpinBox *VersionIte;
-    QPushButton* ValiderAppliIte;
-    QPushButton *ChargementTransition;
+    //QSpinBox *VersionIte;
+    //QPushButton* ValiderAppliIte;
+   // QPushButton *ChargementTransition;
 
 
     InterfaceMatrice();

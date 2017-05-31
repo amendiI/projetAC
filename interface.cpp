@@ -1,7 +1,5 @@
 #include "interface.h"
 
-
-
 void  Interface::Charger() {
 
     QString fichier = QFileDialog::getOpenFileName(this, "Charger des paramètres", QString(), "Fichiers Texte (*.txt)");
@@ -39,6 +37,7 @@ void  Interface::Charger() {
 		}
 		interR->ajouterRegleChargement(str.split(',')[0].toInt(), str.split(',')[1].toInt(), str.split(',')[2].toInt(), str.split(',')[3].toInt(), R);
 	}
+	interR->ValiderRegles();
 	file.close();
 }
 
@@ -235,8 +234,11 @@ void Interface::Reinitialisation()
 	interP->reinit();
 
 	matrix = NULL;
-	delete worker; worker = new Iterateur(); worker->setJDR(jdr);
+	delete worker;
+	worker = new Iterateur();
+	worker->setJDR(jdr);
 
+	interM->setIterateur(worker);
 	interM->griser(true);
 	interR->griser(true);
 	interP->griser(false);
@@ -245,7 +247,21 @@ void Interface::Reinitialisation()
 }
 
 void Interface::setIteratorAppli(){
-    worker->setApplication(interM->VersionIte->value());
+    //worker->setApplication(interM->VersionIte->value());
+}
+
+void Interface::griserIteration()
+{
+	interR->griserIteration();
+	reinitBouton->setDisabled(true);
+	enregistrerBouton->setDisabled(true);
+}
+
+void Interface::degriserIteration()
+{
+	interR->degriserIteration();
+	reinitBouton->setEnabled(true);
+	enregistrerBouton->setEnabled(true);
 }
 
 Interface::Interface(QWidget *parent) : QWidget(parent)
@@ -294,7 +310,11 @@ Interface::Interface(QWidget *parent) : QWidget(parent)
 	QObject::connect(interP, SIGNAL(ajouterUn()), this, SLOT(griserChargement()));
     QObject::connect(interM->Chargement, SIGNAL(clicked()), this, SLOT(LoadingMatrice()));
     QObject::connect(interM->Enregistrer, SIGNAL(clicked()), this, SLOT(RecordingMatrice()));
-    QObject::connect(interM->ChargementTransition, SIGNAL(clicked()), this, SLOT(loadTransitionTable()));
-    QObject::connect(interM->ValiderAppliIte, SIGNAL(clicked()), this, SLOT(setIteratorAppli()));
+    //QObject::connect(interM->ChargementTransition, SIGNAL(clicked()), this, SLOT(loadTransitionTable()));
+    //QObject::connect(interM->ValiderAppliIte, SIGNAL(clicked()), this, SLOT(setIteratorAppli()));
+	QObject::connect(interM->Infini, SIGNAL(clicked()), this, SLOT(griserIteration()));
+	QObject::connect(interM->PlayN, SIGNAL(clicked()), this, SLOT(griserIteration()));
+	QObject::connect(interM->StopInf, SIGNAL(clicked()), this, SLOT(degriserIteration()));
+	QObject::connect(interM->StopN, SIGNAL(clicked()), this, SLOT(degriserIteration()));
 
 }

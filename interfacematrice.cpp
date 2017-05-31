@@ -122,7 +122,6 @@ void InterfaceMatrice::LancerIterateur()
 {
     unsigned int i,j;
     QObject::disconnect(grilleCellule,SIGNAL(cellChanged(int,int)),this,SLOT(ChangerCellule(int,int)));
-
     travailleur->transformMatrice();
     for(i=0;i<matcour->getSize();i++)
     {
@@ -134,8 +133,6 @@ void InterfaceMatrice::LancerIterateur()
     Afficher();
     QObject::connect(grilleCellule,SIGNAL(cellChanged(int,int)),this,SLOT(ChangerCellule(int,int)));
 }
-
-
 
 void InterfaceMatrice::InfiniIterations()
 {
@@ -320,7 +317,7 @@ void InterfaceMatrice::griser(bool b)
 	Chargement->setDisabled(b);
 	Enregistrer->setDisabled(b);
 	ValiderNbGen->setDisabled(!b);
-	enregistrement->setDisabled(!b);
+	//enregistrement->setDisabled(!b);
 	nbSlider->setDisabled(!b);
 }
 
@@ -368,6 +365,7 @@ InterfaceMatrice::InterfaceMatrice()
     tempsIteration->setRange(250,10000);
     tempsIteration->setValue(250);
     temps = 250;
+	tempsfinal = 250;
 
     grilleCellule = new QTableWidget(this);
 
@@ -381,8 +379,8 @@ InterfaceMatrice::InterfaceMatrice()
     StopN = new QPushButton("Stop N itérations");
     Chargement = new QPushButton("Charger matrice");
     Enregistrer = new QPushButton("Enregistrer matrice");
-    ChargementTransition = new QPushButton("Charger des Transitions");
-    ValiderAppliIte = new QPushButton("Valider");
+    //ChargementTransition = new QPushButton("Charger des Transitions");
+    //ValiderAppliIte = new QPushButton("Valider");
 
 
     // Initialisation Autres Widgets
@@ -398,10 +396,10 @@ InterfaceMatrice::InterfaceMatrice()
 
     ValiderNbGen = new QPushButton("Valider");
 
-    enregistrement = new QCheckBox("Enregistrer");
+    //enregistrement = new QCheckBox("Enregistrer");
     rec = false;
 
-    VersionIte = new QSpinBox(); VersionIte->setRange(0,5);
+    //VersionIte = new QSpinBox(); VersionIte->setRange(0,5);
 
     //Connecter les boutons à leurs slots
     QObject::connect(Play,SIGNAL(clicked()),this,SLOT(LancerIterateur()));
@@ -414,7 +412,7 @@ InterfaceMatrice::InterfaceMatrice()
     QObject::connect(saisieNbGenerations,SIGNAL(valueChanged(int)),nbSlider,SLOT(display(int)));
     QObject::connect(ValiderNbGen,SIGNAL(clicked()),this,SLOT(NbGenerationsFini()));
     QObject::connect(saisieNbGenerations,SIGNAL(valueChanged(int)),this,SLOT(ChangerNbGenerations(int)));
-    QObject::connect(enregistrement,SIGNAL(stateChanged(int)),this,SLOT(ChangerRec(int)));
+    //QObject::connect(enregistrement,SIGNAL(stateChanged(int)),this,SLOT(ChangerRec(int)));
     QObject::connect(AleaBouton, SIGNAL(clicked()), this, SLOT(InitMatrice()));
 
     //BOX ET LAYOUTS
@@ -422,19 +420,19 @@ InterfaceMatrice::InterfaceMatrice()
     InfiniBox = new QGroupBox("Iterations Infinies :");
     NIteBox = new QGroupBox("Iterations N fois :");
     ValiderParamBox = new QGroupBox("Valider Paramètres :");
-    BoxChoixVersion = new QGroupBox("Choix Version");
+    //BoxChoixVersion = new QGroupBox("Choix Version");
 
     layoutMA = new QVBoxLayout(BoxMatriceAlea);
 	layoutGridMA = new QGridLayout();
     InfiniLayout = new QVBoxLayout(InfiniBox);
     NIteLayout = new QVBoxLayout(NIteBox);
     ValiderParamLayout = new QVBoxLayout(ValiderParamBox);
-    LayoutBoxChoix = new QVBoxLayout(BoxChoixVersion);
+    //LayoutBoxChoix = new QVBoxLayout(BoxChoixVersion);
 
     //Ajout des Widgets aux Layout
     ValiderParamLayout->addWidget(tempsIteration);
     ValiderParamLayout->addWidget(ValiderTemps);
-    ValiderParamLayout->addWidget(enregistrement);
+//    ValiderParamLayout->addWidget(enregistrement);
 
     InfiniLayout->addWidget(Infini);
     InfiniLayout->addWidget(StopInf);
@@ -445,8 +443,8 @@ InterfaceMatrice::InterfaceMatrice()
     NIteLayout->addWidget(PlayN);
     NIteLayout->addWidget(StopN);
 
-    LayoutBoxChoix->addWidget(VersionIte);
-    LayoutBoxChoix->addWidget(ValiderAppliIte);
+    //LayoutBoxChoix->addWidget(VersionIte);
+    //LayoutBoxChoix->addWidget(ValiderAppliIte);
 
     layoutMA->addWidget(AleaBouton);
 	layoutMA->addLayout(layoutGridMA);
@@ -458,9 +456,9 @@ InterfaceMatrice::InterfaceMatrice()
 
     LayoutSecondaire->addWidget(Enregistrer);
     LayoutSecondaire->addWidget(Chargement);
-    LayoutSecondaire->addWidget(ChargementTransition);
+    //LayoutSecondaire->addWidget(ChargementTransition);
 
-    LayoutSecondaire->addWidget(BoxChoixVersion);
+    //LayoutSecondaire->addWidget(BoxChoixVersion);
 
     //Ajout de grilleCellule dans le Layout
     grilleCellule->setFixedSize(803,803);
@@ -492,7 +490,7 @@ InterfaceMatrice::~InterfaceMatrice()
 
     //delete Affichage
     delete saisieNbGenerations;
-    delete enregistrement;
+    //delete enregistrement;
     delete grilleCellule;
     delete nbSlider;
     delete BoxMatriceAlea;

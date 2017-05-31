@@ -270,3 +270,15 @@ void InterfaceRegle::ajouterRegleChargement(int d, int a, int p, int ap, vector<
 	ajouterRegle();
 	
 }
+
+void InterfaceRegle::griserIteration()
+{
+	griser(true);
+	fenetreRegleScroll->setDisabled(true);
+}
+
+void InterfaceRegle::degriserIteration()
+{
+	griser(false);
+	fenetreRegleScroll->setEnabled(true);
+}

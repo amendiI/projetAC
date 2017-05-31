@@ -47,6 +47,8 @@ public slots :
     void RecordingMatrice();
     void loadTransitionTable();
     void setIteratorAppli();
+	void griserIteration();
+	void degriserIteration();
 };
 
 #endif // INTERFACE_H
